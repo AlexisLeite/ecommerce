@@ -16,6 +16,10 @@ export class ProductsStore {
     makeAutoObservable(this);
   }
 
+  public get currentPage() {
+    return this.page.currentPage;
+  }
+
   public get isLoading() {
     return this.loading > 0;
   }
@@ -33,26 +37,16 @@ export class ProductsStore {
   }
 
   public async next() {
-    this.asyncFn(async () => {
-      const page = await refresh(this.page.currentPage + 1);
-      runInAction(() => {
-        this.page = page;
-      });
-    });
+    this.loading++;
   }
 
   public async previous() {
-    this.asyncFn(async () => {
-      const page = await refresh(this.page.currentPage - 1);
-      runInAction(() => {
-        this.page = page;
-      });
-    });
+    this.loading--;
   }
 
   public async refresh() {
     this.asyncFn(async () => {
-      const page = await refresh();
+      const page = await refresh(this.page.currentPage);
       runInAction(() => {
         this.page = page;
       });
@@ -61,7 +55,7 @@ export class ProductsStore {
 
   public async remove(product: Product) {
     this.asyncFn(async () => {
-      console.log(await removeProduct(toJS(product)));
+      await removeProduct(toJS(product));
       this.refresh();
     });
   }

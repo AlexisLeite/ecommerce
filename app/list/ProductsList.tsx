@@ -2,6 +2,7 @@
 
 import { useProducts } from "@/src/store/products/StoreProvider";
 import { observer } from "mobx-react-lite";
+import Link from "next/link";
 
 export const ProductsList = observer(() => {
   const store = useProducts();
@@ -13,13 +14,13 @@ export const ProductsList = observer(() => {
     >
       <div style={{ display: "flex", gap: "8px" }}>
         {store.hasPrevious && (
-          <button
-            disabled={store.isLoading}
+          <Link
             style={{ background: store.isLoading ? "red" : undefined }}
-            onClick={() => store.previous()}
+            onClick={() => store.next()}
+            href={`/page/${store.currentPage - 1}`}
           >
             Prev
-          </button>
+          </Link>
         )}
         <button
           disabled={store.isLoading}
@@ -29,13 +30,13 @@ export const ProductsList = observer(() => {
           Refresh
         </button>
         {store.hasMore && (
-          <button
-            disabled={store.isLoading}
+          <Link
             style={{ background: store.isLoading ? "red" : undefined }}
             onClick={() => store.next()}
+            href={`/page/${store.currentPage + 1}`}
           >
             Next
-          </button>
+          </Link>
         )}
       </div>
       <div>

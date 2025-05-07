@@ -22,8 +22,6 @@ export async function refresh(
   const pages = Math.ceil(totalProducts / 10);
   const currentPage = Math.max(1, Math.min(page, pages));
 
-  console.log({ skip: 10 * (currentPage - 1) });
-
   return {
     pages,
     currentPage,
