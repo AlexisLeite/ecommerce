@@ -1,0 +1,20 @@
+datasource db {
+    provider = "postgresql" // or "mysql", "sqlite", etc.
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Product {
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String?
+    price       Float
+    inStock     Boolean  @default(true)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@index([name])
+}
