@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { ProductsMain } from "./list/ProductsMain";
+import { ProductsMain } from "../src/components/list/ProductsMain";
 import { StoreProvider } from "@/src/store/products/StoreProvider";
 import { refresh } from "@/src/store/products/server/refresh";
 

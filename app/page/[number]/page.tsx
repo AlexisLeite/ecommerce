@@ -1,4 +1,4 @@
-import { ProductsMain } from "@/app/list/ProductsMain";
+import { ProductsMain } from "@/src/components/list/ProductsMain";
 import styles from "../../page.module.css";
 import { StoreProvider } from "@/src/store/products/StoreProvider";
 import { refresh } from "@/src/store/products/server/refresh";
