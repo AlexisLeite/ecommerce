@@ -1,7 +1,6 @@
 "use client";
-import { Carousel } from "../components/ui/Carousel";
+import { Carousel } from "../../../../../app/components/ui/Carousel";
 import { Products } from "./sections/Products";
-import "../styles/landing.css";
 
 export const LandingPage = () => {
   return (

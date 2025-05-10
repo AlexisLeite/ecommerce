@@ -1,25 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `createdAt` on the `Product` table. All the data in the column will be lost.
-  - You are about to drop the column `inStock` on the `Product` table. All the data in the column will be lost.
-  - You are about to drop the column `updatedAt` on the `Product` table. All the data in the column will be lost.
-  - Added the required column `creatorId` to the `Product` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `reg_date` to the `Product` table without a default value. This is not possible if the table is not empty.
-  - Made the column `description` on table `Product` required. This step will fail if there are existing NULL values in that column.
-
-*/
--- DropIndex
-DROP INDEX "Product_name_idx";
-
--- AlterTable
-ALTER TABLE "Product" DROP COLUMN "createdAt",
-DROP COLUMN "inStock",
-DROP COLUMN "updatedAt",
-ADD COLUMN     "creatorId" INTEGER NOT NULL,
-ADD COLUMN     "reg_date" TIMESTAMP(3) NOT NULL,
-ALTER COLUMN "description" SET NOT NULL;
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -39,6 +17,18 @@ CREATE TABLE "Role" (
     "reg_date" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Product" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "creatorId" INTEGER NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+    "reg_date" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable

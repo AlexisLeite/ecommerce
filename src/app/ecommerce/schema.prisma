@@ -12,8 +12,8 @@ model User {
     email                String                 @unique
     userLogin            String                 @unique
     roleId               Int
-    avatarId             Int
-    Avatar               Image                  @relation(fields: [avatarId], references: [id])
+    avatarId             Int?
+    Avatar               Image?                  @relation(fields: [avatarId], references: [id])
     role                 Role                   @relation(fields: [roleId], references: [id])
     purchases            Sell[]
     products             Product[]

@@ -1,11 +1,13 @@
-insert into "Role" (id, name, reg_date) values (1,'Administrator', NOW())
+insert into "Role" (id, name, reg_date) values (1,'Administrator', NOW());
 
 INSERT INTO "User" (
+    id,
     email,
     "userLogin",
     "roleId",
     reg_date
 ) VALUES (
+	1,
     'admin@example.com',
     'admin',
     1,         -- existing roleId
