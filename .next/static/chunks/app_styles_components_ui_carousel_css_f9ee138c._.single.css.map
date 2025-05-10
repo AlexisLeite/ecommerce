@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/app/styles/components/ui/carousel.css"],"sourcesContent":[".carousel {\n  position: relative;\n  background: white;\n  border-radius: 8px;\n  padding: 8px;\n  box-shadow: rgba(220, 220, 220, 0.25) 0px 1px 1px, rgba(231, 231, 231, 0.87) 0px 0px 1px 1px;\n}\n\n.carousel__imgContainer {\n  overflow: hidden;\n  display: flex;\n  width: 300px;\n\n}\n\nimg {\n  width: 100%;\n  border-radius: 8px;\n}\n\n.carousel__prev {\n  position: absolute;\n  top: 50%;\n  left: 16px;\n  transform: translateY(-50%);\n}\n\n\n.carousel__next {\n  position: absolute;\n  top: 50%;\n  right: 16px;\n  transform: translateY(-50%);\n}"],"names":[],"mappings":"AAAA;;;;;;;;AAQA;;;;;;AAOA;;;;;AAKA;;;;;;;AAQA"}}]
+}

@@ -1,0 +1,35 @@
+/* [project]/app/styles/components/ui/carousel.css [app-client] (css) */
+.carousel {
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  position: relative;
+  box-shadow: 0 1px 1px #dcdcdc40, 0 0 1px 1px #e7e7e7de;
+}
+
+.carousel__imgContainer {
+  width: 300px;
+  display: flex;
+  overflow: hidden;
+}
+
+img {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.carousel__prev {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+
+.carousel__next {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+
+/*# sourceMappingURL=app_styles_components_ui_carousel_css_f9ee138c._.single.css.map*/

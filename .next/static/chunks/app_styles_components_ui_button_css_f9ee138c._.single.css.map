@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/app/styles/components/ui/button.css"],"sourcesContent":[".primary {\n  background: var(--primary);\n  color: white;\n  border: none;\n  border-radius: 8px;\n  width: 32px;\n  height: 32px;\n  cursor: pointer;\n  width: fit-content;\n  padding: 8px 16px;\n  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;\n}"],"names":[],"mappings":"AAAA"}}]
+}

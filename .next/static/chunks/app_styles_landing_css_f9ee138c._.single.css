@@ -1,0 +1,16 @@
+/* [project]/app/styles/landing.css [app-client] (css) */
+.landingPage {
+  flex-direction: column;
+  gap: 8px;
+  display: flex;
+}
+
+.products {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  display: flex;
+}
+
+/*# sourceMappingURL=app_styles_landing_css_f9ee138c._.single.css.map*/

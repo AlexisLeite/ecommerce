@@ -1,0 +1,14 @@
+/* [project]/app/styles/components/ui/button.css [app-client] (css) */
+.primary {
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  width: fit-content;
+  height: 32px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 5px -1px #32325d40, 0 1px 3px -1px #0000004d;
+}
+
+/*# sourceMappingURL=app_styles_components_ui_button_css_f9ee138c._.single.css.map*/
