@@ -1,0 +1,59 @@
+@use 'Frontend/styles/mixins' as *;
+
+.two_columns {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-4);
+
+
+  h1, h2, p {
+    margin: 0
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .header {
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4)
+  }
+
+  .header__home {
+    display: flex;
+    align-items: center;
+    padding: var(--space-4) 0;
+
+    svg {
+      font-size: var(--font-size-main-icon);
+      border-right: 1px solid var(--color-border-field);
+      padding: 0 var(--space-4);
+    }
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 350px;
+    flex-shrink: 0;
+
+    border-radius: var(--radius-section);
+  }
+
+  .main {
+    flex-basis: 0;
+    flex-grow: 1;
+
+  }
+
+  @include breakpoint(lg, max) {
+    .aside {
+      display: none;
+    }
+  }
+}

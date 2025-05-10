@@ -1,0 +1,14 @@
+@use 'Frontend/styles/mixins' as *;
+
+.crud_list__label {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-1);
+
+  @include buttonHover(ghost);
+}
+
+.crud_list__root {
+  list-style: none;
+}

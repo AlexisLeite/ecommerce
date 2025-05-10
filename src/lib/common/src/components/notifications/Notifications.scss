@@ -1,0 +1,45 @@
+
+.notifications__wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    .notification {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid;
+        position: relative;
+        width: 500px;
+        animation: slideInFromRight 0.2s ease-out forwards;
+
+        &.danger {
+            background: var(--color-danger-light);
+            color: var(--color-danger-dark);
+            border-color: var(--color-danger-dark);
+        }
+
+        &.info {
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            border-color: var(--color-primary-dark);
+        }
+    }
+
+    .notification__header {
+        display: flex;
+
+        strong {
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+
+        button {
+            flex-basis: 35px;
+            flex-shrink: 0;
+            font-size: var(--font-size-icon);
+            border: none;
+            background: transparent;
+            color: inherit;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.pagination {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.current_page {
+  background: var(--color-background-paper);
+  border: 1px solid var(--color-border-ghost);
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-field);
+  box-shadow: var(--shadow-badge);
+}

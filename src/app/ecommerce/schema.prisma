@@ -1,0 +1,159 @@
+datasource db {
+    provider = "postgresql" // or "mysql", "sqlite", etc.
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id                   Int                    @id @default(autoincrement())
+    email                String                 @unique
+    userLogin            String                 @unique
+    roleId               Int
+    avatarId             Int
+    Avatar               Image                  @relation(fields: [avatarId], references: [id])
+    role                 Role                   @relation(fields: [roleId], references: [id])
+    purchases            Sell[]
+    products             Product[]
+    reg_date             DateTime
+    Voucher              Voucher[]
+    Cart                 Cart[]
+    DeliverOrderProgress DeliverOrderProgress[]
+}
+
+model Role {
+    id       Int      @id @default(autoincrement())
+    name     String
+    users    User[]
+    reg_date DateTime
+}
+
+model Product {
+    id          Int                @id @default(autoincrement())
+    name        String
+    description String
+    creatorId   Int
+    price       Float
+    creator     User               @relation(fields: [creatorId], references: [id])
+    reg_date    DateTime
+    categories  Category[]
+    images      Image[]
+    campaigns   Campaign[]
+    carts       Cart[]
+    attributes  ProductAttribute[]
+}
+
+model ProductAttribute {
+    id        Int     @id @default(autoincrement())
+    name      String
+    value     String
+    productId Int
+    product   Product @relation(fields: [productId], references: [id])
+}
+
+model Image {
+    id         Int        @id @default(autoincrement())
+    title      String
+    file       String
+    reg_date   DateTime
+    products   Product[]
+    categories Category[]
+    campaigns  Campaign[]
+    users      User[]
+}
+
+model Category {
+    id          Int       @id @default(autoincrement())
+    name        String
+    description String
+    imageId     Int
+    Image       Image     @relation(fields: [imageId], references: [id])
+    reg_date    DateTime
+    products    Product[]
+}
+
+model Campaign {
+    id          Int       @id @default(autoincrement())
+    discount    Float
+    name        String
+    description String
+    scope       Int
+    images      Image[]
+    products    Product[]
+    carts       Cart[]
+    kpis        KPIData[]
+    reg_date    DateTime
+}
+
+model Cart {
+    id        Int        @id @default(autoincrement())
+    userId    Int
+    user      User       @relation(fields: [userId], references: [id])
+    products  Product[]
+    reg_date  DateTime
+    campaigns Campaign[]
+    Sell      Sell[]
+}
+
+model Sell {
+    id           Int            @id @default(autoincrement())
+    userId       Int
+    user         User           @relation(fields: [userId], references: [id])
+    cartId       Int
+    cart         Cart           @relation(fields: [cartId], references: [id])
+    payments     Payment[]
+    reg_date     DateTime
+    DeliverOrder DeliverOrder[]
+}
+
+model Payment {
+    id        Int      @id @default(autoincrement())
+    sellId    Int
+    sell      Sell     @relation(fields: [sellId], references: [id])
+    amount    Float
+    provider  String
+    reg_date  DateTime
+    voucherId Int      @unique
+    voucher   Voucher  @relation(fields: [voucherId], references: [id])
+}
+
+model Voucher {
+    id             Int      @id @default(autoincrement())
+    ammount        Float
+    userId         Int
+    concept        String
+    owner          User     @relation(fields: [userId], references: [id])
+    expirationDate DateTime
+    payment        Payment? // ← this line is required for the bidirectional relation
+    reg_date       DateTime
+}
+
+model DeliverOrder {
+    id                   Int                    @id @default(autoincrement())
+    sellId               Int
+    sell                 Sell                   @relation(fields: [sellId], references: [id])
+    reg_date             DateTime
+    DeliverOrderProgress DeliverOrderProgress[]
+}
+
+model DeliverOrderProgress {
+    id             Int          @id @default(autoincrement())
+    deliverOrderId Int
+    deliverOrder   DeliverOrder @relation(fields: [deliverOrderId], references: [id])
+    status         String
+    timestamp      DateTime
+    userId         Int
+    user           User         @relation(fields: [userId], references: [id])
+    reg_date       DateTime
+}
+
+model KPIData {
+    id Int @id @default(autoincrement())
+
+    metrics    Json
+    updatedAt  DateTime  @updatedAt
+    Campaign   Campaign? @relation(fields: [campaignId], references: [id])
+    campaignId Int?
+}

@@ -1,0 +1,25 @@
+.uploader {
+  gap: var(--space-3);
+}
+
+.upload_list {
+  gap: var(--space-3);
+}
+
+.upload_details {
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-item);
+  border-radius: var(--radius-field);
+  background: var(--color-background-item);
+  box-shadow: var(--shadow-item);
+}
+
+.erase_upload {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.upload_label_and_progress {
+  gap: 0;
+  flex-grow: 1;
+}

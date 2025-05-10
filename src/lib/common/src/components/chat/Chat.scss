@@ -1,0 +1,42 @@
+.chat_history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.chat_message {
+  background: var(--color-chat-local-background);
+  padding: var(--space-2);
+  border-radius: var(--radius-field);
+  max-width: 80%;
+  box-shadow: var(--shadow-chat-message);
+  width: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  &, * {
+    color: var(--color-chat-local-color);
+  }
+
+  &.local {
+    align-self: end;
+    text-align: right;
+  }
+
+  &.remote {
+    background: var(--color-chat-remote-background);
+
+    &, * {
+      color: var(--color-chat-remote-color);
+    }
+  }
+}
+
+.chat_message_author {
+  font-weight: bold;
+  color: black;
+  text-shadow: var(--shadow-text-author);
+}

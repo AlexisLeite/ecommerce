@@ -1,0 +1,40 @@
+@use 'Frontend/styles/mixins' as *;
+
+.accordion__item_label {
+  align-items: center;
+  border-radius: var(--radius-section);
+  box-shadow: var(--shadow-small);
+  cursor: pointer;
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3);
+}
+
+.accordion__item.primary .accordion__item_label {
+  background: var(--color-primary-main);
+
+  &:hover {
+    @include buttonHover(primary);
+  }
+}
+
+.accordion__item.secondary .accordion__item_label {
+  background: var(--color-secondary-main);
+
+  &:hover {
+    @include buttonHover(secondary);
+  }
+}
+
+.accordion__item_content {
+  background: var(--color-background-paper);
+  border: 1px solid var(--color-border-section);
+  border-top: none;
+  box-shadow: var(--shadow-small);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0 var(--space-3);
+  padding: var(--space-6);
+}

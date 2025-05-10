@@ -1,0 +1,7 @@
+.selected, .selected:hover {
+  background: var(--color-background-selected);
+
+  &.table__row td, &.table__row td:hover {
+    background: transparent;
+  }
+}

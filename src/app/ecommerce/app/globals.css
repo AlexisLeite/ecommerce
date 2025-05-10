@@ -41,3 +41,13 @@ a {
     color-scheme: dark;
   }
 }
+
+<<<<<<<< HEAD:app/styles/globals.css
+h1 {
+  margin: 0
+========
+.products {
+  height: 600px;
+  width: 800px
+>>>>>>>> 554598ee52a4236df07ef50a9527387119cd27c2:src/app/ecommerce/app/globals.css
+}
