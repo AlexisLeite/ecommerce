@@ -1,0 +1,30 @@
+{
+  "name": "common",
+  "sideEffects": false,
+  "private": false,
+  "version": "0.0.3",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "buildDev": "rollup --config ../../config/rollup.lib.mjs --environment MODE:development,ENTRY:index.ts",
+    "build": "rollup --config ../../config/rollup.lib.mjs --environment MODE:production,ENTRY:index.ts",
+    "watch": "rollup --watch --config ../../config/rollup.lib.mjs --environment MODE:development,ENTRY:index.ts,WATCH:true"
+  },
+  "peerDependencies": {
+    "i18next-browser-languagedetector": "^8.1.0",
+    "i18next-http-backend": "^3.0.2",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^15.5.1",
+    "i18next": "^25.1.2"
+  },
+  "dependencies": {
+    "@meronex/icons": "^4.0.0",
+    "focus-trap-react": "^11.0.3",
+    "react-markdown": "^10.1.0"
+  }
+}

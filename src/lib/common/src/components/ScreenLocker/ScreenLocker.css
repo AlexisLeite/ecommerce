@@ -1,0 +1,10 @@
+.screenLocker {
+    position: fixed;
+    inset: 0;
+
+    z-index: var(--z-index-locker)
+}
+
+.screenLocker__linear {
+    width: 100%
+}

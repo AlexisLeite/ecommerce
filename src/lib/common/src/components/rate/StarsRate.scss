@@ -1,0 +1,30 @@
+
+.stars_wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.feedback_star {
+  background: transparent;
+  border: none;
+
+  &, * {
+    fill: var(--color-background-paper);
+  }
+
+  path {
+    stroke: black;
+    stroke-width: 20px;
+  }
+}
+
+.stars_wrapper.disabled *:hover {
+  background: transparent;
+}
+
+.feedback_star.filled {
+  &, * {
+    fill: var(--color-favourite);
+  }
+}

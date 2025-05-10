@@ -1,0 +1,30 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background-paper);
+  border-radius: var(--radius-section);
+  border: 1px solid var(--color-border-section);
+  box-shadow: var(--shadow-small);
+}
+
+.panel__label {
+  text-align: left;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-section);
+  background: var(--color-primary-main);
+  color: var(--color-primary-contrast);
+  box-shadow: var(--shadow-small);
+}
+
+.panel__content {
+  padding: var(--space-6);
+}
+
+.panel--size-sm {
+  .panel__label {
+  }
+
+  .panel__content {
+    padding: var(--space-5);
+  }
+}
