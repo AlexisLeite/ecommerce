@@ -1,7 +1,6 @@
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
-import "./ScreenLocker.css";
 import { LinearLoader } from "./LinearLoader";
 
 export class ScreenLocker {

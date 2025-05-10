@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
-import "./table.scss";
 
 export type RowProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLTableRowElement>,

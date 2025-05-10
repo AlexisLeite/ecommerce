@@ -1,26 +1,18 @@
 import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  FC,
-  TextareaHTMLAttributes,
+  ChangeEvent, FC
 } from "react";
 import { observer } from "mobx-react-lite";
 import { ValidatableField } from "../validation/ValidatableField";
-import { Field } from "../validation/Field";
-import { Textarea as TF } from "../components/form/Textarea";
+import { ValidationField } from "../validation/Field";
+import { TextareaProps, Textarea as TF } from "../components/form/Textarea";
 
-export type TextareaProps = DetailedHTMLProps<
-  TextareaHTMLAttributes<HTMLTextAreaElement>,
-  HTMLTextAreaElement
->;
-
-export const Textarea: FC<
+export const ValidationTextarea: FC<
   {
     field: ValidatableField<any>;
     onChange?: (ev: ChangeEvent<HTMLTextAreaElement>) => string | void;
   } & Omit<TextareaProps, "value" | "defaultValue" | "onChange">
 > = observer(({ field, className, onChange, ...props }) => (
-  <Field
+  <ValidationField
     className={`field__textarea ${className || ""}`}
     text={field.title}
     required={field.isRequired}
@@ -39,5 +31,5 @@ export const Textarea: FC<
         }
       }}
     />
-  </Field>
+  </ValidationField>
 ));

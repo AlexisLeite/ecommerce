@@ -1,5 +1,4 @@
 import ReactMarkdown from "react-markdown";
-import "./MDRender.scss";
 import { List } from "../List/List";
 import { ListItem } from "../List/ListItem";
 

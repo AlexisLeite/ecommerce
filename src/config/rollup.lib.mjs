@@ -12,6 +12,15 @@ const srcDir = path.resolve(process.cwd(), 'src');
 const entry = process.env.ENTRY ?? 'index.ts';
 const entryPath = path.resolve(srcDir, entry);
 
+const originalStderrWrite = process.stderr.write;
+process.stderr.write = (chunk, encoding, callback) => {
+  const str = chunk.toString();
+  if (str.includes('[legacy-js-api]')) {
+    return; // Suppress this specific warning
+  }
+  return originalStderrWrite.call(process.stderr, chunk, encoding, callback);
+};
+
 const bundle = (config) => ({
   ...config,
   input: entryPath,
@@ -20,6 +29,18 @@ const bundle = (config) => ({
 
 const config = [
   bundle({
+    onwarn(warning, warn) {
+      // Suppress Sass legacy JS API deprecation warnings
+      if (
+        warning.message &&
+        warning.message.includes('[legacy-js-api]')
+      ) {
+        return;
+      }
+
+      // Use default for everything else
+      warn(warning);
+    },
     plugins: [
       mode === 'production' && cleandir(),
       esbuild(),
@@ -40,6 +61,18 @@ const config = [
     ],
   }),
   bundle({
+    onwarn(warning, warn) {
+      // Suppress Sass legacy JS API deprecation warnings
+      if (
+        warning.message &&
+        warning.message.includes('[legacy-js-api]')
+      ) {
+        return;
+      }
+
+      // Use default for everything else
+      warn(warning);
+    },
     plugins: [
       dts(),
       postcss({

@@ -1,5 +1,4 @@
 import { FaStar } from "@meronex/icons/all";
-import "./StarsRate.scss";
 import { IconButton } from "../form/IconButton";
 
 export const StarsRate = ({

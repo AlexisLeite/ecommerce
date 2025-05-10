@@ -1,20 +1,15 @@
-import { DetailedHTMLProps, FC, SelectHTMLAttributes } from "react";
+import { FC } from "react";
 import { observer } from "mobx-react-lite";
 import { ValidatableField } from "../validation/ValidatableField";
-import { Field } from "../validation/Field";
-import { Select as SF } from "../components/form/Select";
+import { ValidationField } from "../validation/Field";
+import { SelectProps, Select as SF } from "../components/form/Select";
 
-export type SelectProps = DetailedHTMLProps<
-  SelectHTMLAttributes<HTMLSelectElement>,
-  HTMLSelectElement
->;
-
-export const Select: FC<
+export const ValidationSelect: FC<
   {
     field: ValidatableField<any>;
   } & Omit<SelectProps, "value" | "defaultValue">
 > = observer(({ field, className, onChange, ...props }) => (
-  <Field
+  <ValidationField
     className={`field__select ${className || ""}`}
     text={field.title}
     required={field.isRequired}
@@ -33,5 +28,5 @@ export const Select: FC<
         }
       }}
     />
-  </Field>
+  </ValidationField>
 ));

@@ -1,4 +1,3 @@
-import "./Form.scss";
 import { DetailedHTMLProps, FC } from "react";
 
 export type FormProps = DetailedHTMLProps<

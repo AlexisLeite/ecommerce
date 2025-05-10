@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import "./Panel.scss";
 
 export const Panel = ({
   children,

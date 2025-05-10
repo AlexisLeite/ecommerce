@@ -1,4 +1,4 @@
-@use 'Frontend/styles/mixins' as *;
+@use '../mixins.scss' as *;
 
 .accordion__item_label {
   align-items: center;

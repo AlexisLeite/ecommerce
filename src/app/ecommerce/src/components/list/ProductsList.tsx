@@ -1,6 +1,7 @@
 "use client";
 
 import { useProducts } from "@/src/store/products/StoreProvider";
+import { Cell, HeaderCell, Row, Table, TBody, THead } from "common";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 
@@ -12,6 +13,19 @@ export const ProductsList = observer(() => {
       className="products"
       style={{ display: "flex", flexDirection: "column", gap: "8px" }}
     >
+      <Table>
+        <THead>
+          <Row>
+            <HeaderCell>Hi</HeaderCell>
+          </Row>
+        </THead>
+        <TBody>
+          <Row>
+            <Cell>This is a table</Cell>
+          </Row>
+        </TBody>
+      </Table>
+
       <div style={{ display: "flex", gap: "8px" }}>
         <button
           disabled={store.isLoading}

@@ -1,4 +1,3 @@
-import "./Stack.scss";
 import { WithChildren } from "./types";
 
 export type StackProps = {

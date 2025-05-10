@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext } from "react";
-import "./BaseModal.scss";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { FocusTrap } from "focus-trap-react";
