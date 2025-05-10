@@ -1,7 +1,7 @@
 "use client";
 
 import { useProducts } from "../../../src/store/products/StoreProvider";
-import Card from "../../../../../../app/components/ui/Card";
+import Card from "../../../src/components/ui/Card";
 
 export const Products = () => {
   const store = useProducts();
