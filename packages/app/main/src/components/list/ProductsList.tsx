@@ -13,6 +13,13 @@ export const ProductsList = observer(() => {
       style={{ display: "flex", flexDirection: "column", gap: "8px" }}
     >
       <div style={{ display: "flex", gap: "8px" }}>
+        <button
+          disabled={store.isLoading}
+          style={{ background: store.isLoading ? "red" : undefined }}
+          onClick={() => store.refresh()}
+        >
+          Refresh
+        </button>
         {store.hasPrevious && (
           <Link
             style={{ background: store.isLoading ? "red" : undefined }}
@@ -22,13 +29,6 @@ export const ProductsList = observer(() => {
             Prev
           </Link>
         )}
-        <button
-          disabled={store.isLoading}
-          style={{ background: store.isLoading ? "red" : undefined }}
-          onClick={() => store.refresh()}
-        >
-          Refresh
-        </button>
         {store.hasMore && (
           <Link
             style={{ background: store.isLoading ? "red" : undefined }}
@@ -46,7 +46,7 @@ export const ProductsList = observer(() => {
               disabled={store.isLoading}
               style={{ background: store.isLoading ? "red" : undefined }}
               onClick={() => {
-                store.remove(c);
+                store.remove(c.id);
               }}
             >
               x

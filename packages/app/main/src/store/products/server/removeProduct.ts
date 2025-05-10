@@ -1,12 +1,11 @@
 "use server";
 
 import { getPrismaClient } from "@/src/prisma/getClient";
-import { Product } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export async function removeProduct(product: Product) {
+export async function removeProduct(productId: number) {
   const result = await getPrismaClient().product.delete({
-    where: { id: product.id },
+    where: { id: productId },
   });
 
   revalidatePath("/");

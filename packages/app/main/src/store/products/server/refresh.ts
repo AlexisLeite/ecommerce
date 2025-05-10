@@ -1,8 +1,8 @@
 "use server";
 
 import { getPrismaClient } from "@/src/prisma/getClient";
-import { Product } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { TProductListData } from "../ProductsStore";
 
 export type TPage<T> = {
   data: T[];
@@ -13,7 +13,7 @@ export type TPage<T> = {
 export async function refresh(
   page: number = 0,
   revalidate = true,
-): Promise<TPage<Product>> {
+): Promise<TPage<TProductListData>> {
   if (revalidate) {
     revalidatePath("/");
   }
@@ -28,6 +28,17 @@ export async function refresh(
     data: await getPrismaClient().product.findMany({
       take: 10,
       skip: 10 * (currentPage - 1),
+      select: {
+        description: true,
+        id: true,
+        name: true,
+        price: true,
+        images: {
+          select: {
+            file: true,
+          },
+        },
+      },
       orderBy: { name: "asc" },
     }),
   };

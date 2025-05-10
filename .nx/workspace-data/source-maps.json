@@ -1,0 +1,216 @@
+{
+  "packages/app/main": {
+    "root": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "name": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "tags": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:private": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.1": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.2": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.3": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.4": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageMain": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.executor": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.options": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.metadata": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.options.script": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.metadata.scriptContent": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.dev.metadata.runCommand": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.executor": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.options": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.options.script": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata.scriptContent": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata.runCommand": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.executor": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.options": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.metadata": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.options.script": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.metadata.scriptContent": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.start.metadata.runCommand": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client.executor": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client.options": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client.metadata": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client.options.script": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client.metadata.scriptContent": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-create-client.metadata.runCommand": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update.executor": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update.options": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update.metadata": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update.options.script": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update.metadata.scriptContent": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.db-drop-update.metadata.runCommand": [
+      "packages/app/main/package.json",
+      "nx/core/package-json"
+    ]
+  }
+}

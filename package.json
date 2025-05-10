@@ -1,33 +1,33 @@
 {
-  "name": "ecommerce",
-  "version": "0.1.0",
+  "name": "root",
   "private": true,
+  "workspaces": [
+    "packages/**/*"
+  ],
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@prisma/client": "^6.7.0",
-    "mobx": "^6.13.7",
-    "mobx-react-lite": "^4.1.0",
-    "next": "15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "build-main": "lerna run build --scope=ecommerce",
+    "dev-main": "lerna run dev --scope=ecommerce",
+    "production-server-main": "lerna run start --scope=ecommerce",
+    "db-generate-client-main": "lerna run db-generate-client --scope=ecommerce",
+    "db-drop-update-main": "lerna run db-drop-update --scope=ecommerce"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.32.0",
+    "@types/node": "^20.11.10",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "css-loader": "^6.10.0",
+    "esbuild": "^0.20.0",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "typescript": "^5"
+    "lerna": "^8.0.2",
+    "prettier": "^3.2.4",
+    "typescript": "^5.2.2",
+    "wrapper-webpack-plugin": "^2.2.2"
+  },
+  "dependencies": {
+    "prisma": "^6.7.0"
   }
 }

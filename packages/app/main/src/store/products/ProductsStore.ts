@@ -1,17 +1,22 @@
-import { Product } from "@prisma/client";
-import { makeAutoObservable, runInAction, toJS } from "mobx";
+import { Image, Product } from "@prisma/client";
+import { makeAutoObservable, runInAction } from "mobx";
 import { refresh, TPage } from "./server/refresh";
 import { removeProduct } from "./server/removeProduct";
 
-export class ProductsStore {
+export type TProductListData = Pick<
+  Product,
+  "id" | "name" | "description" | "price"
+> & { images: Pick<Image, "file">[] };
+
+export class ProductsListStore {
   private loading = 0;
-  private page: TPage<Product> = {
+  private page: TPage<TProductListData> = {
     currentPage: 1,
     data: [],
     pages: 1,
   };
 
-  constructor(data: TPage<Product>) {
+  constructor(data: TPage<TProductListData>) {
     this.page = data;
     makeAutoObservable(this);
   }
@@ -53,9 +58,9 @@ export class ProductsStore {
     });
   }
 
-  public async remove(product: Product) {
+  public async remove(productId: number) {
     this.asyncFn(async () => {
-      await removeProduct(toJS(product));
+      await removeProduct(productId);
       this.refresh();
     });
   }

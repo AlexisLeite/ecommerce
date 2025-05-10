@@ -1,0 +1,169 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.8.1",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": "nx.json",
+        "hash": "7121249466669236328"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "10742008754532299000"
+      },
+      {
+        "file": ".eslintrc.cjs",
+        "hash": "8929803802489136211"
+      },
+      {
+        "file": "package.json",
+        "hash": "7558638335917144964"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "1663390739898729566"
+      },
+      {
+        "file": ".prettierrc.json",
+        "hash": "14278829398893292730"
+      },
+      {
+        "file": "lerna.json",
+        "hash": "17739661349127846740"
+      }
+    ],
+    "projectFileMap": {
+      "ecommerce": [
+        {
+          "file": "packages/app/main/.gitignore",
+          "hash": "1867017717006394117"
+        },
+        {
+          "file": "packages/app/main/README.md",
+          "hash": "10766794746169900117"
+        },
+        {
+          "file": "packages/app/main/app/favicon.ico",
+          "hash": "9157999678830540297"
+        },
+        {
+          "file": "packages/app/main/app/globals.css",
+          "hash": "8218874040021991079"
+        },
+        {
+          "file": "packages/app/main/app/layout.tsx",
+          "hash": "8728365707279376771"
+        },
+        {
+          "file": "packages/app/main/app/page.module.css",
+          "hash": "14645008190496319010"
+        },
+        {
+          "file": "packages/app/main/app/page.tsx",
+          "hash": "15845197562835172346"
+        },
+        {
+          "file": "packages/app/main/app/page/[number]/page.tsx",
+          "hash": "7784732545385531870"
+        },
+        {
+          "file": "packages/app/main/migrations/20250510171028_/initDatabase.sql",
+          "hash": "18255822994466940137"
+        },
+        {
+          "file": "packages/app/main/migrations/20250510171028_/migration.sql",
+          "hash": "17336119023207980178"
+        },
+        {
+          "file": "packages/app/main/migrations/migration_lock.toml",
+          "hash": "872437952673290735"
+        },
+        {
+          "file": "packages/app/main/next.config.ts",
+          "hash": "10045363982837223390"
+        },
+        {
+          "file": "packages/app/main/package.json",
+          "hash": "10933824356769675065",
+          "deps": [
+            "npm:@eslint/eslintrc@3.3.1",
+            "npm:@types/node",
+            "npm:@types/react@19.1.3",
+            "npm:@types/react-dom@19.1.3",
+            "npm:@typescript-eslint/eslint-plugin@8.32.0",
+            "npm:@typescript-eslint/parser@8.32.0",
+            "npm:typescript",
+            "npm:@prisma/client",
+            "npm:mobx@6.13.7",
+            "npm:mobx-react-lite@4.1.0",
+            "npm:next@15.3.2",
+            "npm:react@19.1.0",
+            "npm:react-dom@19.1.0"
+          ]
+        },
+        {
+          "file": "packages/app/main/public/file.svg",
+          "hash": "15617830351863523835"
+        },
+        {
+          "file": "packages/app/main/public/globe.svg",
+          "hash": "9134466864871335697"
+        },
+        {
+          "file": "packages/app/main/public/next.svg",
+          "hash": "8300767200008744458"
+        },
+        {
+          "file": "packages/app/main/public/vercel.svg",
+          "hash": "3007623926711696394"
+        },
+        {
+          "file": "packages/app/main/public/window.svg",
+          "hash": "16677869292061012332"
+        },
+        {
+          "file": "packages/app/main/schema.prisma",
+          "hash": "8104142137030638066"
+        },
+        {
+          "file": "packages/app/main/src/components/list/ProductsList.tsx",
+          "hash": "6594622649563232918"
+        },
+        {
+          "file": "packages/app/main/src/components/list/ProductsMain.tsx",
+          "hash": "13834232759583504341"
+        },
+        {
+          "file": "packages/app/main/src/prisma/getClient.ts",
+          "hash": "17105265304904300060"
+        },
+        {
+          "file": "packages/app/main/src/store/products/ProductsStore.ts",
+          "hash": "3954353510858831136"
+        },
+        {
+          "file": "packages/app/main/src/store/products/StoreProvider.tsx",
+          "hash": "8011356229174789462"
+        },
+        {
+          "file": "packages/app/main/src/store/products/index.ts",
+          "hash": "15841068478847692214"
+        },
+        {
+          "file": "packages/app/main/src/store/products/server/refresh.ts",
+          "hash": "8847049025051686234"
+        },
+        {
+          "file": "packages/app/main/src/store/products/server/removeProduct.ts",
+          "hash": "8185375764778235824"
+        },
+        {
+          "file": "packages/app/main/tsconfig.json",
+          "hash": "16505881292448434709"
+        }
+      ]
+    }
+  }
+}

@@ -40,3 +40,8 @@ a {
     color-scheme: dark;
   }
 }
+
+.products {
+  height: 600px;
+  width: 800px
+}
