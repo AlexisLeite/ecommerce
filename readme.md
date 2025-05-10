@@ -11,8 +11,8 @@ el server y la base de datos:
 1. `npm install` Hay veces que falla porque no encuentra la carpeta next en
    ecommerce/node_modules. Esto parece ser un error de Next.js y la solución es
    bastante tricky.
-2. `npm run generate-db-client` Crea los objetos necesarios para poder trabajar
-   con la base de datos
+2. `npm run ecommerce-generate-db-client` Crea los objetos necesarios para poder
+   trabajar con la base de datos
 3. `npm run ecommerce-generate-db` Crea las tablas en la base de datos. **Este
    comando borra todo de la base primero**
 4. **Ejecutar `src/lib/ecommerce/migrations/20250510171028_/initDatabase.sql` en
