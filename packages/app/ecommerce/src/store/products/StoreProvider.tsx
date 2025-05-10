@@ -1,9 +1,9 @@
 "use client";
 
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, useContext, ReactNode } from "react";
+import { getProductsStore } from ".";
 import { ProductsListStore, type TProductListData } from "./ProductsStore";
 import type { TPage } from "./server/refresh";
-import { getProductsStore } from ".";
 
 const StoreContext = createContext<ProductsListStore>({} as any);
 

@@ -1,8 +1,8 @@
 "use server";
 
 import { getPrismaClient } from "@/src/prisma/getClient";
-import { revalidatePath } from "next/cache";
 import { TProductListData } from "../ProductsStore";
+import { revalidatePath } from "next/cache";
 
 export type TPage<T> = {
   data: T[];

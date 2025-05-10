@@ -1,7 +1,7 @@
 import { Image, Product } from "@prisma/client";
-import { makeAutoObservable, runInAction } from "mobx";
 import { refresh, TPage } from "./server/refresh";
 import { removeProduct } from "./server/removeProduct";
+import { makeAutoObservable, runInAction } from "mobx";
 
 export type TProductListData = Pick<
   Product,

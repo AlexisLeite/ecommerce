@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "db-create-client": "prisma generate",
+    "db-generate-client": "prisma generate",
     "db-drop-update": "prisma migrate reset && prisma migrate dev"
   },
   "dependencies": {
