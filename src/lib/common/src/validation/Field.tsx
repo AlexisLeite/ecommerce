@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
-export const Field: FC<{
+export const ValidationField: FC<{
   children: ReactNode;
   className?: string;
   error?: string;

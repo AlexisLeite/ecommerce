@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
 import { toJS } from "mobx";
 import { FaPen, FaTrash } from "@meronex/icons/all";
-import "./ListCRUDItems.scss";
 import { CRUDStore } from "../../state/CRUDStore";
 import { Sort } from "../../util/sort/Sort";
 import { Button } from "../form/Button";

@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
-import "./table.scss";
 import { CellProps } from "./Cell";
 
 export type HeaderCell = DetailedHTMLProps<

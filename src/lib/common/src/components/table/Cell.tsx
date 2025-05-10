@@ -1,5 +1,4 @@
 import { DetailedHTMLProps, FC, TdHTMLAttributes } from "react";
-import "./table.scss";
 
 export type CellProps = DetailedHTMLProps<
   TdHTMLAttributes<HTMLTableCellElement>,

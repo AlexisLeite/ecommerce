@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
-import "./Uploader.scss";
 import { useTranslation } from "react-i18next";
 import { UploadHandler } from "./UploadHandler";
 import { Stack } from "../../layout/Stack";

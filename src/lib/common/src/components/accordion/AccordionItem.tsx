@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import "./AccordionItem.scss";
 import { ReactNode, useMemo } from "react";
 import { makeAutoObservable } from "mobx";
 

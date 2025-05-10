@@ -1,7 +1,6 @@
 import { makeObservable, observable } from "mobx";
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
-import "./Notifications.scss";
 
 export const Notification = () => <>NOT IMPLEMENTED NOTIFICATION</>;
 

@@ -1,5 +1,4 @@
 import { DetailedHTMLProps } from "react";
-import "./List.scss";
 
 export type ListProps = DetailedHTMLProps<
   React.FormHTMLAttributes<HTMLUListElement>,

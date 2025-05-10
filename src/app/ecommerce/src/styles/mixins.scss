@@ -1,0 +1,172 @@
+@use "sass:map";
+
+$breakpoints: (
+        sm: (
+                min: 576px,
+                max: 575.98px,
+        ),
+        md: (
+                min: 768px,
+                max: 767.98px
+        ),
+        lg: (
+                min: 992px,
+                max: 991.98px
+        ),
+        xl: (
+                min: 1200px,
+                max: 1199.98px
+        ),
+        xxl: (
+                min: 1400px,
+                max: 1399.98px,
+        )
+);
+
+@mixin fieldHover() {
+  &:hover {
+    outline: 1px solid var(--color-outline);
+  }
+  &:focus {
+    outline: 3px solid var(--color-outline);
+  }
+}
+
+@mixin rowHover($variant:primary) {
+  @if $variant == primary {
+    &:hover td {
+      background: color-mix(in srgb, var(--color-background-paper) 80%, black)
+    }
+  }
+
+  @if ($variant == secondary) {
+    &:hover td {
+      background: color-mix(in srgb, var(--color-secondary-main) 40%, var(--color-background-paper))
+    }
+  }
+}
+
+@mixin buttonHover($variant:primary) {
+  cursor: pointer;
+
+  @if $variant == primary or $variant == outline {
+    &:hover {
+      color: #fff9e9;
+
+      background: color-mix(in srgb, var(--color-primary-main) 70%, black);
+
+      svg {
+        fill: #fff9e9;
+      }
+    }
+    &:active {
+      color: #999;
+      background: color-mix(in srgb, var(--color-primary-main) 40%, black);
+
+      svg {
+        fill: #999;
+      }
+    }
+  }
+
+  @if $variant == secondary {
+    &:hover {
+      background: color-mix(in srgb, var(--color-secondary-main) 95%, black)
+    }
+    &:active {
+      background: color-mix(in srgb, var(--color-secondary-main) 90%, black)
+    }
+  }
+
+  @if $variant == ghost {
+    &:hover {
+      background: color-mix(in srgb, var(--color-background-paper) 90%, black);
+    }
+    &:active {
+      background: color-mix(in srgb, var(--color-background-paper) 80%, black)
+    }
+  }
+
+  @if $variant == danger {
+    &:hover {
+      background: var(--color-danger-main);
+      color: var(--color-danger-contrast);
+
+      svg {
+        fill: var(--color-danger-contrast);
+      }
+    }
+    &:active {
+      background: var(--color-danger-dark);
+      color: var(--color-danger-contrast);
+
+      svg {
+        fill: var(--color-danger-contrast);
+      }
+    }
+  }
+
+  @if $variant == warning {
+    &:hover {
+      background: color-mix(in srgb, var(--color-warning-main) 90%, black);
+      color: var(--color-warning-contrast);
+
+      svg {
+        fill: var(--color-warning-contrast);
+      }
+    }
+    &:active {
+      background: var(--color-warning-dark);
+      color: var(--color-warning-contrast);
+
+      svg {
+        fill: var(--color-warning-contrast);
+      }
+    }
+  }
+}
+
+@mixin linkHover() {
+  cursor: pointer;
+
+  &:hover {
+    color: color-mix(in srgb, var(--color-text-primary) 70%, white)
+  }
+  &:active {
+    color: color-mix(in srgb, var(--color-primary-main) 40%, black)
+  }
+}
+
+@mixin breakpoint($breakpoint, $direction: min) {
+
+  //check if the supplied breakpoint exists in our breakpoits map
+  @if map.has-key($breakpoints, $breakpoint) {
+    $breakpoint-values: map.get($breakpoints, $breakpoint);
+    $breakpoint-min: map.get($breakpoint-values, min);
+    $breakpoint-max: map.get($breakpoint-values, max);
+
+    //check if we are writing styles for larger or smaller screens
+    @if $direction == min {
+      @media (min-width: $breakpoint-min) {
+        @content;
+      }
+    } @else {
+      @media (max-width: $breakpoint-max) {
+        @content;
+      }
+    }
+
+    // use the custom value if the breakpoint is not part of the pre-defined list
+  } @else {
+
+    @if $direction == min {
+      @media (min-width: $breakpoint) {
+        @content;
+      }
+    } @else {
+      @media (max-width: $breakpoint) {
+        @content;
+      }
+    }
+  }
+}
