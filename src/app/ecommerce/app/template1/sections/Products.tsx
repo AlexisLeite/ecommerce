@@ -19,7 +19,11 @@ export const ProductsRenderer = observer(
           <Card
             key={c.id}
             title={c.name}
-            image={""}
+            image={
+              c.images[0]?.id
+                ? `/api/images/${c.images[0]?.id}`
+                : "/no-product.jpg"
+            }
             description={c.description === null ? "" : c.description}
             price={c.price}
             onBuy={() => console.log(`${c.name} añadido al carrito`)}

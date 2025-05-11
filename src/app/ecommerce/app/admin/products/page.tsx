@@ -1,6 +1,6 @@
 "use server";
 
-import { refresh } from "@/src/store/products/server/refresh";
+import { refresh } from "@/src/store/products/server/ProductsServer";
 import { ProductsList } from "./ProductsList";
 
 export default async function AdminPage() {

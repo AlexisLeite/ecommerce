@@ -8,7 +8,8 @@
     "ecommerce-develop": "lerna run dev --scope=ecommerce",
     "ecommerce-production": "lerna run build --scope=ecommerce && lerna run start --scope=ecommerce",
     "ecommerce-generate-db-client": "lerna run db-generate-client --scope=ecommerce",
-    "ecommerce-generate-db": "lerna run db-drop-update --scope=ecommerce"
+    "ecommerce-generate-db": "lerna run db-drop-update --scope=ecommerce",
+    "ecommerce-update-db": "lerna run db-update --scope=ecommerce"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",

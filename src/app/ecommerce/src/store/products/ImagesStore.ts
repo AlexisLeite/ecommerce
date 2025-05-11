@@ -1,18 +1,15 @@
-import { Image, Product } from "@prisma/client";
+import { Image } from "@prisma/client";
 import { CRUDStore, TCRUDStorePagination } from "common";
-import { refresh, remove } from "./server/ProductsServer";
+import { ImagesServer } from "./server/ImagesServer";
 
-export type TProductListData = Pick<
-  Product,
-  "id" | "name" | "description" | "price"
-> & { images: Pick<Image, "id">[] };
+export type TImageListData = Pick<Image, "id" | "title">;
 
-export class ProductsListStore extends CRUDStore<TProductListData> {
-  private constructor(data?: TCRUDStorePagination<TProductListData>) {
+export class ImagesListStore extends CRUDStore<TImageListData> {
+  private constructor(data?: TCRUDStorePagination<TImageListData>) {
     super({
       delete: async (id) => {
         try {
-          await remove(id);
+          await ImagesServer.remove(id);
           return {
             success: true,
           };
@@ -22,7 +19,7 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
       },
       findPaged: async (page) => {
         try {
-          const result = await refresh(page);
+          const result = await ImagesServer.refresh(page);
 
           return {
             success: !!result,
@@ -44,15 +41,15 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
     });
   }
 
-  private static _instance: ProductsListStore;
-  public static getInstance(data?: TCRUDStorePagination<TProductListData>) {
+  private static _instance: ImagesListStore;
+  public static getInstance(data?: TCRUDStorePagination<TImageListData>) {
     if (!this._instance) {
-      this._instance = new ProductsListStore(data);
+      this._instance = new ImagesListStore(data);
     }
     return this._instance;
   }
 
-  public get products(): TProductListData[] {
+  public get images(): TImageListData[] {
     return this.state.pages[this.state.currentPage]?.data || [];
   }
 }

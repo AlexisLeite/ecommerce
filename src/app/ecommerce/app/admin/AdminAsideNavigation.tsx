@@ -14,6 +14,9 @@ export const AdminAsideNavigation = () => {
       <ListItem>
         <Link href="/admin/products">{t("Productos")}</Link>
       </ListItem>
+      <ListItem>
+        <Link href="/admin/images">{t("Imágenes")}</Link>
+      </ListItem>
     </VerticalNavigation>
   );
 };

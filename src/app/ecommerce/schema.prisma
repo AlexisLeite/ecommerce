@@ -13,7 +13,7 @@ model User {
     userLogin            String                 @unique
     roleId               Int
     avatarId             Int?
-    Avatar               Image?                  @relation(fields: [avatarId], references: [id])
+    Avatar               Image?                 @relation(fields: [avatarId], references: [id])
     role                 Role                   @relation(fields: [roleId], references: [id])
     purchases            Sell[]
     products             Product[]
@@ -56,7 +56,7 @@ model ProductAttribute {
 model Image {
     id         Int        @id @default(autoincrement())
     title      String
-    file       String
+    data       Bytes
     reg_date   DateTime
     products   Product[]
     categories Category[]
