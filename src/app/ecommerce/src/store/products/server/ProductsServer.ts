@@ -57,7 +57,7 @@ export async function search(query: string) {
   const client = await getPrismaClient();
 
   await client.$executeRaw`
-    SET pg_trgm.similarity_threshold = 1;
+    SET pg_trgm.similarity_threshold = 0;
   `;
 
   const results = await client.$queryRaw<
@@ -67,12 +67,40 @@ export async function search(query: string) {
       }
     >
   >(Prisma.sql`
-    SELECT p.*,
-           similarity(p.name, ${query}) AS sml
-      FROM "Product" AS p
-     ORDER BY sml DESC
-     LIMIT 10;
-  `);
+  WITH query_norm AS (
+    SELECT lower(unaccent(${query})) AS q
+  )
+  SELECT
+    p.*,
+    (p.name_norm = q)         AS is_exact,
+    similarity(p.name_norm, q) AS sim
+  FROM "Product" p
+  CROSS JOIN query_norm
+  ORDER BY
+    is_exact DESC,
+    sim      DESC
+  LIMIT 30;`);
+
+  console.log(`
+  WITH query_norm AS (
+    SELECT lower(unaccent('${query}')) AS q
+  )
+  SELECT
+    p.*,
+    (p.name_norm = q)         AS is_exact,
+    similarity(p.name_norm, q) AS sim
+  FROM "Product" p
+  CROSS JOIN query_norm
+  WHERE p.name_norm % q
+  ORDER BY
+    is_exact ASC,
+    sim      DESC
+  LIMIT 3;`);
+  console.log("");
+  console.log("");
+  console.log("");
+  console.log("");
+  console.log(results);
 
   return {
     pageSize: 10,

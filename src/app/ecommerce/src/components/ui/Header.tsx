@@ -12,7 +12,10 @@ const navItems = [
 
 export const Header = () => {
   const fn = useBouncedFn((q: string) => {
-    search(q).then((c) => console.log(c?.data.map((c) => c.name).join(", ")));
+    search(q).then((c) => {
+      console.clear();
+      c?.data.map((c) => c.name).forEach((x) => console.log(x));
+    });
   });
 
   return (
