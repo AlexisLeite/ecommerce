@@ -43,7 +43,9 @@ export class CRUDStore<DataType extends { id: number }> {
 
     makeObservable<this, "state">(this, { state: observable });
 
-    this.refresh();
+    setTimeout(() => {
+      this.refresh();
+    }, 0);
   }
 
   get isLoading() {

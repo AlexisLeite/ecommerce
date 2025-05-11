@@ -1,16 +1,10 @@
-import { StoreProvider } from "@/src/store/products/StoreProvider";
-import { refresh } from "@/src/store/products/server/refresh";
 import { LandingPage } from "./template1/LandingPage";
 
 export default async function Home() {
-  const page = await refresh(1, false);
-
   return (
     <div>
       <main>
-        <StoreProvider data={page}>
-          <LandingPage />
-        </StoreProvider>
+        <LandingPage />
       </main>
     </div>
   );
