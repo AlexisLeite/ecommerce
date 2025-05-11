@@ -42,6 +42,6 @@ export class EndlessScrollProducts extends EndlessScrollStore<TProductListData> 
   }
 
   public get products(): TProductListData[] {
-    return this.state.pages[this.state.currentPage]?.data || [];
+    return this.currentPage.data;
   }
 }

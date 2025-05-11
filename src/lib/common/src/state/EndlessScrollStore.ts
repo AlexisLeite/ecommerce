@@ -8,7 +8,7 @@ import {
 import { TCRUDStoreState, Controller } from "./CRUDStore";
 
 export class EndlessScrollStore<DataType extends { id: number }> {
-  public state: TCRUDStoreState<DataType>;
+  private state: TCRUDStoreState<DataType>;
 
   constructor(
     protected controller: Pick<
@@ -26,7 +26,6 @@ export class EndlessScrollStore<DataType extends { id: number }> {
       state: observable,
       currentPage: computed,
       isLoading: computed,
-      hasPrevious: computed,
       hasMore: computed,
       asyncAction: action,
     });
@@ -40,30 +39,16 @@ export class EndlessScrollStore<DataType extends { id: number }> {
     }
   }
 
-  private lastShownPage = 1;
   public get currentPage() {
-    if (this.state.pages[this.state.currentPage]) {
-      this.lastShownPage = this.state.currentPage;
-    }
-    return (
-      this.state.pages[this.state.currentPage] ||
-      this.state.pages[this.lastShownPage]
-    );
+    return this.state.pages[1];
   }
 
   get isLoading() {
     return this.state.loading > 0;
   }
 
-  public get hasPrevious() {
-    return this.state.currentPage > 1;
-  }
-
   public get hasMore() {
-    return (
-      this.state.currentPage <
-      this.state.pages[this.state.currentPage].totalPages
-    );
+    return this.state.currentPage < this.state.pages[1].totalPages;
   }
 
   async asyncAction<T>(cb: () => Promise<T>): Promise<T> {
@@ -94,9 +79,11 @@ export class EndlessScrollStore<DataType extends { id: number }> {
   }
 
   async loadMore() {
-    this.state.currentPage++;
-    await this.asyncAction(async () => {
-      await this.refresh();
-    });
+    if (!this.isLoading && this.hasMore) {
+      this.state.currentPage++;
+      await this.asyncAction(async () => {
+        await this.refresh();
+      });
+    }
   }
 }

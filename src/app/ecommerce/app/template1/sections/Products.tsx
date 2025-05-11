@@ -6,7 +6,7 @@ import {
 } from "@/src/store/products/EndlessScrollProducts";
 import Card from "../../../src/components/ui/Card";
 import { observer } from "mobx-react-lite";
-import { TCRUDStorePagination } from "common";
+import { TCRUDStorePagination, WhenInsideScreen } from "common";
 
 export const ProductsRenderer = observer(
   ({ data }: { data?: TCRUDStorePagination<TProductListData> }) => {
@@ -24,6 +24,11 @@ export const ProductsRenderer = observer(
             onBuy={() => console.log(`${c.name} añadido al carrito`)}
           />
         ))}
+        <WhenInsideScreen
+          onInside={() => {
+            store.loadMore();
+          }}
+        />
       </div>
     );
   },
