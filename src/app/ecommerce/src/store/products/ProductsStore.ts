@@ -1,5 +1,5 @@
 import { Image, Product } from "@prisma/client";
-import { CRUDStore } from "common";
+import { CRUDStore, TCRUDStorePagination } from "common";
 import { refresh } from "./server/refresh";
 import { removeProduct } from "./server/removeProduct";
 
@@ -9,7 +9,7 @@ export type TProductListData = Pick<
 > & { images: Pick<Image, "file">[] };
 
 export class ProductsListStore extends CRUDStore<TProductListData> {
-  private constructor() {
+  private constructor(data?: TCRUDStorePagination<TProductListData>) {
     super({
       delete: async (id) => {
         try {
@@ -36,14 +36,19 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
           };
         }
       },
+      getInitialData: data
+        ? () => {
+            return data!;
+          }
+        : undefined,
       save: () => Promise.resolve({ success: false, error: "Not implemented" }),
     });
   }
 
   private static _instance: ProductsListStore;
-  public static get instance() {
+  public static getInstance(data?: TCRUDStorePagination<TProductListData>) {
     if (!this._instance) {
-      this._instance = new ProductsListStore();
+      this._instance = new ProductsListStore(data);
     }
     return this._instance;
   }

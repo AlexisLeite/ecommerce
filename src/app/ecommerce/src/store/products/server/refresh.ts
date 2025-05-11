@@ -7,7 +7,7 @@ import { TCRUDStorePagination } from "common";
 
 export async function refresh(
   page: number = 0,
-  revalidate = true,
+  revalidate = false,
 ): Promise<TCRUDStorePagination<TProductListData>> {
   if (revalidate) {
     revalidatePath("/");

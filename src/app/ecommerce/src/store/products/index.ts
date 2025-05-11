@@ -4,5 +4,5 @@ import { ProductsListStore } from "./ProductsStore";
 enableStaticRendering(typeof window === "undefined");
 
 export function getProductsStore() {
-  return ProductsListStore.instance;
+  return ProductsListStore.getInstance;
 }

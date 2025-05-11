@@ -21,12 +21,11 @@ export type TCRUDStorePagination<T> = {
 };
 
 export interface Controller<DataType> {
+  delete(id: number): Promise<TCRUDOperation<void>>;
   findPaged: (
     page: number,
   ) => Promise<TCRUDOperation<TCRUDStorePagination<DataType>>>;
-
-  delete(id: number): Promise<TCRUDOperation<void>>;
-
+  getInitialData?: () => TCRUDStorePagination<DataType>;
   save(inst: DataType): Promise<TCRUDOperation<DataType>>;
 }
 
@@ -57,9 +56,13 @@ export class CRUDStore<DataType extends { id: number }> {
       gotoPage: action,
     });
 
-    setTimeout(() => {
-      this.refresh();
-    }, 0);
+    if (controller.getInitialData) {
+      this.state.pages[1] = controller.getInitialData!();
+    } else {
+      setTimeout(() => {
+        this.refresh();
+      }, 1000);
+    }
   }
 
   public get currentPage() {

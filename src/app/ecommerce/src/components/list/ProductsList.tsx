@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import Link from "next/link";
 
 export const ProductsList = observer(() => {
-  const store = ProductsListStore.instance;
+  const store = ProductsListStore.getInstance;
 
   return (
     <div
