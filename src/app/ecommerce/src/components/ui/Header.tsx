@@ -20,7 +20,7 @@ export const Header = () => {
   });
 
   return (
-    <header className="header">
+    <header className="main_header">
       <div className="header__content">
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <img src={"/images/logo.png"}></img>
