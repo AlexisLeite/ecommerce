@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "common";
+import { IconButton } from "common";
 import Image from "next/image";
+import { FaAngleLeft, FaAngleRight } from "@meronex/icons/fa";
 
 export const Carousel = () => {
   const slides = [
@@ -22,17 +23,17 @@ export const Carousel = () => {
         <Image
           src={slides[current]}
           alt={`Slide ${current + 1}`}
-          width={1600}
-          height={1200}
+          width={1200}
+          height={600}
         />
       </div>
 
-      <Button onClick={prev} variant="ghost" className="carousel__prev">
-        ‹
-      </Button>
-      <Button className="carousel__next" onClick={next} variant="primary">
-        ›
-      </Button>
+      <IconButton onClick={prev} variant="secondary" className="carousel__prev">
+        <FaAngleLeft />
+      </IconButton>
+      <IconButton className="carousel__next" variant="secondary" onClick={next}>
+        <FaAngleRight />
+      </IconButton>
     </div>
   );
 };
