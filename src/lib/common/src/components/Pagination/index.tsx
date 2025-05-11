@@ -12,7 +12,7 @@ export const Pagination = observer(({ store }: { store: CRUDStore<any> }) => {
   return (
     <div className={"pagination"}>
       <IconButton
-        disabled={store.state.loading > 0 || store.state.currentPage === 1}
+        disabled={store.currentPage.currentPage === 1}
         onClick={() => {
           store.gotoPage(1);
         }}
@@ -20,29 +20,28 @@ export const Pagination = observer(({ store }: { store: CRUDStore<any> }) => {
         <AiFillHome />
       </IconButton>
       <IconButton
-        disabled={store.state.loading > 0 || store.state.currentPage === 1}
+        disabled={store.currentPage.currentPage === 1}
         onClick={() => {
-          store.gotoPage(Math.max(0, store.state.currentPage - 1));
+          store.gotoPage(Math.max(0, store.currentPage.currentPage - 1));
         }}
       >
         <FaArrowLeft />
       </IconButton>
       <div className={"current_page"}>
-        {store.state.currentPage} / {store.currentPage.totalPages}
+        {store.currentPage.currentPage} / {store.currentPage.totalPages}
       </div>
       <IconButton
         disabled={
-          store.state.loading > 0 ||
-          store.state.currentPage === store.currentPage?.totalPages
+          store.currentPage.currentPage === store.currentPage?.totalPages
         }
         onClick={() => {
-          store.gotoPage(store.state.currentPage + 1);
+          store.gotoPage(store.currentPage.currentPage + 1);
         }}
       >
         <FaArrowRight />
       </IconButton>
       <IconButton
-        disabled={store.state.loading > 0}
+        disabled={store.isLoading}
         onClick={() => {
           store.refresh();
         }}

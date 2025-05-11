@@ -43,7 +43,7 @@ const ProductsListRender = observer(
     return (
       <Stack>
         <div className="table_wrapper">
-          {store.state.revalidateError}
+          {store.error}
           <Table>
             <THead>
               <Row>

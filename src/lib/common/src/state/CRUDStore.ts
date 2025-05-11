@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { TaskSerialEnqueuer } from "../TaskSerialEnqueuer";
 
 export type TCRUDOperation<Result> = {
   success: boolean;
@@ -37,7 +38,8 @@ export type TCRUDStoreState<DataType> = {
 };
 
 export class CRUDStore<DataType extends { id: number }> {
-  public state: TCRUDStoreState<DataType>;
+  protected state: TCRUDStoreState<DataType>;
+  protected queue = new TaskSerialEnqueuer();
 
   constructor(protected controller: Controller<DataType>) {
     this.state = {
@@ -76,6 +78,10 @@ export class CRUDStore<DataType extends { id: number }> {
     );
   }
 
+  get error() {
+    return this.state.revalidateError;
+  }
+
   get isLoading() {
     return this.state.loading > 0;
   }
@@ -90,16 +96,20 @@ export class CRUDStore<DataType extends { id: number }> {
       this.state.pages[this.state.currentPage].totalPages
     );
   }
-
   async asyncAction<T>(cb: () => Promise<T>): Promise<T> {
     this.state.loading++;
-    try {
-      return await cb();
-    } finally {
-      runInAction(() => {
-        this.state.loading--;
-      });
-    }
+
+    return new Promise<T>((resolve) =>
+      this.queue.push(async () => {
+        try {
+          resolve(await cb());
+        } finally {
+          runInAction(() => {
+            this.state.loading--;
+          });
+        }
+      }),
+    );
   }
 
   async upsert(inst: Omit<DataType, "id">) {

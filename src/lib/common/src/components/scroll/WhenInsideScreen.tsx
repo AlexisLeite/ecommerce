@@ -4,6 +4,10 @@ export const WhenInsideScreen = ({ onInside }: { onInside: () => unknown }) => {
   const uns = useRef(() => {});
   return (
     <div
+      style={{
+        height: "10px",
+        width: "10px",
+      }}
       ref={(el) => {
         if (el) {
           const observer = new IntersectionObserver(

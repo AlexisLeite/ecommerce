@@ -8,9 +8,10 @@
 }
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-gap: var(--space-3);
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fill, 300px);
   gap: 24px;
+  justify-content: center;
 }
