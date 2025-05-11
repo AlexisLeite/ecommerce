@@ -4,6 +4,7 @@ import { getPrismaClient } from "@/src/prisma/getClient";
 import { TProductListData } from "@/src/store/products/ProductsStore";
 import { revalidatePath } from "next/cache";
 import { TCRUDStorePagination } from "common";
+import { Prisma } from "@prisma/client";
 
 export async function refresh(
   page: number = 0,
@@ -50,4 +51,34 @@ export async function remove(productId: number) {
   revalidatePath("/");
 
   return result;
+}
+
+export async function search(query: string) {
+  const client = await getPrismaClient();
+
+  await client.$executeRaw`
+    SET pg_trgm.similarity_threshold = 1;
+  `;
+
+  const results = await client.$queryRaw<
+    Array<
+      Prisma.PromiseReturnType<typeof client.product.findFirst> & {
+        sml: number;
+      }
+    >
+  >(Prisma.sql`
+    SELECT p.*,
+           similarity(p.name, ${query}) AS sml
+      FROM "Product" AS p
+     ORDER BY sml DESC
+     LIMIT 10;
+  `);
+
+  return {
+    pageSize: 10,
+    totalPages: 1,
+    totalRegisters: 10,
+    currentPage: 1,
+    data: results,
+  };
 }
