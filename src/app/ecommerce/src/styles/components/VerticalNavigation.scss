@@ -6,5 +6,9 @@
         display: block;
 
         @include buttonHover(ghost);
+
+        &.active_tab {
+            color: var(--color-primary-main)
+        }
     }
 }

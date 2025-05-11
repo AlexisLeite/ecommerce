@@ -1,24 +1,46 @@
 import { VerticalNavigation } from "@/src/components/ui/VerticalNavigation";
 import { ListItem } from "common";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 export const AdminAsideNavigation = () => {
   const { t } = useTranslation();
+  const path = usePathname();
 
   return (
     <VerticalNavigation>
       <ListItem>
-        <Link href="/admin">{t("Inicio")}</Link>
+        <Link
+          className={path.endsWith("/admin") ? "active_tab" : ""}
+          href="/admin"
+        >
+          {t("Inicio")}
+        </Link>
       </ListItem>
       <ListItem>
-        <Link href="/admin/categories">{t("Categorias")}</Link>
+        <Link
+          className={path.includes("/categories") ? "active_tab" : ""}
+          href="/admin/categories"
+        >
+          {t("Categorias")}
+        </Link>
       </ListItem>
       <ListItem>
-        <Link href="/admin/products">{t("Productos")}</Link>
+        <Link
+          className={path.includes("/products") ? "active_tab" : ""}
+          href="/admin/products"
+        >
+          {t("Productos")}
+        </Link>
       </ListItem>
       <ListItem>
-        <Link href="/admin/images">{t("Imágenes")}</Link>
+        <Link
+          className={path.includes("/images") ? "active_tab" : ""}
+          href="/admin/images"
+        >
+          {t("Imágenes")}
+        </Link>
       </ListItem>
     </VerticalNavigation>
   );
