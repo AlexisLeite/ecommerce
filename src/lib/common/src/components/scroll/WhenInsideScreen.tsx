@@ -7,8 +7,6 @@ export const WhenInsideScreen = ({ onInside }: { onInside: () => unknown }) => {
   return (
     <div
       style={{
-        height: "10px",
-        width: "10px",
         pointerEvents: "none",
         position: "relative",
       }}
@@ -16,6 +14,8 @@ export const WhenInsideScreen = ({ onInside }: { onInside: () => unknown }) => {
       <div
         style={{
           position: "absolute",
+          height: "10px",
+          width: "10px",
         }}
         ref={(el) => {
           if (el) {

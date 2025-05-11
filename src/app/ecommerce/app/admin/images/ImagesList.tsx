@@ -44,7 +44,9 @@ const ImagesListRender = observer(
 
     return (
       <Stack className="main__section">
-        <WhenInsideScreen onInside={() => store.refresh()} />
+        <div style={{ position: "absolute" }}>
+          <WhenInsideScreen onInside={() => store.refresh()} />
+        </div>
         <div className="table_wrapper">
           {store.error}
           <Table>

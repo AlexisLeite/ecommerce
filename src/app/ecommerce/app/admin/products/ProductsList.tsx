@@ -16,6 +16,7 @@ import {
   TBody,
   TCRUDStorePagination,
   THead,
+  WhenInsideScreen,
 } from "common";
 import { useTranslation } from "react-i18next";
 import { FaEdit, FaTrash } from "@meronex/icons/fa";
@@ -42,14 +43,17 @@ const ProductsListRender = observer(
 
     return (
       <Stack>
+        <div style={{ position: "absolute" }}>
+          <WhenInsideScreen onInside={() => store.refresh()} />
+        </div>
         <div className="table_wrapper">
           {store.error}
           <Table>
             <THead>
               <Row>
                 <HeaderCell width="10%">{t("Acciones")}</HeaderCell>
-                <HeaderCell width="10%">{t("Nombre")}</HeaderCell>
-                <HeaderCell width="60%">{t("Descripción")}</HeaderCell>
+                <HeaderCell width="20%">{t("Nombre")}</HeaderCell>
+                <HeaderCell width="50%">{t("Descripción")}</HeaderCell>
                 <HeaderCell width="10%">{t("Precio")}</HeaderCell>
                 <HeaderCell width="10%">{t("Stock")}</HeaderCell>
               </Row>
