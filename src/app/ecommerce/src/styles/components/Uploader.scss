@@ -23,3 +23,12 @@
   gap: 0;
   flex-grow: 1;
 }
+
+.images_uploader {
+  display: flex;
+
+  img {
+    width: 130px;
+    flex-grow: 0;
+  }
+}

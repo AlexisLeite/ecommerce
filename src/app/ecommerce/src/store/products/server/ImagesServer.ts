@@ -35,7 +35,17 @@ export async function refresh(
 }
 
 export async function remove(productId: number) {
-  const result = await getPrismaClient().product.delete({
+  const img = await (
+    await getPrismaClient()
+  ).product.findFirst({
+    where: { images: { some: { id: productId } } },
+  });
+
+  if (img) {
+    throw "Cannot remove, element has dependencies";
+  }
+
+  const result = await getPrismaClient().image.delete({
     where: { id: productId },
   });
 

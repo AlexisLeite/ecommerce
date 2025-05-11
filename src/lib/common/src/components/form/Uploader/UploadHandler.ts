@@ -27,7 +27,10 @@ export class Upload {
   }>();
   on = this.emitter.on.bind(this.emitter);
 
-  constructor(private file: File) {
+  constructor(
+    private endPoint: string,
+    private file: File,
+  ) {
     makeObservable(this, { state: observable });
     void this.start();
   }
@@ -42,7 +45,7 @@ export class Upload {
     this.state.fileName = this.file.name;
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post(this.endPoint, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -79,12 +82,12 @@ export class UploadHandler {
 
   on = this.emitter.on.bind(this.emitter);
 
-  constructor() {
+  constructor(private endPoint: string) {
     makeObservable(this, { state: observable });
   }
 
-  public static download(id: number) {
-    return axios.get<UploadedFile>(`/api/upload?id=${id}`);
+  public download(id: number) {
+    return axios.get<UploadedFile>(`${this.endPoint}?id=${id}`);
   }
 
   upload(files: FileList) {
@@ -103,7 +106,7 @@ export class UploadHandler {
   }
 
   private queue(file: File) {
-    const upload = new Upload(file);
+    const upload = new Upload(this.endPoint, file);
     this.state.uploads.push(upload);
 
     upload.on("error", () => {

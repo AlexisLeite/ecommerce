@@ -1,28 +1,5 @@
 @import './mixins';
 
-@import 'components/AccordionItem';
-@import 'components/BaseModal';
-@import 'components/Card.scss';
-@import 'components/Carousel.scss';
-@import 'components/Form';
-@import 'components/LinearLoader';
-@import 'components/List';
-@import 'components/ListCRUDItems';
-@import 'components/MDRender';
-@import 'components/Notifications';
-@import 'components/Pagination.scss';
-@import 'components/Panel';
-@import 'components/ScreenLocker';
-@import 'components/Stack';
-@import 'components/StarsRate';
-@import 'components/table';
-@import 'components/TwoColumns';
-@import 'components/Uploader';
-@import 'components/VerticalNavigation.scss';
-
-@import './theme/administration.scss';
-@import './theme/landing.scss';
-
 :root {
   --font-size-icon: 12px;
   --font-size-normal: 16px;
@@ -198,3 +175,26 @@ copilot-main {
 label {
   font-weight: bold;
 }
+
+@import 'components/AccordionItem';
+@import 'components/BaseModal';
+@import 'components/Card.scss';
+@import 'components/Carousel.scss';
+@import 'components/Form';
+@import 'components/LinearLoader';
+@import 'components/List';
+@import 'components/ListCRUDItems';
+@import 'components/MDRender';
+@import 'components/Notifications';
+@import 'components/Pagination.scss';
+@import 'components/Panel';
+@import 'components/ScreenLocker';
+@import 'components/Stack';
+@import 'components/StarsRate';
+@import 'components/table';
+@import 'components/TwoColumns';
+@import 'components/Uploader';
+@import 'components/VerticalNavigation.scss';
+
+@import './theme/administration.scss';
+@import './theme/landing.scss';

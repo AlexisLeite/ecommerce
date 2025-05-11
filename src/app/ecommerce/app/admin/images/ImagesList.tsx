@@ -7,19 +7,23 @@ import {
   IconButton,
   Pagination,
   Row,
+  Square,
   Stack,
   Table,
   TBody,
   TCRUDStorePagination,
   THead,
+  WhenInsideScreen,
 } from "common";
 import { useTranslation } from "react-i18next";
-import { FaTrash } from "@meronex/icons/fa";
+import { FaPlus, FaTrash } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
 import {
   ImagesListStore,
   TImageListData,
 } from "@/src/store/products/ImagesStore";
+import Link from "next/link";
+import Image from "next/image";
 
 export const ImagesList = ({
   data,
@@ -28,27 +32,27 @@ export const ImagesList = ({
 }) => {
   return (
     <>
-      <ProductsListRender data={data} />
+      <ImagesListRender data={data} />
     </>
   );
 };
 
-const ProductsListRender = observer(
+const ImagesListRender = observer(
   ({ data }: { data?: TCRUDStorePagination<TImageListData> }) => {
     const store = ImagesListStore.getInstance(data);
     const { t } = useTranslation();
 
     return (
-      <Stack>
+      <Stack className="main__section">
+        <WhenInsideScreen onInside={() => store.refresh()} />
         <div className="table_wrapper">
           {store.error}
           <Table>
             <THead>
               <Row>
-                <HeaderCell>{t("Acciones")}</HeaderCell>
-                <HeaderCell>{t("Id")}</HeaderCell>
-                <HeaderCell>{t("Título")}</HeaderCell>
-                <HeaderCell>{t("Imágen")}</HeaderCell>
+                <HeaderCell width={"10%"}>{t("Acciones")}</HeaderCell>
+                <HeaderCell width={"70%"}>{t("Título")}</HeaderCell>
+                <HeaderCell width={"20%"}>{t("Imágen")}</HeaderCell>
               </Row>
             </THead>
             <TBody>
@@ -61,13 +65,30 @@ const ProductsListRender = observer(
                       </IconButton>
                     </HStack>
                   </Cell>
-                  <Cell>Not implemented</Cell>
+                  <Cell>{c.title}</Cell>
+                  <Cell>
+                    <Square size={130}>
+                      <Image
+                        alt=""
+                        width={130}
+                        height={130}
+                        src={`/api/images/${c.id}`}
+                      />
+                    </Square>
+                  </Cell>
                 </Row>
               ))}
             </TBody>
           </Table>
         </div>
-        <Pagination store={store} />
+        <HStack className="footer_section">
+          <Pagination store={store} />
+          <Link href="/admin/images/create">
+            <IconButton>
+              <FaPlus />
+            </IconButton>
+          </Link>
+        </HStack>
       </Stack>
     );
   },

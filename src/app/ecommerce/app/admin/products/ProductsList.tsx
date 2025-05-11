@@ -47,11 +47,11 @@ const ProductsListRender = observer(
           <Table>
             <THead>
               <Row>
-                <HeaderCell>{t("Acciones")}</HeaderCell>
-                <HeaderCell>{t("Nombre")}</HeaderCell>
-                <HeaderCell>{t("Descripción")}</HeaderCell>
-                <HeaderCell>{t("Precio")}</HeaderCell>
-                <HeaderCell>{t("Stock")}</HeaderCell>
+                <HeaderCell width="10%">{t("Acciones")}</HeaderCell>
+                <HeaderCell width="10%">{t("Nombre")}</HeaderCell>
+                <HeaderCell width="60%">{t("Descripción")}</HeaderCell>
+                <HeaderCell width="10%">{t("Precio")}</HeaderCell>
+                <HeaderCell width="10%">{t("Stock")}</HeaderCell>
               </Row>
             </THead>
             <TBody>
