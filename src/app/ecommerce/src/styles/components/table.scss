@@ -1,15 +1,31 @@
 .table {
   border-collapse: collapse;
   border-radius: var(--radius-section);
-  overflow: hidden;
   width: 100%;
   box-shadow: var(--shadow-small);
   text-align: left;
+
+  .table__thead {
+    background: var(--color-primary-main);
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+  }
 
   .table__header_cell {
     background: var(--color-primary-main);
     color: var(--color-primary-contrast);
     padding: var(--space-4) var(--space-5);
+
+    &:first-child {
+      border-bottom-left-radius: var(--radius-section);
+      border-top-left-radius: var(--radius-section);
+    }
+
+    &:last-child {
+      border-bottom-right-radius: var(--radius-section);
+      border-top-right-radius: var(--radius-section);
+    }
   }
 
   .table__cell {
