@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <main>
         <LandingPage data={data} />
       </main>

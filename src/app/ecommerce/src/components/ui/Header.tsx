@@ -1,5 +1,4 @@
 "use client";
-import "../../styles/theme/ui/header.scss";
 import { search } from "@/src/store/products/server/ProductsServer";
 import { useBouncedFn } from "common";
 import Link from "next/link";

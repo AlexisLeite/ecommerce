@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import "../../styles/theme/ui/carousel.css";
 import { Button } from "common";
 import Image from "next/image";
 
