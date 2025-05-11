@@ -1,6 +1,7 @@
 import { Image, Product } from "@prisma/client";
 import { CRUDStore } from "common";
 import { refresh } from "./server/refresh";
+import { removeProduct } from "./server/removeProduct";
 
 export type TProductListData = Pick<
   Product,
@@ -10,8 +11,16 @@ export type TProductListData = Pick<
 export class ProductsListStore extends CRUDStore<TProductListData> {
   private constructor() {
     super({
-      delete: () =>
-        Promise.resolve({ success: false, error: "Not implemented" }),
+      delete: async (id) => {
+        try {
+          await removeProduct(id);
+          return {
+            success: true,
+          };
+        } catch (error) {
+          return { error: String(error), success: false };
+        }
+      },
       findPaged: async (page) => {
         try {
           const result = await refresh(page);
