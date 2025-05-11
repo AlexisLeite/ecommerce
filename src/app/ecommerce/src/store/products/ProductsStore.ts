@@ -53,6 +53,6 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
   }
 
   public get products(): TProductListData[] {
-    return this.state.pages[this.state.currentPage]?.data || [];
+    return this.currentPage?.data || [];
   }
 }

@@ -72,10 +72,7 @@ export class CRUDStore<DataType extends { id: number }> {
     if (this.state.pages[this.state.currentPage]) {
       this.lastShownPage = this.state.currentPage;
     }
-    return (
-      this.state.pages[this.state.currentPage] ||
-      this.state.pages[this.lastShownPage]
-    );
+    return this.state.pages[this.lastShownPage];
   }
 
   get error() {
