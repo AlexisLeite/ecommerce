@@ -1,11 +1,13 @@
 "use client";
+
 import { useState } from "react";
-import { Button } from "./Button";
-import '../../styles/theme/ui/carousel.css';
+import "../../styles/theme/ui/carousel.css";
+import { Button } from "common";
+import Image from "next/image";
 
 export const Carousel = () => {
   const slides = [
-    "/images/slide1.jpg",
+    "/images/slide1.png",
     "/images/slide2.png",
     "/images/slide3.png",
   ];
@@ -18,10 +20,15 @@ export const Carousel = () => {
   return (
     <div className="carousel">
       <div className="carousel__imgContainer">
-        <img src={slides[current]} alt={`Slide ${current + 1}`} />
+        <Image
+          src={slides[current]}
+          alt={`Slide ${current + 1}`}
+          width={1600}
+          height={1200}
+        />
       </div>
 
-      <Button onClick={prev} variant="primary" className="carousel__prev">
+      <Button onClick={prev} variant="ghost" className="carousel__prev">
         ‹
       </Button>
       <Button className="carousel__next" onClick={next} variant="primary">

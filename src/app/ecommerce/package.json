@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "db-generate-client": "prisma generate",
+    "db-update": "prisma migrate dev",
     "db-drop-update": "prisma migrate reset && prisma migrate dev"
   },
   "dependencies": {
+    "@meronex/icons": "^4.0.0",
     "@prisma/client": "^6.7.0",
+    "chart.js": "^4.4.9",
     "common": "^0.0.3",
     "i18next": "^25.1.2",
     "i18next-browser-languagedetector": "^8.1.0",
@@ -18,9 +21,13 @@
     "mobx": "^6.13.7",
     "mobx-react-lite": "^4.1.0",
     "next": "15.3.2",
+    "nextjs-toploader": "^3.8.16",
     "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
-    "react-i18next": "^15.5.1"
+    "react-i18next": "^15.5.1",
+    "sass-glob-importer": "^1.0.1",
+    "swr": "^2.3.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

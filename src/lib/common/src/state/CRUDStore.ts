@@ -1,82 +1,157 @@
-import { makeObservable, observable } from "mobx";
-import { ScreenLocker } from "../components/ScreenLocker/ScreenLocker";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
+import { TaskSerialEnqueuer } from "../TaskSerialEnqueuer";
 
-interface Controller<DataType> {
-  findAll: () => Promise<DataType[]>;
+export type TCRUDOperation<Result> = {
+  success: boolean;
+  result?: Result;
+  error?: string;
+};
 
-  findPaged?: (offset?: number) => Promise<DataType[]>;
+export type TCRUDStorePagination<T> = {
+  data: T[];
+  currentPage: number;
+  pageSize: number;
+  totalPages: number;
+  totalRegisters: number;
+};
 
-  delete(inst: DataType): Promise<void>;
-
-  save(inst: DataType): Promise<void>;
+export interface Controller<DataType> {
+  delete(id: number): Promise<TCRUDOperation<void>>;
+  findPaged: (
+    page: number,
+  ) => Promise<TCRUDOperation<TCRUDStorePagination<DataType>>>;
+  getInitialData?: () => TCRUDStorePagination<DataType>;
+  save(inst: DataType): Promise<TCRUDOperation<DataType>>;
 }
 
-interface CRUDStoreState<DataType> {
-  data: DataType[];
-  mode: "list" | "create";
+export type TCRUDStoreState<DataType> = {
+  currentPage: number;
   loading: number;
-  page: number;
-}
+  pages: Record<number, TCRUDStorePagination<DataType>>;
+  revalidateError?: string;
+};
 
-export class CRUDStore<DataType> {
-  public state: CRUDStoreState<DataType>;
+export class CRUDStore<DataType extends { id: number }> {
+  protected state: TCRUDStoreState<DataType>;
+  protected queue = new TaskSerialEnqueuer();
 
   constructor(protected controller: Controller<DataType>) {
-    this.state = { data: [], loading: 0, mode: "list", page: 0 };
+    this.state = {
+      pages: {},
+      currentPage: 1,
+      loading: 0,
+    };
 
-    makeObservable<this, "state">(this, { state: observable });
+    makeObservable<this, "state">(this, {
+      state: observable,
+      currentPage: computed,
+      isLoading: computed,
+      hasPrevious: computed,
+      hasMore: computed,
+      asyncAction: action,
+      gotoPage: action,
+    });
 
-    this.refresh();
+    if (controller.getInitialData) {
+      this.state.pages[1] = controller.getInitialData!();
+    } else {
+      setTimeout(() => {
+        this.refresh();
+      }, 1000);
+    }
+  }
+
+  private lastShownPage = 1;
+  public get currentPage() {
+    if (this.state.pages[this.state.currentPage]) {
+      this.lastShownPage = this.state.currentPage;
+    }
+    return this.state.pages[this.lastShownPage];
+  }
+
+  get error() {
+    return this.state.revalidateError;
   }
 
   get isLoading() {
     return this.state.loading > 0;
   }
 
-  async asyncAction<T>(cb: () => Promise<T>): Promise<T> {
-    this.state.loading++;
-    try {
-      return await cb();
-    } finally {
-      this.state.loading--;
-    }
+  public get hasPrevious() {
+    return this.state.currentPage > 1;
   }
 
-  async lockingAction<T>(cb: () => Promise<T>): Promise<T> {
-    const unlock = ScreenLocker.instance.lock();
-    try {
-      return await cb();
-    } finally {
-      unlock();
-    }
+  public get hasMore() {
+    return (
+      this.state.currentPage <
+      this.state.pages[this.state.currentPage].totalPages
+    );
+  }
+  async asyncAction<T>(cb: () => Promise<T>): Promise<T> {
+    this.state.loading++;
+
+    return new Promise<T>((resolve) =>
+      this.queue.push(async () => {
+        try {
+          resolve(await cb());
+        } finally {
+          runInAction(() => {
+            this.state.loading--;
+          });
+        }
+      }),
+    );
   }
 
   async upsert(inst: Omit<DataType, "id">) {
-    await this.lockingAction(async () => {
+    await this.asyncAction(async () => {
       await this.controller.save(inst as DataType);
       await this.refresh();
     });
   }
 
-  async delete(inst: DataType) {
-    await this.lockingAction(async () => {
-      await this.controller.delete(inst);
-      await this.refresh();
+  async delete(id: number) {
+    await this.asyncAction(async () => {
+      const result = await this.controller.delete(id);
+      if (result.success) {
+        await this.refresh();
+      } else {
+        this.state.revalidateError = result.error;
+      }
     });
   }
 
   async refresh() {
-    this.lockingAction(async () => {
-      this.state.data = await (this.controller.findPaged !== undefined
-        ? this.controller.findPaged!(this.state.page)
-        : this.controller.findAll());
+    this.asyncAction(async () => {
+      const page = this.state.currentPage;
+      const result = await this.controller.findPaged(page);
+      if (result.success) {
+        this.state.pages[page] = result.result!;
+        delete this.state.revalidateError;
+      } else {
+        this.state.revalidateError = result.error || "Error while revalidating";
+      }
     });
   }
 
   async gotoPage(page: number) {
-    await this.lockingAction(async () => {
-      this.state.page = page;
+    this.state.currentPage = page;
+    await this.asyncAction(async () => {
       await this.refresh();
     });
+  }
+
+  public next() {
+    this.gotoPage(this.state.currentPage + 1);
+  }
+
+  public previous() {
+    this.gotoPage(this.state.currentPage - 1);
   }
 }

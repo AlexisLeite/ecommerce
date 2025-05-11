@@ -1,9 +1,8 @@
 import { enableStaticRendering } from "mobx-react-lite";
-import { ProductsListStore, TProductListData } from "./ProductsStore";
-import { TPage } from "./server/refresh";
+import { ProductsListStore } from "./ProductsStore";
 
 enableStaticRendering(typeof window === "undefined");
 
-export function getProductsStore(data: TPage<TProductListData>) {
-  return new ProductsListStore(data);
+export function getProductsStore() {
+  return ProductsListStore.getInstance;
 }

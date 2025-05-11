@@ -1,0 +1,25 @@
+.administration {
+    .table_wrapper {
+        height: calc(100vh - 180px);
+        overflow: auto;
+    }
+
+    .pagination {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main__section {
+        align-items: stretch;
+    }
+
+    .create_button {
+        align-self: flex-start;
+    }
+
+    .footer_section {
+        display: flex;
+        gap: var(--space-1);
+        justify-content: center;
+    }
+}

@@ -1,5 +1,3 @@
-@use '../mixins.scss' as *;
-
 .two_columns {
   display: flex;
   gap: var(--space-4);
@@ -7,7 +5,9 @@
   padding: var(--space-4);
 
 
-  h1, h2, p {
+  h1,
+  h2,
+  p {
     margin: 0
   }
 

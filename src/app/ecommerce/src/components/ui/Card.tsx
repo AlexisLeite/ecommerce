@@ -1,7 +1,7 @@
 "use client";
 
-import '../../styles/theme/ui/card.css';
-import { Button } from './Button';
+import "../../styles/theme/ui/card.css";
+import { Button } from "./Button";
 
 const Card = ({
   title,
@@ -19,7 +19,6 @@ const Card = ({
   return (
     <div className="card">
       <div>
-
         <div className="card__imgContainer">
           <img src={image} alt={title} />
         </div>

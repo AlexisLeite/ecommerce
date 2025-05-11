@@ -1,0 +1,10 @@
+.vertical_navigation {
+    list-style: none;
+
+    a {
+        padding: var(--space-4);
+        display: block;
+
+        @include buttonHover(ghost);
+    }
+}
