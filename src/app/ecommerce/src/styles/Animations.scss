@@ -1,0 +1,23 @@
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out-right {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@mixin animation($name, $time, $ease) {
+    animation: #{$name} #{$time} #{$ease} forwards;
+}

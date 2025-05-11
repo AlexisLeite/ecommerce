@@ -2,9 +2,11 @@
 
 import {
   Cell,
+  Drawer,
   HeaderCell,
   HStack,
   IconButton,
+  ModalsController,
   Pagination,
   Row,
   Stack,
@@ -15,7 +17,7 @@ import {
   WhenInsideScreen,
 } from "common";
 import { useTranslation } from "react-i18next";
-import { FaEdit, FaTrash } from "@meronex/icons/fa";
+import { FaEdit, FaTrash, FaPlus } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
 import {
@@ -90,7 +92,18 @@ const ProductsListRender = observer(
             </TBody>
           </Table>
         </div>
-        <Pagination store={store} />
+        <HStack className="footer_section">
+          <Pagination store={store} />
+          <IconButton
+            onClick={() => {
+              ModalsController.instance.append(
+                new Drawer({ content: "Hello!", title: "First drawer" }),
+              );
+            }}
+          >
+            <FaPlus />
+          </IconButton>
+        </HStack>
       </Stack>
     );
   },

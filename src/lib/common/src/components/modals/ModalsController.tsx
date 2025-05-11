@@ -1,7 +1,11 @@
 import { observer } from "mobx-react-lite";
-import { Fragment } from "react";
+import { FC, Fragment } from "react";
 import { makeObservable, observable } from "mobx";
-import { BaseModal } from "./BaseModal";
+
+export interface IModal {
+  Component: FC<{ close: () => void }>;
+  onClose(): Promise<boolean>;
+}
 
 export class ModalsController {
   public static Provider = observer(() => {
@@ -26,7 +30,7 @@ export class ModalsController {
   });
 
   public static instance: ModalsController = new ModalsController();
-  private modals: Map<number, BaseModal> = new Map();
+  private modals: Map<number, IModal> = new Map();
   private id = 0;
 
   private constructor() {
@@ -35,7 +39,7 @@ export class ModalsController {
     });
   }
 
-  append(node: BaseModal) {
+  append(node: IModal) {
     const key = this.id++;
     this.id = this.id % 999999; // How many modals?
 

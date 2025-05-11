@@ -5,7 +5,7 @@ import { FocusTrap } from "focus-trap-react";
 import { RiCloseFill } from "@meronex/icons/all";
 import { observer } from "mobx-react-lite";
 import { IconButton } from "../form/IconButton";
-import { ModalsController } from "./ModalsController";
+import { IModal, ModalsController } from "./ModalsController";
 
 export type TModalSize = "sm" | "md" | "lg" | "xl";
 
@@ -19,7 +19,7 @@ export function useModalContext() {
   return useContext(ModalContext)!;
 }
 
-export abstract class BaseModal {
+export abstract class BaseModal implements IModal {
   public Component = observer(({ close }: { close: () => void }) => {
     const { t } = useTranslation();
     const footer = this.getModalFooter(close, t);

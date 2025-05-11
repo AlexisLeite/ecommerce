@@ -90,6 +90,10 @@
 body {
   margin: 0;
   padding: 0;
+
+  &.drawer_open {
+    margin-right: 350px;
+  }
 }
 
 small {
@@ -176,8 +180,9 @@ label {
   font-weight: bold;
 }
 
+@import './Animations.scss';
+
 @import 'components/AccordionItem';
-@import 'components/BaseModal';
 @import 'components/Card.scss';
 @import 'components/Carousel.scss';
 @import 'components/Form';
@@ -185,6 +190,7 @@ label {
 @import 'components/List';
 @import 'components/ListCRUDItems';
 @import 'components/MDRender';
+@import 'components/Modals';
 @import 'components/Notifications';
 @import 'components/Pagination.scss';
 @import 'components/Panel';
