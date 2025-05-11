@@ -1,4 +1,3 @@
-import { ProductsMain } from "../src/components/list/ProductsMain";
 import { StoreProvider } from "@/src/store/products/StoreProvider";
 import { refresh } from "@/src/store/products/server/refresh";
 import { LandingPage } from "./template1/LandingPage";
@@ -10,7 +9,6 @@ export default async function Home() {
     <div>
       <main>
         <StoreProvider data={page}>
-          {/* <ProductsMain /> */}
           <LandingPage />
         </StoreProvider>
       </main>

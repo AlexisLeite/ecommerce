@@ -5,6 +5,7 @@ import Card from "../../../src/components/ui/Card";
 
 export const Products = () => {
   const store = useProducts();
+
   return (
     <div className="products">
       {store.products.map((c) => (

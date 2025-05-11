@@ -1,11 +1,12 @@
 "use client";
-import "../../styles/components/ui/header.css";
+
 const navItems = [
   { label: "Inicio", selected: true },
   { label: "Categorías", selected: false },
   { label: "Ofertas", selected: false },
   { label: "Contacto", selected: false },
 ];
+
 export const Header = () => {
   return (
     <header className="header">
