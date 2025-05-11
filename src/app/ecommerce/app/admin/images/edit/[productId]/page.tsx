@@ -1,5 +1,9 @@
-const ProductEdition = ({ params }: { params: { productId: number } }) => {
-  return <>Products edition {params.productId}</>;
+const ProductEdition = async ({
+  params,
+}: {
+  params: Promise<{ productId: number }>;
+}) => {
+  return <>Products edition {(await params).productId}</>;
 };
 
 export default ProductEdition;

@@ -1,3 +1,5 @@
+"use server";
+
 import { getPrismaClient } from "@/src/prisma/getClient";
 import { revalidatePath } from "next/cache";
 import { TCRUDStorePagination } from "common";

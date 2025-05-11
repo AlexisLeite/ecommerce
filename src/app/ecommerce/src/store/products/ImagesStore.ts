@@ -1,6 +1,6 @@
 import { Image } from "@prisma/client";
 import { CRUDStore, TCRUDStorePagination } from "common";
-import { ImagesServer } from "./server/ImagesServer";
+import { refresh, remove } from "./server/ImagesServer";
 
 export type TImageListData = Pick<Image, "id" | "title">;
 
@@ -9,7 +9,7 @@ export class ImagesListStore extends CRUDStore<TImageListData> {
     super({
       delete: async (id) => {
         try {
-          await ImagesServer.remove(id);
+          await remove(id);
           return {
             success: true,
           };
@@ -19,7 +19,7 @@ export class ImagesListStore extends CRUDStore<TImageListData> {
       },
       findPaged: async (page) => {
         try {
-          const result = await ImagesServer.refresh(page);
+          const result = await refresh(page);
 
           return {
             success: !!result,

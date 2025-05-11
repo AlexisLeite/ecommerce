@@ -1,6 +1,6 @@
 "use server";
 
-import { refresh } from "@/src/store/products/server/refresh";
+import { refresh } from "@/src/store/products/server/ImagesServer";
 import { ImagesList } from "./ImagesList";
 
 export default async function AdminPage() {
