@@ -28,13 +28,13 @@ $breakpoints: (
 @mixin rowHover($variant: primary) {
   @if $variant ==primary {
     &:hover td {
-      background: color-mix(in srgb, var(--color-background-paper) 80%, black)
+      background: color-mix(in srgb, var(--color-background-paper) 93%, rgb(6, 0, 83))
     }
   }
 
   @if ($variant ==secondary) {
     &:hover td {
-      background: color-mix(in srgb, var(--color-secondary-main) 40%, var(--color-background-paper))
+      background: color-mix(in srgb, var(--color-secondary-main) 20%, var(--color-background-paper))
     }
   }
 }
