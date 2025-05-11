@@ -18,7 +18,7 @@ const Card = ({
   return (
     <div className="card">
       <div className="card__imgContainer">
-        <img src={image} alt={title} />
+        <img src={image || "no-product.jpg"} alt={title} />
       </div>
       <div className="card__info">
         <h3>{title}</h3>

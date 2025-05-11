@@ -5,6 +5,7 @@ export * from "./hooks";
 export * from "./number";
 export * from "./state/BaseStore";
 export * from "./state/CRUDStore";
+export * from "./state/EndlessScrollStore";
 export * from "./TaskSerialEnqueuer";
 export * from "./util";
 export * from "./validation";
