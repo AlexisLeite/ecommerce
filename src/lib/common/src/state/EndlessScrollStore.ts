@@ -63,7 +63,7 @@ export class EndlessScrollStore<DataType extends { id: number }> {
   }
 
   async refresh() {
-    this.asyncAction(async () => {
+    await this.asyncAction(async () => {
       const page = this.state.currentPage;
       const result = await this.controller.findPaged(page);
       if (result.success) {

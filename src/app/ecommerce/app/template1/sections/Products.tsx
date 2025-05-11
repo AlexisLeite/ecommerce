@@ -7,6 +7,7 @@ import {
 import Card from "../../../src/components/ui/Card";
 import { observer } from "mobx-react-lite";
 import { TCRUDStorePagination, WhenInsideScreen } from "common";
+import { CgSpinner } from "@meronex/icons/cg";
 
 export const ProductsRenderer = observer(
   ({ data }: { data?: TCRUDStorePagination<TProductListData> }) => {
@@ -24,11 +25,8 @@ export const ProductsRenderer = observer(
             onBuy={() => console.log(`${c.name} añadido al carrito`)}
           />
         ))}
-        <WhenInsideScreen
-          onInside={() => {
-            store.loadMore();
-          }}
-        />
+        {store.isLoading && <CgSpinner />}
+        <WhenInsideScreen onInside={() => store.loadMore()} />
       </div>
     );
   },
