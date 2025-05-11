@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "./Button";
-import "../../styles/components/ui/card.css";
+import '../../styles/theme/ui/card.css';
+import { Button } from './Button';
 
 const Card = ({
   title,
@@ -18,18 +18,21 @@ const Card = ({
 }) => {
   return (
     <div className="card">
-      <div className="card__imgContainer">
-        <img src={image} alt={title} />
-      </div>
-      <div className="card__info">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <div className="card__footer">
-          <span className="card__price">$ {price}</span>
-          <Button variant="primary" onClick={onBuy}>
-            Comprar
-          </Button>
+      <div>
+
+        <div className="card__imgContainer">
+          <img src={image} alt={title} />
         </div>
+        <div className="card__info">
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </div>
+      </div>
+      <div className="card__footer">
+        <span className="card__price">$ {price}</span>
+        <Button variant="primary" onClick={onBuy}>
+          Comprar
+        </Button>
       </div>
     </div>
   );

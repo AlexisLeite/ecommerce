@@ -1,5 +1,5 @@
 "use client";
-import "../../styles/components/ui/header.css";
+import "../../styles/theme/ui/header.scss";
 const navItems = [
   { label: "Inicio", selected: true },
   { label: "Categorías", selected: false },
@@ -10,7 +10,10 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="header__content">
-        <h2>Home</h2>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <img src={'/images/logo.png'}></img>
+          <h2>Ferretería</h2>
+        </div>
         <input
           type="text"
           placeholder="Buscar productos..."
@@ -22,7 +25,7 @@ export const Header = () => {
             <span
               className={`${c.selected ? "selected" : ""}`}
               key={c.label}
-              onClick={() => {}}
+              onClick={() => { }}
             >
               {c.label}
             </span>

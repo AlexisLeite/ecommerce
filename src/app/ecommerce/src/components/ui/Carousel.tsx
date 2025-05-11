@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "./Button";
-import "../../styles/components/ui/carousel.css";
+import '../../styles/theme/ui/carousel.css';
 
 export const Carousel = () => {
   const slides = [

@@ -1,8 +1,8 @@
 .primary {
-  background: var(--primary);
+  background: var(--color-primary-main);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   width: 32px;
   height: 32px;
   cursor: pointer;

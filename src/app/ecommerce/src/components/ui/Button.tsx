@@ -1,6 +1,6 @@
 "use client";
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
-import "../../styles/components/ui/button.css";
+import '../../styles/theme/ui/button.css';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
