@@ -31,7 +31,7 @@ export const Pagination = observer(({ store }: { store: CRUDStore<any> }) => {
       <IconButton
         disabled={
           store.state.loading > 0 ||
-          store.state.currentPage === store.state.totalPages
+          store.state.currentPage === store.currentPage?.totalPages
         }
         onClick={() => {
           store.gotoPage(store.state.currentPage + 1);

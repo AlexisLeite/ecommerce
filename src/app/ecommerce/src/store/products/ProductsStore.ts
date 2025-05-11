@@ -39,24 +39,7 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
     return this._instance;
   }
 
-  public get currentPage() {
-    return this.state.currentPage;
-  }
-
-  public get hasPrevious() {
-    return this.state.currentPage > 1;
-  }
-
-  public get hasMore() {
-    return this.state.currentPage < this.state.totalPages;
-  }
-
-  public get products() {
-    return this.state.data;
-  }
-
-  public next() {
-    this.state.currentPage++;
-    return this.refresh();
+  public get products(): TProductListData[] {
+    return this.state.pages[this.state.currentPage]?.data || [];
   }
 }

@@ -1,4 +1,10 @@
-import { makeObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 
 export type TCRUDOperation<Result> = {
   success: boolean;
@@ -24,8 +30,11 @@ export interface Controller<DataType> {
   save(inst: DataType): Promise<TCRUDOperation<DataType>>;
 }
 
-export type TCRUDStoreState<DataType> = TCRUDStorePagination<DataType> & {
+export type TCRUDStoreState<DataType> = {
+  currentPage: number;
   loading: number;
+  pages: Record<number, TCRUDStorePagination<DataType>>;
+  revalidateError?: string;
 };
 
 export class CRUDStore<DataType extends { id: number }> {
@@ -33,23 +42,43 @@ export class CRUDStore<DataType extends { id: number }> {
 
   constructor(protected controller: Controller<DataType>) {
     this.state = {
-      loading: 0,
+      pages: {},
       currentPage: 1,
-      data: [],
-      pageSize: 1,
-      totalPages: 1,
-      totalRegisters: 1,
+      loading: 0,
     };
 
-    makeObservable<this, "state">(this, { state: observable });
+    makeObservable<this, "state">(this, {
+      state: observable,
+      currentPage: computed,
+      isLoading: computed,
+      hasPrevious: computed,
+      hasMore: computed,
+      asyncAction: action,
+      gotoPage: action,
+    });
 
     setTimeout(() => {
       this.refresh();
     }, 0);
   }
 
+  public get currentPage() {
+    return this.state.pages[this.state.currentPage];
+  }
+
   get isLoading() {
     return this.state.loading > 0;
+  }
+
+  public get hasPrevious() {
+    return this.state.currentPage > 1;
+  }
+
+  public get hasMore() {
+    return (
+      this.state.currentPage <
+      this.state.pages[this.state.currentPage].totalPages
+    );
   }
 
   async asyncAction<T>(cb: () => Promise<T>): Promise<T> {
@@ -57,7 +86,9 @@ export class CRUDStore<DataType extends { id: number }> {
     try {
       return await cb();
     } finally {
-      this.state.loading--;
+      runInAction(() => {
+        this.state.loading--;
+      });
     }
   }
 
@@ -70,26 +101,40 @@ export class CRUDStore<DataType extends { id: number }> {
 
   async delete(id: number) {
     await this.asyncAction(async () => {
-      await this.controller.delete(id);
-      await this.refresh();
+      const result = await this.controller.delete(id);
+      if (result.success) {
+        await this.refresh();
+      } else {
+        this.state.revalidateError = result.error;
+      }
     });
   }
 
   async refresh() {
     this.asyncAction(async () => {
-      const result = await this.controller.findPaged(this.state.currentPage);
+      const page = this.state.currentPage;
+      const result = await this.controller.findPaged(page);
       if (result.success) {
-        Object.assign(this.state, result.result!);
+        this.state.pages[page] = result.result!;
+        delete this.state.revalidateError;
       } else {
-        throw result.error;
+        this.state.revalidateError = result.error || "Error while revalidating";
       }
     });
   }
 
   async gotoPage(page: number) {
+    this.state.currentPage = page;
     await this.asyncAction(async () => {
-      this.state.currentPage = page;
       await this.refresh();
     });
+  }
+
+  public next() {
+    this.gotoPage(this.state.currentPage + 1);
+  }
+
+  public previous() {
+    this.gotoPage(this.state.currentPage - 1);
   }
 }

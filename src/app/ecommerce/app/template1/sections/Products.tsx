@@ -9,7 +9,7 @@ export const ProductsRenderer = observer(() => {
 
   return (
     <div className="products">
-      {store.state.data.map((c) => (
+      {store.products.map((c) => (
         <Card
           key={c.id}
           title={c.name}

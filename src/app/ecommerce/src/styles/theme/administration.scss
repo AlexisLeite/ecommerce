@@ -1,1 +1,10 @@
-.administration {}
+.administration {
+    .table_wrapper {
+        height: calc(100vh - 180px)
+    }
+
+    .pagination {
+        align-items: center;
+        justify-content: center;
+    }
+}
