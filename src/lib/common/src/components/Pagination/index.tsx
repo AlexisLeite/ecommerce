@@ -27,7 +27,9 @@ export const Pagination = observer(({ store }: { store: CRUDStore<any> }) => {
       >
         <FaArrowLeft />
       </IconButton>
-      <div className={"current_page"}>{store.state.currentPage}</div>
+      <div className={"current_page"}>
+        {store.state.currentPage} / {store.currentPage.totalPages}
+      </div>
       <IconButton
         disabled={
           store.state.loading > 0 ||

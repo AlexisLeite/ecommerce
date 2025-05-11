@@ -65,8 +65,15 @@ export class CRUDStore<DataType extends { id: number }> {
     }
   }
 
+  private lastShownPage = 1;
   public get currentPage() {
-    return this.state.pages[this.state.currentPage];
+    if (this.state.pages[this.state.currentPage]) {
+      this.lastShownPage = this.state.currentPage;
+    }
+    return (
+      this.state.pages[this.state.currentPage] ||
+      this.state.pages[this.lastShownPage]
+    );
   }
 
   get isLoading() {
