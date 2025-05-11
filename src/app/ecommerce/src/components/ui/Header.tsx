@@ -1,5 +1,5 @@
 "use client";
-
+import "../../styles/theme/ui/header.scss";
 import { search } from "@/src/store/products/server/ProductsServer";
 import { useBouncedFn } from "common";
 import Link from "next/link";
@@ -23,7 +23,10 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="header__content">
-        <h2>Home</h2>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <img src={"/images/logo.png"}></img>
+          <h2>Ferretería</h2>
+        </div>
         <input
           type="text"
           placeholder="Buscar productos..."

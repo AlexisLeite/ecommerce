@@ -1,8 +1,8 @@
 .card {
-  border: 1px solid #e0e0e0;
+  width: 230px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: rgba(220, 220, 220, 0.25) 0px 1px 1px, rgba(231, 231, 231, 0.87) 0px 0px 1px 1px;
+  box-shadow: var(--shadow-item);
   font-family: sans-serif;
   height: 350px;
   background-color: #fff;
@@ -21,7 +21,6 @@
 img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 .card__info {
