@@ -2,12 +2,15 @@
 
 @import 'components/AccordionItem';
 @import 'components/BaseModal';
+@import 'components/Card.scss';
+@import 'components/Carousel.scss';
 @import 'components/Form';
 @import 'components/LinearLoader';
 @import 'components/List';
 @import 'components/ListCRUDItems';
 @import 'components/MDRender';
 @import 'components/Notifications';
+@import 'components/Pagination.scss';
 @import 'components/Panel';
 @import 'components/ScreenLocker';
 @import 'components/Stack';
@@ -15,12 +18,10 @@
 @import 'components/table';
 @import 'components/TwoColumns';
 @import 'components/Uploader';
+@import 'components/VerticalNavigation.scss';
 
+@import './theme/administration.scss';
 @import './theme/landing.scss';
-
-@import './theme/ui/card.scss';
-@import './theme/ui/carousel.scss';
-@import './theme/ui/header.scss';
 
 :root {
   --font-size-icon: 12px;
@@ -52,7 +53,7 @@
   --color-chat-local-color: white;
   --color-chat-remote-color: black;
 
-  --color-background-default: #ddd;
+  --color-background-default: white;
   --color-background-disabled: #ccc;
   --color-background-item: #f5f5f5;
   --color-background-paper: white;

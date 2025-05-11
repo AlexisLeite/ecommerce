@@ -3,27 +3,25 @@
 import { getPrismaClient } from "@/src/prisma/getClient";
 import { TProductListData } from "../ProductsStore";
 import { revalidatePath } from "next/cache";
-
-export type TPage<T> = {
-  data: T[];
-  pages: number;
-  currentPage: number;
-};
+import { TCRUDStorePagination } from "common";
 
 export async function refresh(
   page: number = 0,
   revalidate = true,
-): Promise<TPage<TProductListData>> {
+): Promise<TCRUDStorePagination<TProductListData>> {
   if (revalidate) {
     revalidatePath("/");
   }
 
-  const totalProducts = await getPrismaClient().product.count();
-  const pages = Math.ceil(totalProducts / 10);
-  const currentPage = Math.max(1, Math.min(page, pages));
+  const pageSize = 10;
+  const totalRegisters = await getPrismaClient().product.count();
+  const totalPages = Math.ceil(totalRegisters / pageSize);
+  const currentPage = Math.max(1, Math.min(page, totalPages));
 
   return {
-    pages,
+    pageSize,
+    totalPages,
+    totalRegisters,
     currentPage,
     data: await getPrismaClient().product.findMany({
       take: 10,

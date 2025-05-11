@@ -1,0 +1,15 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "--space-3",
+      "description": "Space unit 3",
+      "values": []
+    },
+    {
+      "name": "--color-primary",
+      "description": "Primary color",
+      "values": []
+    }
+  ]
+}

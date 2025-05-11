@@ -1,0 +1,9 @@
+{
+    "cssVariables.lookupFiles": [
+        "src/**/*.scss"
+    ],
+    "cssVariables.excludeFiles": [
+        "**/node_modules/**",
+        "node_modules/**",
+    ]
+}
