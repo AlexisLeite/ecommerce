@@ -12,6 +12,9 @@ export const AdminAsideNavigation = () => {
         <Link href="/admin">{t("Inicio")}</Link>
       </ListItem>
       <ListItem>
+        <Link href="/admin/categories">{t("Categorias")}</Link>
+      </ListItem>
+      <ListItem>
         <Link href="/admin/products">{t("Productos")}</Link>
       </ListItem>
       <ListItem>
