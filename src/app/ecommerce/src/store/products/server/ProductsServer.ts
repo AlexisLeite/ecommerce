@@ -37,7 +37,7 @@ export async function refresh(
           },
         },
       },
-      orderBy: { name: "asc" },
+      orderBy: [{ name: "asc" }, { id: "asc" }],
     }),
   };
 }
