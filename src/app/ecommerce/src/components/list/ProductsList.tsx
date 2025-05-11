@@ -1,12 +1,12 @@
 "use client";
 
-import { useProducts } from "@/src/store/products/StoreProvider";
+import { ProductsListStore } from "@/src/store/products/ProductsStore";
 import { Cell, HeaderCell, Row, Table, TBody, THead } from "common";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 
 export const ProductsList = observer(() => {
-  const store = useProducts();
+  const store = ProductsListStore.instance;
 
   return (
     <div
@@ -60,7 +60,7 @@ export const ProductsList = observer(() => {
               disabled={store.isLoading}
               style={{ background: store.isLoading ? "red" : undefined }}
               onClick={() => {
-                store.remove(c.id);
+                store.delete(c.id);
               }}
             >
               x

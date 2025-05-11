@@ -1,14 +1,15 @@
 "use client";
 
-import { useProducts } from "../../../src/store/products/StoreProvider";
 import Card from "../../../src/components/ui/Card";
+import { ProductsListStore } from "@/src/store/products/ProductsStore";
+import { observer } from "mobx-react-lite";
 
-export const Products = () => {
-  const store = useProducts();
+export const ProductsRenderer = observer(() => {
+  const store = ProductsListStore.instance;
 
   return (
     <div className="products">
-      {store.products.map((c) => (
+      {store.state.data.map((c) => (
         <Card
           key={c.id}
           title={c.name}
@@ -20,4 +21,6 @@ export const Products = () => {
       ))}
     </div>
   );
-};
+});
+
+export const Products = () => <ProductsRenderer />;

@@ -19,7 +19,7 @@ export interface Controller<DataType> {
     page: number,
   ) => Promise<TCRUDOperation<TCRUDStorePagination<DataType>>>;
 
-  delete(inst: DataType): Promise<TCRUDOperation<void>>;
+  delete(id: number): Promise<TCRUDOperation<void>>;
 
   save(inst: DataType): Promise<TCRUDOperation<DataType>>;
 }
@@ -28,7 +28,7 @@ export type TCRUDStoreState<DataType> = TCRUDStorePagination<DataType> & {
   loading: number;
 };
 
-export class CRUDStore<DataType> {
+export class CRUDStore<DataType extends { id: number }> {
   public state: TCRUDStoreState<DataType>;
 
   constructor(protected controller: Controller<DataType>) {
@@ -66,9 +66,9 @@ export class CRUDStore<DataType> {
     });
   }
 
-  async delete(inst: DataType) {
+  async delete(id: number) {
     await this.asyncAction(async () => {
-      await this.controller.delete(inst);
+      await this.controller.delete(id);
       await this.refresh();
     });
   }
