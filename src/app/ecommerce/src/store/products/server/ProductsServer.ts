@@ -67,43 +67,22 @@ export async function search(query: string) {
       }
     >
   >(Prisma.sql`
-  WITH query_norm AS (
-    SELECT lower(unaccent(${query})) AS q
-  )
-  SELECT
-    p.*,
-    (p.name_norm = q)         AS is_exact,
-    similarity(p.name_norm, q) AS sim
-  FROM "Product" p
-  CROSS JOIN query_norm
-  ORDER BY
-    is_exact DESC,
-    sim      DESC
-  LIMIT 30;`);
-
-  console.log(`
-  WITH query_norm AS (
-    SELECT lower(unaccent('${query}')) AS q
-  )
-  SELECT
-    p.*,
-    (p.name_norm = q)         AS is_exact,
-    similarity(p.name_norm, q) AS sim
-  FROM "Product" p
-  CROSS JOIN query_norm
-  WHERE p.name_norm % q
-  ORDER BY
-    is_exact ASC,
-    sim      DESC
-  LIMIT 3;`);
-  console.log("");
-  console.log("");
-  console.log("");
-  console.log("");
-  console.log(results);
+    WITH query_norm AS (
+      SELECT lower(unaccent(${query})) AS q
+    )
+    SELECT
+      p.*,
+      (p.name_norm = q)         AS is_exact,
+      similarity(p.name_norm, q) AS sim
+    FROM "Product" p
+    CROSS JOIN query_norm
+    ORDER BY
+      is_exact DESC,
+      sim      DESC
+    LIMIT 30;`);
 
   return {
-    pageSize: 10,
+    pageSize: 30,
     totalPages: 1,
     totalRegisters: 10,
     currentPage: 1,

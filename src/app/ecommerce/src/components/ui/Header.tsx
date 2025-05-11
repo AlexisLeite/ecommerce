@@ -2,12 +2,14 @@
 
 import { search } from "@/src/store/products/server/ProductsServer";
 import { useBouncedFn } from "common";
+import Link from "next/link";
 
 const navItems = [
-  { label: "Inicio", selected: true },
-  { label: "Categorías", selected: false },
-  { label: "Ofertas", selected: false },
-  { label: "Contacto", selected: false },
+  { link: "/", label: "Inicio", selected: true },
+  { link: "/admin", label: "Admin", selected: false },
+  { link: "/categories", label: "Categorías", selected: false },
+  { link: "/offers", label: "Ofertas", selected: false },
+  { link: "/contact", label: "Contacto", selected: false },
 ];
 
 export const Header = () => {
@@ -33,13 +35,13 @@ export const Header = () => {
 
         <nav>
           {navItems.map((c) => (
-            <span
+            <Link
               className={`${c.selected ? "selected" : ""}`}
               key={c.label}
-              onClick={() => {}}
+              href={c.link}
             >
               {c.label}
-            </span>
+            </Link>
           ))}
         </nav>
       </div>
