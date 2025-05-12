@@ -45,6 +45,8 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
 
   private static _instance: ProductsListStore;
   public static getInstance(data?: TCRUDStorePagination<TProductListData>) {
+    if (typeof window === "undefined") return new ProductsListStore(data);
+
     if (!this._instance) {
       this._instance = new ProductsListStore(data);
     }

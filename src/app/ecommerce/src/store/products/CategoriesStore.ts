@@ -34,6 +34,7 @@ export class CategoriesListStore extends CRUDStore<TCategoryListData> {
       },
       getInitialData: data
         ? () => {
+            console.log(data);
             return data!;
           }
         : undefined,
@@ -42,6 +43,8 @@ export class CategoriesListStore extends CRUDStore<TCategoryListData> {
 
   private static _instance: CategoriesListStore;
   public static getInstance(data?: TCRUDStorePagination<TCategoryListData>) {
+    if (typeof window === "undefined") return new CategoriesListStore(data);
+
     if (!this._instance) {
       this._instance = new CategoriesListStore(data);
     }

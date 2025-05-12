@@ -37,12 +37,12 @@ export const CategoriesList = ({
 }) => {
   return (
     <>
-      <ProductsListRender data={data} />
+      <CategoriesListRender data={data} />
     </>
   );
 };
 
-const ProductsListRender = observer(
+const CategoriesListRender = observer(
   ({ data }: { data?: TCRUDStorePagination<TCategoryListData> }) => {
     const store = CategoriesListStore.getInstance(data);
     const { t } = useTranslation();

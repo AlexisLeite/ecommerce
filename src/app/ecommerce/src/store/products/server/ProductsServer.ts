@@ -8,12 +8,7 @@ import { Prisma } from "@prisma/client";
 
 export async function refresh(
   page: number = 0,
-  revalidate = false,
 ): Promise<TCRUDStorePagination<TProductListData>> {
-  if (revalidate) {
-    revalidatePath("/");
-  }
-
   const pageSize = 10;
   const totalRegisters = await getPrismaClient().product.count();
   const totalPages = Math.ceil(totalRegisters / pageSize);

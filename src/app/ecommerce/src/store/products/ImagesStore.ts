@@ -42,6 +42,8 @@ export class ImagesListStore extends CRUDStore<TImageListData> {
 
   private static _instance: ImagesListStore;
   public static getInstance(data?: TCRUDStorePagination<TImageListData>) {
+    if (typeof window === "undefined") return new ImagesListStore(data);
+
     if (!this._instance) {
       this._instance = new ImagesListStore(data);
     }
