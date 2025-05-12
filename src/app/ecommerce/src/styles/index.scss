@@ -34,7 +34,7 @@
   --color-background-disabled: #ccc;
   --color-background-item: #f5f5f5;
   --color-background-paper: white;
-  --color-background-papiro:#f5f5f5;
+  --color-background-papiro: #f5f5f5;
   --color-background-selected: #0092;
 
   --color-disabled: black;
@@ -62,7 +62,8 @@
   --color-favourite: #caca32;
 
   --color-primary-dark: #000010;
-  --color-primary-light: indianred;;
+  --color-primary-light: indianred;
+  ;
   --color-primary-main: #b30606;
   --color-primary-contrast: white;
 
@@ -74,8 +75,8 @@
   --color-text-link: #000;
   --color-text-primary: #000;
   --color-text-title: #212121;
-  --color-text-highlight:#666;
-  
+  --color-text-highlight: #666;
+
 
   --z-index-floating-element: 1200;
   --z-index-modal: 1600;
@@ -184,6 +185,8 @@ label {
 }
 
 @import './Animations.scss';
+
+@import './admin/CRUDComponents.scss';
 
 @import 'components/AccordionItem';
 @import 'components/Card.scss';

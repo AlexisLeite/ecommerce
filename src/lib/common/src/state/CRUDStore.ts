@@ -27,14 +27,13 @@ export interface Controller<DataType> {
     page: number,
   ) => Promise<TCRUDOperation<TCRUDStorePagination<DataType>>>;
   getInitialData?: () => TCRUDStorePagination<DataType>;
-  save(inst: DataType): Promise<TCRUDOperation<DataType>>;
 }
 
 export type TCRUDStoreState<DataType> = {
   currentPage: number;
   loading: number;
   pages: Record<number, TCRUDStorePagination<DataType>>;
-  revalidateError?: string;
+  error?: string;
 };
 
 export class CRUDStore<DataType extends { id: number }> {
@@ -76,7 +75,7 @@ export class CRUDStore<DataType extends { id: number }> {
   }
 
   get error() {
-    return this.state.revalidateError;
+    return this.state.error;
   }
 
   get isLoading() {
@@ -109,20 +108,13 @@ export class CRUDStore<DataType extends { id: number }> {
     );
   }
 
-  async upsert(inst: Omit<DataType, "id">) {
-    await this.asyncAction(async () => {
-      await this.controller.save(inst as DataType);
-      await this.refresh();
-    });
-  }
-
   async delete(id: number) {
     await this.asyncAction(async () => {
       const result = await this.controller.delete(id);
       if (result.success) {
         await this.refresh();
       } else {
-        this.state.revalidateError = result.error;
+        this.state.error = result.error;
       }
     });
   }
@@ -133,9 +125,9 @@ export class CRUDStore<DataType extends { id: number }> {
       const result = await this.controller.findPaged(page);
       if (result.success) {
         this.state.pages[page] = result.result!;
-        delete this.state.revalidateError;
+        delete this.state.error;
       } else {
-        this.state.revalidateError = result.error || "Error while revalidating";
+        this.state.error = result.error || "Error while revalidating";
       }
     });
   }

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { FocusTrap } from "focus-trap-react";
@@ -13,25 +13,33 @@ export type TModalContext = {
   close: () => void;
 };
 
-const ModalContext = createContext<TModalContext | null>(null);
+export const ModalContext = createContext<TModalContext | null>(null);
 
 export function useModalContext() {
   return useContext(ModalContext)!;
 }
 
 export abstract class BaseModal implements IModal {
+  close = () => {};
+
   public Component = observer(({ close }: { close: () => void }) => {
+    const [closing, setClosing] = useState(false);
     const { t } = useTranslation();
     const footer = this.getModalFooter(close, t);
+
+    this.close = () => {
+      setClosing(true);
+      setTimeout(() => close(), 150);
+    };
 
     return (
       <div
         onClick={() => {
           if (this.getBehavior().closeOnOverlayClick) {
-            close();
+            this.close();
           }
         }}
-        className={"modal_wrapper"}
+        className={`modal_wrapper ${closing ? "is_closing" : "is_open"}`}
         ref={(el) => {
           if (el) {
             el.scrollTop = el.scrollHeight;
@@ -40,28 +48,26 @@ export abstract class BaseModal implements IModal {
         }}
       >
         <FocusTrap>
-          <ModalContext.Provider value={{ close }}>
-            <div
-              onClick={(ev) => {
-                ev.stopPropagation();
-              }}
-              className={`modal_container size-${this.getModalSize()}`}
-            >
-              <div className={"modal_header"}>
-                {this.getModalTitle(t)}
-                <IconButton
-                  size={"sm"}
-                  variant={"outline-danger"}
-                  className={"modal_close"}
-                  onClick={close}
-                >
-                  <RiCloseFill />
-                </IconButton>
-              </div>
-              <div className={"modal_body"}>{this.getModalContent(t)}</div>
-              {footer && <div className={"modal_footer"}>{footer}</div>}
+          <div
+            onClick={(ev) => {
+              ev.stopPropagation();
+            }}
+            className={`modal_container size-${this.getModalSize()}`}
+          >
+            <div className={"modal_header"}>
+              {this.getModalTitle(t)}
+              <IconButton
+                size={"sm"}
+                variant={"outline-danger"}
+                className={"modal_close"}
+                onClick={this.close}
+              >
+                <RiCloseFill />
+              </IconButton>
             </div>
-          </ModalContext.Provider>
+            <div className={"modal_body"}>{this.getModalContent(t)}</div>
+            {footer && <div className={"modal_footer"}>{footer}</div>}
+          </div>
         </FocusTrap>
       </div>
     );

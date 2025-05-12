@@ -1,8 +1,10 @@
 import { observer } from "mobx-react-lite";
 import { FC, Fragment } from "react";
 import { makeObservable, observable } from "mobx";
+import { ModalContext } from "./BaseModal";
 
 export interface IModal {
+  close: () => unknown;
   Component: FC<{ close: () => void }>;
   onClose(): Promise<boolean>;
 }
@@ -10,19 +12,14 @@ export interface IModal {
 export class ModalsController {
   public static Provider = observer(() => {
     return (
-      <div
-        className="modals__container"
-        onKeyDown={(ev) => {
-          if (ev.code === "Escape") {
-            this.instance.close([...this.instance.modals.keys()].at(-1));
-          }
-        }}
-      >
+      <div className="modals__container">
         {[...this.instance.modals.entries()].map(([key, Node]) => (
           <Fragment key={key}>
-            <Node.Component
-              close={this.instance.close.bind(this.instance, key)}
-            />
+            <ModalContext.Provider value={{ close: () => Node.close() }}>
+              <Node.Component
+                close={this.instance.close.bind(this.instance, key)}
+              />
+            </ModalContext.Provider>
           </Fragment>
         ))}
       </div>
@@ -37,6 +34,13 @@ export class ModalsController {
     makeObservable<ModalsController, "modals">(this, {
       modals: observable,
     });
+
+    typeof document !== "undefined" &&
+      document?.addEventListener("keydown", (ev) => {
+        if (ev.code === "Escape") {
+          [...this.modals.values()].at(-1)?.close();
+        }
+      });
   }
 
   append(node: IModal) {

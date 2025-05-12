@@ -37,7 +37,6 @@ export class ImagesListStore extends CRUDStore<TImageListData> {
             return data!;
           }
         : undefined,
-      save: () => Promise.resolve({ success: false, error: "Not implemented" }),
     });
   }
 

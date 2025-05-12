@@ -4,15 +4,17 @@ import { getPrismaClient } from "@/src/prisma/getClient";
 import { revalidatePath } from "next/cache";
 import { TCRUDStorePagination } from "common";
 import { TCategoryListData } from "../CategoriesStore";
+import { Category } from "@prisma/client";
+
+function invalidateDeps() {
+  revalidatePath("/");
+  revalidatePath("/admin/categories");
+  revalidatePath("/admin/products");
+}
 
 export async function refresh(
   page: number = 0,
-  revalidate = false,
 ): Promise<TCRUDStorePagination<TCategoryListData>> {
-  if (revalidate) {
-    revalidatePath("/");
-  }
-
   const pageSize = 10;
   const totalRegisters = await getPrismaClient().category.count();
   const totalPages = Math.ceil(totalRegisters / pageSize);
@@ -36,7 +38,26 @@ export async function remove(categoryId: number) {
     where: { id: categoryId },
   });
 
-  revalidatePath("/");
+  invalidateDeps();
 
   return result;
+}
+
+export type TCreateCategory = Pick<
+  Category,
+  "description" | "name" | "imageId"
+>;
+
+export async function create(category: TCreateCategory) {
+  try {
+    const result = await getPrismaClient().category.create({
+      data: { ...category, reg_date: new Date() },
+    });
+
+    invalidateDeps();
+
+    return result;
+  } catch (e) {
+    return null;
+  }
 }

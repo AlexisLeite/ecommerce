@@ -40,7 +40,6 @@ export class ProductsListStore extends CRUDStore<TProductListData> {
             return data!;
           }
         : undefined,
-      save: () => Promise.resolve({ success: false, error: "Not implemented" }),
     });
   }
 

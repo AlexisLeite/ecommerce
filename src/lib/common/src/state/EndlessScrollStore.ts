@@ -1,9 +1,9 @@
 import {
-  action,
-  computed,
-  makeObservable,
-  observable,
-  runInAction,
+    action,
+    computed,
+    makeObservable,
+    observable,
+    runInAction,
 } from "mobx";
 import { TCRUDStoreState, Controller } from "./CRUDStore";
 
@@ -71,9 +71,9 @@ export class EndlessScrollStore<DataType extends { id: number }> {
           ...this.state.pages[1].data,
           ...result.result!.data!,
         ];
-        delete this.state.revalidateError;
+        delete this.state.error;
       } else {
-        this.state.revalidateError = result.error || "Error while revalidating";
+        this.state.error = result.error || "Error while revalidating";
       }
     });
   }

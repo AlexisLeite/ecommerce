@@ -25,6 +25,10 @@ import {
   TCategoryListData,
 } from "@/src/store/products/CategoriesStore";
 import { UploadedImage } from "@/src/components/ui/UploadedImage";
+import {
+  CreateCategory,
+  createCategoryForm,
+} from "@/src/components/crud/CreateCategory";
 
 export const CategoriesList = ({
   data,
@@ -49,7 +53,7 @@ const ProductsListRender = observer(
         <div style={{ position: "absolute" }}>
           <WhenInsideScreen onInside={() => store.refresh()} />
         </div>
-        <div className="table_wrapper">
+        <div className="table_wrapper categories_list">
           {store.error}
           <Table>
             <THead>
@@ -79,6 +83,7 @@ const ProductsListRender = observer(
                   </Cell>
                   <Cell>
                     <UploadedImage
+                      className="category_image"
                       imageId={c.imageId}
                       alt={c.description}
                       width={150}
@@ -96,9 +101,23 @@ const ProductsListRender = observer(
           <Pagination store={store} />
           <IconButton
             onClick={() => {
-              ModalsController.instance.append(
-                new Drawer({ content: "Hello!", title: "First drawer" }),
-              );
+              const drawer = new Drawer({
+                content: (
+                  <div className="create_category_drawer">
+                    <CreateCategory
+                      onCreate={() => {
+                        drawer.close();
+                        store.refresh();
+                      }}
+                    />
+                  </div>
+                ),
+                title: "First drawer",
+                onClose: () => {
+                  createCategoryForm.reset();
+                },
+              });
+              ModalsController.instance.append(drawer);
             }}
           >
             <FaPlus />

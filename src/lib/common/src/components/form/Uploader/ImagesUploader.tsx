@@ -7,10 +7,12 @@ import { FaPlus } from "@meronex/icons/fa";
 export const ImagesUploader = ({
   apiEndpoint,
   images,
+  maxImages,
   onUploaded,
 }: {
   apiEndpoint: string;
-  images?: ReactNode;
+  images?: ReactNode[];
+  maxImages?: number;
   onUploaded: (id: number) => unknown;
 }) => {
   return (
@@ -22,7 +24,10 @@ export const ImagesUploader = ({
         }}
         endPoint={apiEndpoint}
         Render={({ onClick }) => (
-          <IconButton onClick={onClick}>
+          <IconButton
+            onClick={onClick}
+            disabled={(maxImages ?? Infinity) <= (images?.length || 0)}
+          >
             <FaPlus />
           </IconButton>
         )}

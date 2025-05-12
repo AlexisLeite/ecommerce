@@ -37,7 +37,6 @@ export class CategoriesListStore extends CRUDStore<TCategoryListData> {
             return data!;
           }
         : undefined,
-      save: () => Promise.resolve({ success: false, error: "Not implemented" }),
     });
   }
 

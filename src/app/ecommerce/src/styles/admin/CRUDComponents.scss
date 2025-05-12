@@ -1,0 +1,9 @@
+.create_category_drawer {
+    .form {
+        grid-template-columns: 1fr;
+
+        &>* {
+            grid-column: 1/1;
+        }
+    }
+}
