@@ -23,8 +23,8 @@ export const Carousel = () => {
         <Image
           src={slides[current]}
           alt={`Slide ${current + 1}`}
-          width={1600}
-          height={1200}
+          width={1200}
+          height={600}
         />
       </div>
 
