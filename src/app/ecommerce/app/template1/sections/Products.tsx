@@ -6,7 +6,7 @@ import {
 } from "@/src/store/products/EndlessScrollProducts";
 import Card from "../../../src/components/ui/Card";
 import { observer } from "mobx-react-lite";
-import { TCRUDStorePagination, WhenInsideScreen } from "common";
+import { TCRUDStorePagination } from "common";
 import { CgSpinner } from "@meronex/icons/cg";
 
 export const ProductsRenderer = observer(
@@ -15,7 +15,7 @@ export const ProductsRenderer = observer(
 
     return (
       <div className="products">
-        {store.products?.map((c) => (
+        {store.products.map((c) => (
           <Card
             key={c.id}
             title={c.name}
@@ -30,7 +30,6 @@ export const ProductsRenderer = observer(
           />
         ))}
         {store.isLoading && <CgSpinner />}
-        <WhenInsideScreen onInside={() => store.loadMore()} />
       </div>
     );
   },
