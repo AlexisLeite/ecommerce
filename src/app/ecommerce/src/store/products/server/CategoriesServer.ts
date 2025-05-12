@@ -1,15 +1,13 @@
 "use server";
 
 import { getPrismaClient } from "@/src/prisma/getClient";
-import { revalidatePath } from "next/cache";
 import { TCRUDStorePagination } from "common";
 import { TCategoryListData } from "../CategoriesStore";
 import { Category } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 function invalidateDeps() {
-  revalidatePath("/");
-  revalidatePath("/admin/categories");
-  revalidatePath("/admin/products");
+  revalidatePath("/", "layout");
 }
 
 export async function refresh(

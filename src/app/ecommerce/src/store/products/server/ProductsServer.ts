@@ -48,7 +48,7 @@ export async function remove(productId: number) {
     where: { id: productId },
   });
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
 
   return result;
 }
