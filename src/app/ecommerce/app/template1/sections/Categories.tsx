@@ -45,10 +45,7 @@ export const Categories = () => {
       {dummyCategories.map((cat) => (
         <div key={cat.id} className="category category__card">
           <div className="category__icon">
-            <img
-              src={cat.src}
-              alt={cat.name}
-            />
+            <img src={cat.src} alt={cat.name} />
           </div>
           <h4 className="category__name">{cat.name}</h4>
           <p className="category__desc">{cat.description}</p>

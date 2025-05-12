@@ -1,10 +1,10 @@
 "use client";
 import { Products } from "./sections/Products";
-import { SlideSection } from "./sections/SlideSection";
 import { Categories } from "./sections/Categories";
 import { ImagesSection } from "./sections/ImagesSection";
 import { TProductListData } from "@/src/store/products/ProductsStore";
 import { TCRUDStorePagination } from "common";
+import { Carousel } from "../../src/components/ui/Carousel";
 
 export const LandingPage = ({
   data,
@@ -13,10 +13,10 @@ export const LandingPage = ({
 }) => {
   return (
     <div className="landingPage">
-      <SlideSection />
+      <Carousel />;
       <Categories />
-      <ImagesSection />
       <Products data={data} />
+      <ImagesSection />
     </div>
   );
 };

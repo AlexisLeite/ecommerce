@@ -2,6 +2,7 @@
 import { search } from "@/src/store/products/server/ProductsServer";
 import { useBouncedFn } from "common";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { link: "/", label: "Inicio", selected: true },
@@ -12,12 +13,14 @@ const navItems = [
 ];
 
 export const Header = () => {
+  const path = usePathname();
   const fn = useBouncedFn((q: string) => {
     search(q).then((c) => {
       console.clear();
       c?.data.map((c) => c.name).forEach((x) => console.log(x));
     });
   });
+  if (path.startsWith("/admin")) return null;
 
   return (
     <header className="main_header">
