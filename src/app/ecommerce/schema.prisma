@@ -1,10 +1,11 @@
 datasource db {
-    provider = "postgresql" // or "mysql", "sqlite", etc.
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
 generator client {
     provider = "prisma-client-js"
+    output   = "node_modules/.prisma/client"
 }
 
 model User {
@@ -65,13 +66,18 @@ model Image {
 }
 
 model Category {
-    id          Int       @id @default(autoincrement())
+    id          Int    @id @default(autoincrement())
     name        String
     description String
     imageId     Int
-    Image       Image     @relation(fields: [imageId], references: [id])
-    reg_date    DateTime
-    products    Product[]
+    Image       Image  @relation(fields: [imageId], references: [id])
+
+    parentId Int?
+    parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+    children Category[] @relation("CategoryHierarchy")
+
+    reg_date DateTime
+    products Product[]
 }
 
 model Campaign {

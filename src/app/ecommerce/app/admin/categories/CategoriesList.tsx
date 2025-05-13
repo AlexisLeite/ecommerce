@@ -19,7 +19,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { FaEdit, FaTrash, FaPlus } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "next/navigation";
 import {
   CategoriesListStore,
   TCategoryListData,
@@ -29,6 +28,52 @@ import {
   CreateCategory,
   createCategoryForm,
 } from "@/src/components/crud/CreateCategory";
+import { Category } from "@prisma/client";
+import {
+  create,
+  update,
+  TUpdateCategory,
+} from "@/src/store/products/server/CategoriesServer";
+
+function categoryEdition(category?: Category) {
+  const store = CategoriesListStore.getInstance();
+
+  createCategoryForm.reset();
+  if (category) {
+    createCategoryForm.update(category);
+  }
+
+  const drawer = new Drawer({
+    content: (
+      <div className="create_category_drawer">
+        <CreateCategory
+          onCreate={async (category) => {
+            try {
+              if (category.id) {
+                update(category as TUpdateCategory);
+              } else {
+                await create(category);
+              }
+
+              drawer.close();
+              store.refresh();
+            } catch (e) {
+              console.error(e);
+              return "Error al crear la categoría. Intente otra vez";
+            }
+            return true;
+          }}
+        />
+      </div>
+    ),
+    title: "First drawer",
+    onClose: () => {
+      createCategoryForm.reset();
+    },
+  });
+
+  ModalsController.instance.append(drawer);
+}
 
 export const CategoriesList = ({
   data,
@@ -46,7 +91,6 @@ const CategoriesListRender = observer(
   ({ data }: { data?: TCRUDStorePagination<TCategoryListData> }) => {
     const store = CategoriesListStore.getInstance(data);
     const { t } = useTranslation();
-    const router = useRouter();
 
     return (
       <Stack>
@@ -70,11 +114,7 @@ const CategoriesListRender = observer(
                   <Cell>
                     <HStack>
                       <IconButton size="sm">
-                        <FaEdit
-                          onClick={() =>
-                            router.push(`/admin/products/edit/${c.id}`)
-                          }
-                        />
+                        <FaEdit onClick={() => categoryEdition(c)} />
                       </IconButton>
                       <IconButton size="sm">
                         <FaTrash onClick={() => store.delete(c.id)} />
@@ -99,27 +139,7 @@ const CategoriesListRender = observer(
         </div>
         <HStack className="footer_section">
           <Pagination store={store} />
-          <IconButton
-            onClick={() => {
-              const drawer = new Drawer({
-                content: (
-                  <div className="create_category_drawer">
-                    <CreateCategory
-                      onCreate={() => {
-                        drawer.close();
-                        store.refresh();
-                      }}
-                    />
-                  </div>
-                ),
-                title: "First drawer",
-                onClose: () => {
-                  createCategoryForm.reset();
-                },
-              });
-              ModalsController.instance.append(drawer);
-            }}
-          >
+          <IconButton onClick={() => categoryEdition()}>
             <FaPlus />
           </IconButton>
         </HStack>

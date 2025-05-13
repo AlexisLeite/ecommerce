@@ -1,7 +1,4 @@
-import {
-  create,
-  TCreateCategory,
-} from "@/src/store/products/server/CategoriesServer";
+import { TCreateCategory } from "@/src/store/products/server/CategoriesServer";
 import {
   Button,
   Form,
@@ -15,7 +12,15 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 
-export const createCategoryForm = new ValidatableForm<TCreateCategory>({
+export const createCategoryForm = new ValidatableForm<
+  TCreateCategory & { id?: number }
+>({
+  id: new ValidatableField({
+    name: "id",
+    title: "",
+    required: false,
+    value: undefined,
+  }),
   name: new ValidatableField({
     name: "name",
     title: "Nombre",
@@ -35,7 +40,11 @@ export const createCategoryForm = new ValidatableForm<TCreateCategory>({
   }),
 });
 
-export const CreateCategory = ({ onCreate }: { onCreate: () => unknown }) => {
+export const CreateCategory = ({
+  onCreate,
+}: {
+  onCreate: (cat: TCreateCategory & { id?: number }) => Promise<true | string>;
+}) => {
   const [images, setImages] = useState<number[]>([]);
   const [error, setError] = useState("");
 
@@ -46,12 +55,10 @@ export const CreateCategory = ({ onCreate }: { onCreate: () => unknown }) => {
         const result = await createCategoryForm.validate();
         if (result === true) {
           const category = createCategoryForm.getMappedObject();
-          const result = await create(category);
+          const result = await onCreate(category);
 
-          if (result) {
-            onCreate();
-          } else {
-            setError("Error al crear la categoría. Intente otra vez");
+          if (result !== true) {
+            setError(result);
           }
         }
       }}

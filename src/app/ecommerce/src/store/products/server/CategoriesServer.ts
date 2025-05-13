@@ -41,11 +41,27 @@ export type TCreateCategory = Pick<
   Category,
   "description" | "name" | "imageId"
 >;
+export type TUpdateCategory = TCreateCategory & { id: number };
 
 export async function create(category: TCreateCategory) {
   try {
     const result = await getPrismaClient().category.create({
       data: { ...category, reg_date: new Date() },
+    });
+
+    revalidatePath("/admin/categories");
+
+    return result;
+  } catch (e) {
+    return null;
+  }
+}
+
+export async function update(category: TUpdateCategory) {
+  try {
+    const result = await getPrismaClient().category.update({
+      data: { ...category, reg_date: new Date() },
+      where: { id: category.id },
     });
 
     revalidatePath("/admin/categories");

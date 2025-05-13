@@ -34,7 +34,6 @@ export class CategoriesListStore extends CRUDStore<TCategoryListData> {
       },
       getInitialData: data
         ? () => {
-            console.log(data);
             return data!;
           }
         : undefined,
