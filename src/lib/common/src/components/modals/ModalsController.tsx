@@ -27,7 +27,7 @@ export class ModalsController {
   });
 
   public static instance: ModalsController = new ModalsController();
-  private modals: Map<number, IModal> = new Map();
+  public modals: Map<number, IModal> = new Map();
   private id = 0;
 
   private constructor() {

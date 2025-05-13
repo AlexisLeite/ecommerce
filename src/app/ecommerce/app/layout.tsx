@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import { ModalsProvider } from "@/src/components/ModalsProvider";
 import "../src/styles/index.scss";
-import { Header } from "../src/components/ui/Header";
+import { Common } from "@/src/components/ui/Common";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,8 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextTopLoader height={6} />
-        <ModalsProvider />
-        <Header />
+        <Common />
         {children}
       </body>
     </html>

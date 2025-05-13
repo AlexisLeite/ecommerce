@@ -19,10 +19,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { FaEdit, FaTrash, FaPlus } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
-import {
-  CategoriesListStore,
-  TCategoryListData,
-} from "@/src/store/products/CategoriesStore";
+import { CategoriesListStore } from "@/src/store/products/CategoriesStore";
 import { UploadedImage } from "@/src/components/ui/UploadedImage";
 import {
   CreateCategory,
@@ -33,15 +30,12 @@ import {
   create,
   update,
   TUpdateCategory,
+  TCategoryListData,
 } from "@/src/store/products/server/CategoriesServer";
+import { parseServerResponse } from "@/src/store/products/server/processServerResponse";
 
 function categoryEdition(category?: Category) {
   const store = CategoriesListStore.getInstance();
-
-  createCategoryForm.reset();
-  if (category) {
-    createCategoryForm.update(category);
-  }
 
   const drawer = new Drawer({
     content: (
@@ -50,9 +44,16 @@ function categoryEdition(category?: Category) {
           onCreate={async (category) => {
             try {
               if (category.id) {
-                update(category as TUpdateCategory);
+                await parseServerResponse(
+                  update(category as TUpdateCategory),
+                  () => {
+                    throw "";
+                  },
+                );
               } else {
-                await create(category);
+                await parseServerResponse(create(category), () => {
+                  throw "";
+                });
               }
 
               drawer.close();
@@ -71,6 +72,16 @@ function categoryEdition(category?: Category) {
       createCategoryForm.reset();
     },
   });
+
+  ModalsController.instance.modals.values().forEach((c) => {
+    if (c instanceof Drawer) {
+      c.close();
+    }
+  });
+  createCategoryForm.reset();
+  if (category) {
+    createCategoryForm.update(category);
+  }
 
   ModalsController.instance.append(drawer);
 }
@@ -106,6 +117,7 @@ const CategoriesListRender = observer(
                 <HeaderCell width="10%">{t("Imagen")}</HeaderCell>
                 <HeaderCell width="20%">{t("Nombre")}</HeaderCell>
                 <HeaderCell width="50%">{t("Descripción")}</HeaderCell>
+                <HeaderCell width="50%">{t("Padre")}</HeaderCell>
               </Row>
             </THead>
             <TBody>
@@ -113,11 +125,11 @@ const CategoriesListRender = observer(
                 <Row key={c.id}>
                   <Cell>
                     <HStack>
-                      <IconButton size="sm">
-                        <FaEdit onClick={() => categoryEdition(c)} />
+                      <IconButton size="sm" onClick={() => categoryEdition(c)}>
+                        <FaEdit />
                       </IconButton>
-                      <IconButton size="sm">
-                        <FaTrash onClick={() => store.delete(c.id)} />
+                      <IconButton size="sm" onClick={() => store.delete(c.id)}>
+                        <FaTrash />
                       </IconButton>
                     </HStack>
                   </Cell>
@@ -132,6 +144,7 @@ const CategoriesListRender = observer(
                   </Cell>
                   <Cell>{c.name}</Cell>
                   <Cell>{c.description}</Cell>
+                  <Cell>{c.parent?.name}</Cell>
                 </Row>
               ))}
             </TBody>

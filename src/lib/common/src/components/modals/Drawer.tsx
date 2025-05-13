@@ -2,7 +2,7 @@ import { FC, ReactNode, useState } from "react";
 import { IModal } from "./ModalsController";
 import { HStack, Stack } from "../layout";
 import { IconButton } from "../form";
-import { MdClose } from "@meronex/icons/ios";
+import { VscClose } from "@meronex/icons/vsc";
 
 export type TDrawer = {
   content: ReactNode;
@@ -53,7 +53,7 @@ export class Drawer implements IModal {
               this.close!();
             }}
           >
-            <MdClose />
+            <VscClose />
           </IconButton>
         </HStack>
         <div className="drawer__content">{this.props.content}</div>

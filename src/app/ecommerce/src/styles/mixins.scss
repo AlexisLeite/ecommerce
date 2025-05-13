@@ -88,7 +88,9 @@ $breakpoints: (
       background: var(--color-danger-main);
       color: var(--color-danger-contrast);
 
-      svg {
+      svg,
+      path {
+        color: var(--color-danger-contrast);
         fill: var(--color-danger-contrast);
       }
     }

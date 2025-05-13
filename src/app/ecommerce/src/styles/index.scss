@@ -14,6 +14,7 @@
   --shadow-outline: 0px 1px 2px 2px #0001;
   --shadow-item: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   --shadow-small: 0px 3px 2px #0004;
+  --shadow-notification: 0px 3px 2px #0004;
   --shadow-badge: 0px 1px 7px 1px #0001;
   --shadow-chat-message: 0px 3px 2px #0004;
   --shadow-text-author: 0 0px 2px #0004;
@@ -47,8 +48,8 @@
   --radius-field: var(--space-1);
   --radius-section: var(--space-2);
 
-  --color-danger-dark: #330000;
-  --color-danger-light: #ffc1c1;
+  --color-danger-dark: rgb(85, 0, 0);
+  --color-danger-light: #fff0f0;
   --color-danger-main: darkred;
   --color-danger-contrast: white;
 
@@ -80,6 +81,7 @@
 
   --z-index-floating-element: 1200;
   --z-index-modal: 1600;
+  --z-index-notifications: 1800;
   --z-index-locker: 2000;
 
   background: var(--color-background-default);

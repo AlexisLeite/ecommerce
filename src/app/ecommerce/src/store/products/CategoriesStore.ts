@@ -1,42 +1,46 @@
 import { Category } from "@prisma/client";
 import { CRUDStore, TCRUDStorePagination } from "common";
-import { refresh, remove } from "./server/CategoriesServer";
-
-export type TCategoryListData = Category;
+import {
+  getAll,
+  refresh,
+  remove,
+  TCategoryListData,
+} from "./server/CategoriesServer";
+import { makeObservable, observable } from "mobx";
+import { parseServerResponse } from "./server/processServerResponse";
+import { isErrorResponse } from "./server/errorHandlingMiddleware";
 
 export class CategoriesListStore extends CRUDStore<TCategoryListData> {
+  private localState: {
+    allCategories: Category[];
+  } = { allCategories: [] };
+
   private constructor(data?: TCRUDStorePagination<TCategoryListData>) {
     super({
       delete: async (id) => {
-        try {
-          await remove(id);
-          return {
-            success: true,
-          };
-        } catch (error) {
-          return { error: String(error), success: false };
-        }
+        const result = await parseServerResponse(remove(id));
+
+        return {
+          success: !isErrorResponse(result),
+        };
       },
       findPaged: async (page) => {
-        try {
-          const result = await refresh(page);
+        const result = await parseServerResponse(refresh(page));
 
-          return {
-            success: !!result,
-            result,
-          };
-        } catch (error) {
-          return {
-            success: false,
-            error: `Error while loading (${String(error)})`,
-          };
-        }
+        return {
+          success: result !== null,
+          result: result || undefined,
+        };
       },
       getInitialData: data
         ? () => {
             return data!;
           }
         : undefined,
+    });
+
+    makeObservable<CategoriesListStore, "localState">(this, {
+      localState: observable,
     });
   }
 
@@ -52,5 +56,13 @@ export class CategoriesListStore extends CRUDStore<TCategoryListData> {
 
   public get categories(): TCategoryListData[] {
     return this.currentPage?.data || [];
+  }
+
+  public get allCategories() {
+    return this.localState.allCategories;
+  }
+
+  public async refreshAllCategories() {
+    this.localState.allCategories = (await parseServerResponse(getAll())) || [];
   }
 }

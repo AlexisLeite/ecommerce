@@ -2,9 +2,9 @@
 
 import { getPrismaClient } from "@/src/prisma/getClient";
 import { TProductListData } from "@/src/store/products/ProductsStore";
-import { revalidatePath } from "next/cache";
 import { TCRUDStorePagination } from "common";
 import { Prisma } from "@prisma/client";
+import { revalidate } from "@/src/store/products/server/revalidations";
 
 export async function refresh(
   page: number = 0,
@@ -43,7 +43,7 @@ export async function remove(productId: number) {
     where: { id: productId },
   });
 
-  revalidatePath("/", "layout");
+  revalidate("products");
 
   return result;
 }

@@ -1,3 +1,4 @@
+import { CategoriesListStore } from "@/src/store/products/CategoriesStore";
 import { TCreateCategory } from "@/src/store/products/server/CategoriesServer";
 import {
   Button,
@@ -7,10 +8,12 @@ import {
   ValidatableForm,
   ValidationField,
   ValidationInput,
+  ValidationSelect,
   ValidationTextarea,
 } from "common";
+import { observer } from "mobx-react-lite";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect } from "react";
 
 export const createCategoryForm = new ValidatableForm<
   TCreateCategory & { id?: number }
@@ -37,55 +40,80 @@ export const createCategoryForm = new ValidatableForm<
     name: "imageId",
     title: "Imagen",
     value: -1,
+    required: true,
+  }),
+  parentId: new ValidatableField<number | null, string | null>({
+    name: "parentId",
+    title: "Parent",
+    value: null,
+    storeToSubmitValueMapping(c) {
+      return c !== null ? Number.parseInt(c) : c;
+    },
   }),
 });
 
-export const CreateCategory = ({
-  onCreate,
-}: {
-  onCreate: (cat: TCreateCategory & { id?: number }) => Promise<true | string>;
-}) => {
-  const [images, setImages] = useState<number[]>([]);
-  const [error, setError] = useState("");
+export const CreateCategory = observer(
+  ({
+    onCreate,
+  }: {
+    onCreate: (
+      cat: TCreateCategory & { id?: number },
+    ) => Promise<true | string>;
+  }) => {
+    useEffect(() => {
+      CategoriesListStore.getInstance().refreshAllCategories();
+    }, []);
 
-  return (
-    <Form
-      onSubmit={async (ev) => {
-        ev.preventDefault();
-        const result = await createCategoryForm.validate();
-        if (result === true) {
-          const category = createCategoryForm.getMappedObject();
-          const result = await onCreate(category);
-
-          if (result !== true) {
-            setError(result);
+    return (
+      <Form
+        onSubmit={async (ev) => {
+          ev.preventDefault();
+          const result = await createCategoryForm.validate();
+          if (result === true) {
+            const category = createCategoryForm.getMappedObject();
+            onCreate(category);
           }
-        }
-      }}
-    >
-      {error}
-      <ValidationInput field={createCategoryForm.getField("name")} />
-      <ValidationTextarea field={createCategoryForm.getField("description")} />
-      <ValidationField text="Imagen">
-        <ImagesUploader
-          apiEndpoint="/api/images"
-          onUploaded={(ev) => {
-            setImages((c) => [...c, ev]);
-            createCategoryForm.getField("imageId").setValue(ev);
-          }}
-          maxImages={1}
-          images={images.map((c) => (
-            <Image
-              key={c}
-              alt=""
-              width={170}
-              height={114}
-              src={`/api/images/${c}`}
-            />
-          ))}
+        }}
+      >
+        <ValidationInput field={createCategoryForm.getField("name")} />
+        <ValidationTextarea
+          field={createCategoryForm.getField("description")}
         />
-      </ValidationField>
-      <Button type="submit">Confirmar</Button>
-    </Form>
-  );
-};
+        <ValidationField text="Imagen">
+          <ImagesUploader
+            apiEndpoint="/api/images"
+            onUploaded={(ev) => {
+              createCategoryForm.getField("imageId").setValue(ev);
+            }}
+            maxImages={1}
+            images={
+              createCategoryForm.getField("imageId").storeValue !== -1
+                ? [
+                    <Image
+                      alt=""
+                      width={170}
+                      height={114}
+                      src={`/api/images/${createCategoryForm.getField("imageId").storeValue}`}
+                    />,
+                  ]
+                : undefined
+            }
+          />
+        </ValidationField>
+        <ValidationSelect field={createCategoryForm.getField("parentId")}>
+          <option></option>
+          {CategoriesListStore.getInstance()
+            .allCategories.filter(
+              (c) => c.id !== createCategoryForm.getField("id").storeValue,
+            )
+            .map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+        </ValidationSelect>
+        <Button type="submit">Confirmar</Button>
+      </Form>
+    );
+  },
+);

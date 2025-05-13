@@ -1,8 +1,12 @@
-
 .notifications__wrapper {
     position: fixed;
     bottom: 0;
     right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    z-index: var(--z-index-notifications);
 
     .notification {
         display: flex;
@@ -10,12 +14,33 @@
         border: 1px solid;
         position: relative;
         width: 500px;
-        animation: slideInFromRight 0.2s ease-out forwards;
+        animation: slide-in-right 0.2s ease-out forwards;
+        border-radius: var(--radius-section);
+        padding: var(--space-3);
+        box-shadow: var(--shadow-notification);
+
+        .icon_button {
+            position: relative;
+            right: -8px;
+            top: -8px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        &.closing {
+            animation: slide-out-right 0.2s ease-out forwards;
+        }
 
         &.danger {
             background: var(--color-danger-light);
             color: var(--color-danger-dark);
             border-color: var(--color-danger-dark);
+
+            .icon_button {
+                @include buttonHover(danger);
+            }
         }
 
         &.info {
