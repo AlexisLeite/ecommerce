@@ -21,7 +21,7 @@ import { observer } from "mobx-react-lite";
 import {
   ImagesListStore,
   TImageListData,
-} from "@/src/store/products/ImagesStore";
+} from "@/src/store/ImagesStore";
 import Link from "next/link";
 import Image from "next/image";
 

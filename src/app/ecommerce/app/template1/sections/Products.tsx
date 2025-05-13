@@ -3,7 +3,7 @@
 import {
   EndlessScrollProducts,
   TProductListData,
-} from "@/src/store/products/EndlessScrollProducts";
+} from "@/src/store/EndlessScrollProducts";
 import Card from "../../../src/components/ui/Card";
 import { observer } from "mobx-react-lite";
 import { TCRUDStorePagination } from "common";

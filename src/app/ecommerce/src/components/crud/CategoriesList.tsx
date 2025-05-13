@@ -19,7 +19,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { FaEdit, FaTrash, FaPlus } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
-import { CategoriesListStore } from "@/src/store/products/CategoriesStore";
+import { CategoriesListStore } from "@/src/store/CategoriesStore";
 import { UploadedImage } from "@/src/components/ui/UploadedImage";
 import {
   CreateCategory,
@@ -31,8 +31,8 @@ import {
   update,
   TUpdateCategory,
   TCategoryListData,
-} from "@/src/store/products/server/CategoriesServer";
-import { parseServerResponse } from "@/src/store/products/server/processServerResponse";
+} from "@/src/store/server/CategoriesServer";
+import { parseServerResponse } from "@/src/store/server/processServerResponse";
 
 function categoryEdition(category?: Category) {
   const store = CategoriesListStore.getInstance();
@@ -138,8 +138,8 @@ const CategoriesListRender = observer(
                       className="category_image"
                       imageId={c.imageId}
                       alt={c.description}
-                      width={150}
-                      height={150}
+                      width={100}
+                      height={65}
                     />
                   </Cell>
                   <Cell>{c.name}</Cell>

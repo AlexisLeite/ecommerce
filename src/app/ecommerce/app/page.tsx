@@ -1,5 +1,5 @@
-import { refresh as r } from "@/src/store/products/server/CategoriesServer";
-import { refresh } from "@/src/store/products/server/ProductsServer";
+import { refresh as r } from "@/src/store/server/CategoriesServer";
+import { refresh } from "@/src/store/server/ProductsServer";
 import { LandingPage } from "./template1/LandingPage";
 
 export default async function Home() {

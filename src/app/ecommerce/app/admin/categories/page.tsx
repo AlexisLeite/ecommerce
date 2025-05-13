@@ -1,10 +1,10 @@
 "use server";
 
-import { CategoriesList } from "@/src/store/products/CategoriesList";
+import { CategoriesList } from "@/src/components/crud/CategoriesList";
 import {
   refresh,
   TCategoryListData,
-} from "@/src/store/products/server/CategoriesServer";
+} from "@/src/store/server/CategoriesServer";
 import { TCRUDStorePagination } from "common";
 
 export default async function AdminPage() {

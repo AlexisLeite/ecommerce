@@ -2,10 +2,10 @@
 import { Products } from "./sections/Products";
 import { Categories } from "./sections/Categories";
 import { ImagesSection } from "./sections/ImagesSection";
-import { TProductListData } from "@/src/store/products/ProductsStore";
+import { TProductListData } from "@/src/store/ProductsStore";
 import { TCRUDStorePagination } from "common";
 import { Carousel } from "../../src/components/ui/Carousel";
-import { TCategoryListData } from "@/src/store/products/CategoriesStore";
+import { TCategoryListData } from "@/src/store/CategoriesStore";
 
 export const LandingPage = ({
   data,

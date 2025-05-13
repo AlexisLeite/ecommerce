@@ -1,10 +1,10 @@
 "use server";
 
 import { getPrismaClient } from "@/src/prisma/getClient";
-import { TProductListData } from "@/src/store/products/ProductsStore";
+import { TProductListData } from "@/src/store/ProductsStore";
 import { TCRUDStorePagination } from "common";
 import { Prisma } from "@prisma/client";
-import { revalidate } from "@/src/store/products/server/revalidations";
+import { revalidate } from "@/src/store/server/revalidations";
 
 export async function refresh(
   page: number = 0,

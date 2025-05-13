@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { FC, Fragment } from "react";
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import { ModalContext } from "./BaseModal";
 
 export interface IModal {
@@ -31,8 +31,10 @@ export class ModalsController {
   private id = 0;
 
   private constructor() {
-    makeObservable<ModalsController, "modals">(this, {
+    makeObservable<ModalsController, "close">(this, {
       modals: observable,
+      append: action,
+      close: action,
     });
 
     typeof document !== "undefined" &&

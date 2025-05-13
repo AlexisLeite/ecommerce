@@ -1,6 +1,6 @@
 "use client";
 
-import { search } from "@/src/store/products/server/ProductsServer";
+import { search } from "@/src/store/server/ProductsServer";
 import { useBouncedFn } from "common";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

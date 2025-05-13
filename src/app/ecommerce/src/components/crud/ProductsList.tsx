@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  ProductsListStore,
-  TProductListData,
-} from "@/src/store/products/ProductsStore";
+import { ProductsListStore, TProductListData } from "@/src/store/ProductsStore";
 import {
   Cell,
   HeaderCell,

@@ -1,5 +1,5 @@
-import { CategoriesListStore } from "@/src/store/products/CategoriesStore";
-import { TCreateCategory } from "@/src/store/products/server/CategoriesServer";
+import { CategoriesListStore } from "@/src/store/CategoriesStore";
+import { TCreateCategory } from "@/src/store/server/CategoriesServer";
 import {
   Button,
   Form,
