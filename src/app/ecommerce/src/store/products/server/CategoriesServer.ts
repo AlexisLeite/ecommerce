@@ -4,6 +4,7 @@ import { getPrismaClient } from "@/src/prisma/getClient";
 import { TCRUDStorePagination } from "common";
 import { TCategoryListData } from "../CategoriesStore";
 import { Category } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export async function refresh(
   page: number = 0,
@@ -31,6 +32,8 @@ export async function remove(categoryId: number) {
     where: { id: categoryId },
   });
 
+  revalidatePath("/admin/categories");
+
   return result;
 }
 
@@ -44,6 +47,8 @@ export async function create(category: TCreateCategory) {
     const result = await getPrismaClient().category.create({
       data: { ...category, reg_date: new Date() },
     });
+
+    revalidatePath("/admin/categories");
 
     return result;
   } catch (e) {
