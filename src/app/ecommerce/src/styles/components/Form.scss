@@ -11,7 +11,10 @@
     grid-template-columns: repeat(1, 1fr);
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     margin: 0
   }
 }
@@ -19,14 +22,15 @@
 *:disabled {
   background: var(--color-background-disabled) !important;
   color: var(--color-disabled) !important;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 .required_mark {
   color: var(--color-danger-main);
 }
 
-.field__label__wrapper, .field__wrapper {
+.field__label__wrapper,
+.field__wrapper {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
