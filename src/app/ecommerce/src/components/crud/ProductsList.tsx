@@ -14,11 +14,74 @@ import {
   TCRUDStorePagination,
   THead,
   WhenInsideScreen,
+  Drawer,
+  ModalsController,
 } from "common";
 import { useTranslation } from "react-i18next";
-import { FaEdit, FaTrash } from "@meronex/icons/fa";
+import { FaEdit, FaTrash, FaPlus } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "next/navigation";
+import { createCategoryForm } from "@/src/components/crud/CreateCategory";
+import {
+  create,
+  TUpdateProduct,
+  update,
+} from "@/src/store/server/ProductsServer";
+import { parseServerResponse } from "@/src/store/server/processServerResponse";
+import { CreateProduct, createProductForm } from "./CreateProduct";
+import Image from "next/image";
+
+function productEdition(product?: TUpdateProduct) {
+  const store = ProductsListStore.getInstance();
+
+  const drawer = new Drawer({
+    content: (
+      <div className="create_product_drawer">
+        <CreateProduct
+          onCreate={async (product) => {
+            try {
+              if (product.id) {
+                await parseServerResponse(
+                  update(product as TUpdateProduct),
+                  () => {
+                    throw "";
+                  },
+                );
+              } else {
+                await parseServerResponse(create(product), () => {
+                  throw "";
+                });
+              }
+
+              drawer.close();
+              store.refresh();
+            } catch (e) {
+              console.error(e);
+              return String(e);
+            }
+            return true;
+          }}
+        />
+      </div>
+    ),
+    title: "First drawer",
+    onClose: () => {
+      createCategoryForm.reset();
+    },
+  });
+
+  ModalsController.instance.modals.values().forEach((c) => {
+    if (c instanceof Drawer) {
+      c.close();
+    }
+  });
+
+  createProductForm.reset();
+  if (product) {
+    createProductForm.update(product);
+  }
+
+  ModalsController.instance.append(drawer);
+}
 
 export const ProductsList = ({
   data,
@@ -36,7 +99,6 @@ const ProductsListRender = observer(
   ({ data }: { data?: TCRUDStorePagination<TProductListData> }) => {
     const store = ProductsListStore.getInstance(data);
     const { t } = useTranslation();
-    const router = useRouter();
 
     return (
       <Stack>
@@ -49,6 +111,7 @@ const ProductsListRender = observer(
             <THead>
               <Row>
                 <HeaderCell width="10%">{t("Acciones")}</HeaderCell>
+                <HeaderCell width="10%">{t("Imagen")}</HeaderCell>
                 <HeaderCell width="20%">{t("Nombre")}</HeaderCell>
                 <HeaderCell width="50%">{t("Descripción")}</HeaderCell>
                 <HeaderCell width="10%">{t("Precio")}</HeaderCell>
@@ -60,17 +123,30 @@ const ProductsListRender = observer(
                 <Row key={c.id}>
                   <Cell>
                     <HStack>
-                      <IconButton size="sm">
-                        <FaEdit
-                          onClick={() =>
-                            router.push(`/admin/products/edit/${c.id}`)
-                          }
-                        />
+                      <IconButton
+                        size="sm"
+                        onClick={() =>
+                          productEdition({
+                            ...c,
+                            categories: [],
+                            images: c.images.map((c) => c.id),
+                          })
+                        }
+                      >
+                        <FaEdit />
                       </IconButton>
-                      <IconButton size="sm">
-                        <FaTrash onClick={() => store.delete(c.id)} />
+                      <IconButton size="sm" onClick={() => store.delete(c.id)}>
+                        <FaTrash />
                       </IconButton>
                     </HStack>
+                  </Cell>
+                  <Cell>
+                    <Image
+                      alt=""
+                      width="70"
+                      height="50"
+                      src={`/api/images/${c.images[0]?.id}`}
+                    />
                   </Cell>
                   <Cell>{c.name}</Cell>
                   <Cell>{c.description}</Cell>
@@ -81,7 +157,12 @@ const ProductsListRender = observer(
             </TBody>
           </Table>
         </div>
-        <Pagination store={store} />
+        <HStack className="footer_section">
+          <Pagination store={store} />
+          <IconButton onClick={() => productEdition()}>
+            <FaPlus />
+          </IconButton>
+        </HStack>
       </Stack>
     );
   },

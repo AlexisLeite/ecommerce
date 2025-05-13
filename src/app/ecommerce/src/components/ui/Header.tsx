@@ -2,6 +2,7 @@
 
 import { search } from "@/src/store/server/ProductsServer";
 import { useBouncedFn } from "common";
+import { toJS } from "mobx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,6 +13,11 @@ const navItems = [
   { link: "/offers", label: "Ofertas", selected: false },
   { link: "/contact", label: "Contacto", selected: false },
 ];
+
+typeof window !== "undefined" &&
+  (() => {
+    (window as any).tojs = toJS;
+  })();
 
 export const Header = () => {
   const path = usePathname();

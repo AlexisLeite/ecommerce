@@ -3,8 +3,53 @@
 import { getPrismaClient } from "@/src/prisma/getClient";
 import { TProductListData } from "@/src/store/ProductsStore";
 import { TCRUDStorePagination } from "common";
-import { Prisma } from "@prisma/client";
+import { Prisma, Product } from "@prisma/client";
 import { revalidate } from "@/src/store/server/revalidations";
+import { errorHandlingMiddleware } from "@/src/store/server/errorHandlingMiddleware";
+
+export type TCreateProduct = Pick<Product, "description" | "name" | "price"> & {
+  images: number[];
+  categories: number[];
+};
+
+export type TUpdateProduct = TCreateProduct & { id: number };
+
+export async function create(product: TCreateProduct) {
+  return errorHandlingMiddleware(async () => {
+    const result = await getPrismaClient().product.create({
+      data: {
+        ...product,
+        creator: { connect: { id: 1 } },
+        reg_date: new Date(),
+        categories: { connect: product.categories.map((c) => ({ id: c })) },
+        images: { connect: product.images.map((c) => ({ id: c })) },
+      },
+    });
+
+    revalidate("products");
+
+    return result;
+  });
+}
+export async function update(product: TUpdateProduct) {
+  return errorHandlingMiddleware(async () => {
+    const result = await getPrismaClient().product.update({
+      where: { id: product.id },
+      data: {
+        ...product,
+        creator: { connect: { id: 1 } },
+        reg_date: new Date(),
+        categories: { connect: product.categories.map((c) => ({ id: c })) },
+        images: { connect: product.images.map((c) => ({ id: c })) },
+        id: undefined,
+      },
+    });
+
+    revalidate("products");
+
+    return result;
+  });
+}
 
 export async function refresh(
   page: number = 0,

@@ -18,12 +18,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaTrash } from "@meronex/icons/fa";
 import { observer } from "mobx-react-lite";
-import {
-  ImagesListStore,
-  TImageListData,
-} from "@/src/store/ImagesStore";
 import Link from "next/link";
 import Image from "next/image";
+import { TImageListData, ImagesListStore } from "@/src/store/ImagesStore";
 
 export const ImagesList = ({
   data,
@@ -53,8 +50,9 @@ const ImagesListRender = observer(
             <THead>
               <Row>
                 <HeaderCell width={"10%"}>{t("Acciones")}</HeaderCell>
-                <HeaderCell width={"70%"}>{t("Título")}</HeaderCell>
+                <HeaderCell width={"60%"}>{t("Título")}</HeaderCell>
                 <HeaderCell width={"20%"}>{t("Imágen")}</HeaderCell>
+                <HeaderCell width={"10%"}>{t("Id")}</HeaderCell>
               </Row>
             </THead>
             <TBody>
@@ -78,6 +76,7 @@ const ImagesListRender = observer(
                       />
                     </Square>
                   </Cell>
+                  <Cell>{c.id}</Cell>
                 </Row>
               ))}
             </TBody>

@@ -1,9 +1,16 @@
-.create_category_drawer {
+.create_category_drawer,
+.create_product_drawer {
     .form {
         grid-template-columns: 1fr;
 
         &>* {
             grid-column: 1/1;
         }
+    }
+}
+
+.create_product_drawer {
+    .images_uploader {
+        flex-wrap: wrap;
     }
 }
