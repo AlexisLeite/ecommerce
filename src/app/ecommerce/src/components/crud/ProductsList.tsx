@@ -28,7 +28,7 @@ import {
 } from "@/src/store/server/ProductsServer";
 import { parseServerResponse } from "@/src/store/server/processServerResponse";
 import { CreateProduct, createProductForm } from "./CreateProduct";
-import Image from "next/image";
+import FallbackImage from "../ui/FallbackImage";
 
 function productEdition(product?: TUpdateProduct) {
   const store = ProductsListStore.getInstance();
@@ -141,11 +141,12 @@ const ProductsListRender = observer(
                     </HStack>
                   </Cell>
                   <Cell>
-                    <Image
+                    <FallbackImage
                       alt=""
                       width="70"
                       height="50"
                       src={`/api/images/${c.images[0]?.id}`}
+                      fallbackSrc="/no-product.jpg"
                     />
                   </Cell>
                   <Cell>{c.name}</Cell>
