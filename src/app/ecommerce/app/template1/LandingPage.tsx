@@ -13,7 +13,7 @@ export const LandingPage = ({
 }) => {
   return (
     <div className="landingPage">
-      <Carousel />;
+      <Carousel />
       <Categories />
       <Products data={data} />
       <ImagesSection />

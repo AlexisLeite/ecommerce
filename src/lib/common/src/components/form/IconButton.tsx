@@ -2,7 +2,7 @@ import { FC } from "react";
 import { ButtonProps } from "./Button";
 
 export type IconButtonProps = Omit<ButtonProps, "variant"> & {
-  variant?: "secondary" | "ghost" | "outline-danger" | "warning";
+  variant?: "primary" | "secondary" | "ghost" | "outline-danger" | "warning";
 };
 
 export const IconButton: FC<IconButtonProps> = ({

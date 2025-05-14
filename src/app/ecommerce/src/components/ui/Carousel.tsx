@@ -28,10 +28,10 @@ export const Carousel = () => {
         />
       </div>
 
-      <IconButton onClick={prev} variant="secondary" className="carousel__prev">
+      <IconButton onClick={prev} variant="primary" className="carousel__prev">
         <FaAngleLeft />
       </IconButton>
-      <IconButton className="carousel__next" variant="secondary" onClick={next}>
+      <IconButton className="carousel__next" variant="primary" onClick={next}>
         <FaAngleRight />
       </IconButton>
     </div>
