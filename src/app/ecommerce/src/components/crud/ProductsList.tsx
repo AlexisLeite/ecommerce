@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductsListStore, TProductListData } from "@/src/store/ProductsStore";
+import { ProductsListStore } from "@/src/store/ProductsStore";
 import {
   Cell,
   HeaderCell,
@@ -23,6 +23,7 @@ import { observer } from "mobx-react-lite";
 import { createCategoryForm } from "@/src/components/crud/CreateCategory";
 import {
   create,
+  TProductListData,
   TUpdateProduct,
   update,
 } from "@/src/store/server/ProductsServer";
@@ -30,7 +31,7 @@ import { parseServerResponse } from "@/src/store/server/processServerResponse";
 import { CreateProduct, createProductForm } from "./CreateProduct";
 import FallbackImage from "../ui/FallbackImage";
 
-function productEdition(product?: TUpdateProduct) {
+function productEdition(product?: TProductListData) {
   const store = ProductsListStore.getInstance();
 
   const drawer = new Drawer({
@@ -123,16 +124,7 @@ const ProductsListRender = observer(
                 <Row key={c.id}>
                   <Cell>
                     <HStack>
-                      <IconButton
-                        size="sm"
-                        onClick={() =>
-                          productEdition({
-                            ...c,
-                            categories: [],
-                            images: c.images.map((c) => c.id),
-                          })
-                        }
-                      >
+                      <IconButton size="sm" onClick={() => productEdition(c)}>
                         <FaEdit />
                       </IconButton>
                       <IconButton size="sm" onClick={() => store.delete(c.id)}>

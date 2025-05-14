@@ -19,9 +19,9 @@ export class ValidatableField<
   SubmitValueType,
   StoreValueType = SubmitValueType,
 > {
-  private readonly initialValue: StoreValueType;
-  private state: FieldState<SubmitValueType, StoreValueType>;
-  private form: ValidatableForm = {} as any;
+  protected readonly initialValue: StoreValueType;
+  protected state: FieldState<SubmitValueType, StoreValueType>;
+  protected form: ValidatableForm = {} as any;
 
   constructor({
     storeToSubmitValueMapping,

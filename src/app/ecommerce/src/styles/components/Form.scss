@@ -201,6 +201,22 @@
   color: var(--color-text-link);
   font-size: var(--font-size-normal);
 
+  @include buttonHover(outline-danger);
+}
+
+.icon_button.button--variant-danger {
+  background: var(--color-danger-main);
+  color: var(--color-danger-contrast);
+
+  svg,
+  path {
+    color: var(--color-danger-contrast);
+    fill: var(--color-danger-contrast);
+  }
+
+  color: var(--color-text-link);
+  font-size: var(--font-size-normal);
+
   @include buttonHover(danger);
 }
 
@@ -210,4 +226,31 @@
   color: 1px solid var(--color-warning-contrast);
 
   @include buttonHover(warning)
+}
+
+.picked_item_box {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--color-border-field);
+  align-items: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-field);
+  font-weight: normal;
+}
+
+.picked_image_box {
+  position: relative;
+
+  .remove_item {
+    top: 0;
+    position: absolute;
+    right: 0;
+    display: none;
+  }
+
+  &:hover {
+    .remove_item {
+      display: flex;
+    }
+  }
 }

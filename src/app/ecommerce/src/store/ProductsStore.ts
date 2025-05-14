@@ -1,11 +1,5 @@
-import { Image, Product } from "@prisma/client";
 import { CRUDStore, TCRUDStorePagination } from "common";
-import { refresh, remove } from "./server/ProductsServer";
-
-export type TProductListData = Pick<
-  Product,
-  "id" | "name" | "description" | "price"
-> & { images: Pick<Image, "id">[] };
+import { refresh, remove, TProductListData } from "./server/ProductsServer";
 
 export class ProductsListStore extends CRUDStore<TProductListData> {
   private constructor(data?: TCRUDStorePagination<TProductListData>) {

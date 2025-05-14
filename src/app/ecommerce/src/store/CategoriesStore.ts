@@ -15,7 +15,7 @@ export class CategoriesListStore extends CRUDStore<TCategoryListData> {
     allCategories: Category[];
   } = { allCategories: [] };
 
-  private constructor(data?: TCRUDStorePagination<TCategoryListData>) {
+  constructor(data?: TCRUDStorePagination<TCategoryListData>) {
     super({
       delete: async (id) => {
         const result = await parseServerResponse(remove(id));

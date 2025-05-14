@@ -1,6 +1,7 @@
 import { makeObservable, observable, toJS } from "mobx";
 import { ValidatableField } from "../validation/ValidatableField";
 import { ValidatableGroup } from "../validation/ValidatableGroup";
+import { ArrayValidatableField } from "./ArrayValidatableField";
 
 export type ValidatableFormState<T extends Record<string, any>> = {
   [K in keyof T]: ValidatableGroup | ValidatableField<T[K], any>;
@@ -9,7 +10,7 @@ export type ValidatableFormState<T extends Record<string, any>> = {
 export class ValidatableForm<
   T extends Record<string, any> = Record<string, any>,
 > {
-  constructor(private state: ValidatableFormState<T>) {
+  constructor(protected state: ValidatableFormState<T>) {
     makeObservable<this, "state">(this, { state: observable });
   }
 
@@ -19,8 +20,12 @@ export class ValidatableForm<
     }
   }
 
-  getField<K extends keyof T>(name: K) {
-    return this.state[name] as ValidatableField<T[K], any>;
+  getArrayField<U extends any[] = any[], K extends keyof T = keyof T>(name: K) {
+    return this.state[name] as ArrayValidatableField<T[K], U>;
+  }
+
+  getField<U = any, K extends keyof T = keyof T>(name: K) {
+    return this.state[name] as ValidatableField<T[K], U>;
   }
 
   getGroup<K extends keyof T>(name: K) {

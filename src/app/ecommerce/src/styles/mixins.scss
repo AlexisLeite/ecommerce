@@ -39,6 +39,24 @@ $breakpoints: (
   }
 }
 
+@mixin selectable($child, $variant: primary) {
+  @if $variant ==primary {
+    &.selected {
+      #{$child} {
+        background: color-mix(in srgb, var(--color-background-paper) 90%, rgb(6, 0, 83))
+      }
+    }
+  }
+
+  @if ($variant ==secondary) {
+    &.selected {
+      #{$child} {
+        background: color-mix(in srgb, var(--color-secondary-main) 30%, var(--color-background-paper))
+      }
+    }
+  }
+}
+
 @mixin buttonHover($variant: primary) {
   cursor: pointer;
 
@@ -84,6 +102,16 @@ $breakpoints: (
   }
 
   @if $variant ==danger {
+    &:hover {
+      background: color-mix(in srgb, var(--color-danger-main) 80%, black);
+    }
+
+    &:active {
+      background: var(--color-danger-dark);
+    }
+  }
+
+  @if $variant ==outline-danger {
     &:hover {
       background: var(--color-danger-main);
       color: var(--color-danger-contrast);

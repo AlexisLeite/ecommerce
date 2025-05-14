@@ -62,7 +62,7 @@ export class CRUDStore<DataType extends { id: number }> {
     } else {
       setTimeout(() => {
         this.refresh();
-      }, 1000);
+      }, 0);
     }
   }
 
