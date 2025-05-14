@@ -1,11 +1,5 @@
-import { Image, Product } from "@prisma/client";
 import { EndlessScrollStore, TCRUDStorePagination } from "common";
-import { refresh } from "./server/ProductsServer";
-
-export type TProductListData = Pick<
-  Product,
-  "id" | "name" | "description" | "price"
-> & { images: Pick<Image, "id">[] };
+import { refresh, TProductListData } from "./server/ProductsServer";
 
 export class EndlessScrollProducts extends EndlessScrollStore<TProductListData> {
   private constructor(data?: TCRUDStorePagination<TProductListData>) {

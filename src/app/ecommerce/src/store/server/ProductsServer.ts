@@ -1,16 +1,15 @@
 "use server";
 
 import { getPrismaClient } from "@/src/prisma/getClient";
-import { TProductListData } from "@/src/store/ProductsStore";
 import { TCRUDStorePagination } from "common";
-import { Prisma, Product } from "@prisma/client";
+import { Prisma, Product, Category, Image } from "@prisma/client";
 import { revalidate } from "@/src/store/server/revalidations";
 import { errorHandlingMiddleware } from "@/src/store/server/errorHandlingMiddleware";
 
-export type TCreateProduct = Pick<Product, "description" | "name" | "price"> & {
-  images: number[];
-  categories: number[];
-};
+export type TCreateProduct = Pick<
+  TProductListData,
+  "description" | "name" | "price" | "categories" | "images"
+>;
 
 export type TUpdateProduct = TCreateProduct & { id: number };
 
@@ -21,8 +20,8 @@ export async function create(product: TCreateProduct) {
         ...product,
         creator: { connect: { id: 1 } },
         reg_date: new Date(),
-        categories: { connect: product.categories.map((c) => ({ id: c })) },
-        images: { connect: product.images.map((c) => ({ id: c })) },
+        categories: { connect: product.categories.map((c) => ({ id: c.id })) },
+        images: { connect: product.images.map((c) => ({ id: c.id })) },
       },
     });
 
@@ -39,8 +38,8 @@ export async function update(product: TUpdateProduct) {
         ...product,
         creator: { connect: { id: 1 } },
         reg_date: new Date(),
-        categories: { connect: product.categories.map((c) => ({ id: c })) },
-        images: { connect: product.images.map((c) => ({ id: c })) },
+        categories: { set: product.categories.map((c) => ({ id: c.id })) },
+        images: { set: product.images.map((c) => ({ id: c.id })) },
         id: undefined,
       },
     });
@@ -51,6 +50,14 @@ export async function update(product: TUpdateProduct) {
   });
 }
 
+export type TProductListData = Pick<
+  Product,
+  "id" | "name" | "description" | "price"
+> & {
+  images: Pick<Image, "id">[];
+  categories: Pick<Category, "id" | "name">[];
+};
+
 export async function refresh(
   page: number = 0,
 ): Promise<TCRUDStorePagination<TProductListData>> {
@@ -59,27 +66,35 @@ export async function refresh(
   const totalPages = Math.ceil(totalRegisters / pageSize);
   const currentPage = Math.max(1, Math.min(page, totalPages));
 
+  const data = await getPrismaClient().product.findMany({
+    take: 10,
+    skip: 10 * (currentPage - 1),
+    select: {
+      description: true,
+      id: true,
+      name: true,
+      price: true,
+      images: {
+        select: {
+          id: true,
+        },
+      },
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+    orderBy: [{ name: "asc" }, { id: "asc" }],
+  });
+
   return {
     pageSize,
     totalPages,
     totalRegisters,
     currentPage,
-    data: await getPrismaClient().product.findMany({
-      take: 10,
-      skip: 10 * (currentPage - 1),
-      select: {
-        description: true,
-        id: true,
-        name: true,
-        price: true,
-        images: {
-          select: {
-            id: true,
-          },
-        },
-      },
-      orderBy: [{ name: "asc" }, { id: "asc" }],
-    }),
+    data,
   };
 }
 

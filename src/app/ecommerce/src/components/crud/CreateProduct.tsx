@@ -1,21 +1,29 @@
 import { CategoriesListStore } from "@/src/store/CategoriesStore";
-import { TCreateProduct } from "@/src/store/server/ProductsServer";
 import {
+  TCreateProduct,
+  TProductListData,
+} from "@/src/store/server/ProductsServer";
+import {
+  ArrayValidatableField,
   Button,
+  FieldWithoutLabel,
   Form,
   ImagesUploader,
+  PickedImageBox,
+  PickedItemBox,
   ValidatableField,
   ValidatableForm,
-  ValidationField,
   ValidationInput,
   ValidationTextarea,
 } from "common";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import { IconButton } from "../../../../../lib/common/src/components/form/IconButton";
+import { FaPlus } from "@meronex/icons/fa";
+import { pickCategories } from "@/src/components/modals/CategoriesModal";
+import { Category } from "@prisma/client";
 
-export const createProductForm = new ValidatableForm<
-  TCreateProduct & { id?: number }
->({
+export const createProductForm = new ValidatableForm<TProductListData>({
   id: new ValidatableField({
     name: "id",
     title: "",
@@ -34,12 +42,12 @@ export const createProductForm = new ValidatableForm<
     value: "",
     required: true,
   }),
-  images: new ValidatableField<number[]>({
+  images: new ArrayValidatableField<{ id: number }[]>({
     name: "images",
     title: "Imagenes",
     value: [],
   }),
-  categories: new ValidatableField<number[]>({
+  categories: new ArrayValidatableField<Pick<Category, "id" | "name">[]>({
     name: "categories",
     title: "Categorías",
     value: [],
@@ -81,19 +89,66 @@ export const CreateProduct = observer(
         <ValidationInput field={createProductForm.getField("name")} />
         <ValidationTextarea field={createProductForm.getField("description")} />
         <ValidationInput field={createProductForm.getField("price")} />
-        <ValidationField text="Imagenes">
+        <FieldWithoutLabel text="Imagenes">
           <ImagesUploader
             apiEndpoint="/api/images"
             onUploaded={(ev) => {
-              createProductForm.getField("images").storeValue.push(ev);
+              createProductForm
+                .getField<{ id: number }[]>("images")
+                .storeValue.push({ id: ev });
             }}
             images={createProductForm
-              .getField("images")
-              .storeValue.map((c: number) => (
-                <img alt="" width={170} height={114} src={`/api/images/${c}`} />
+              .getField<{ id: number }[]>("images")
+              .storeValue.map((c) => (
+                <PickedImageBox
+                  onClose={() => {
+                    createProductForm
+                      .getArrayField<{ id: number }[]>("images")
+                      .filter((s) => s !== c);
+                  }}
+                >
+                  <img
+                    alt=""
+                    width={170}
+                    height={114}
+                    src={`/api/images/${c.id}`}
+                  />
+                </PickedImageBox>
               ))}
           />
-        </ValidationField>
+        </FieldWithoutLabel>
+        <FieldWithoutLabel text="Categorías">
+          {createProductForm
+            .getField<Category[]>("categories")
+            .storeValue.map((c) => (
+              <PickedItemBox
+                label={c.name}
+                onClose={() => {
+                  createProductForm
+                    .getArrayField<Category[]>("categories")
+                    .filter((s) => s !== c);
+                }}
+              />
+            ))}
+          <IconButton
+            onClick={() => {
+              pickCategories().then((res) => {
+                createProductForm
+                  .getArrayField("categories")
+                  .storeValue.push(
+                    ...res.filter(
+                      (c) =>
+                        !createProductForm
+                          .getField<Category[]>("categories")
+                          .storeValue.find((s) => s.id === c.id),
+                    ),
+                  );
+              });
+            }}
+          >
+            <FaPlus />
+          </IconButton>
+        </FieldWithoutLabel>
         <Button type="submit">Confirmar</Button>
       </Form>
     );

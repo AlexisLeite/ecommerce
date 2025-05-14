@@ -17,12 +17,12 @@
     color: var(--color-primary-contrast);
     padding: var(--space-4) var(--space-5);
 
-    &:first-child {
+    &:first-child:not(.modal_body *) {
       border-bottom-left-radius: var(--radius-section);
       border-top-left-radius: var(--radius-section);
     }
 
-    &:last-child {
+    &:last-child:not(.modal_body *) {
       border-bottom-right-radius: var(--radius-section);
       border-top-right-radius: var(--radius-section);
     }
@@ -32,10 +32,12 @@
     background: var(--color-background-paper);
     padding: var(--space-4) var(--space-5);
     border-bottom: 1px solid var(--color-border-ghost);
+
   }
 
   .table__row {
     @include rowHover();
+    @include selectable(td);
   }
 
   .table--secondary {

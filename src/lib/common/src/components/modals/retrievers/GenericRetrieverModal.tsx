@@ -19,7 +19,7 @@ export abstract class GenericRetrieverModal<
   selection: Set<any> = new Set();
   private promise: TResolvablePromise<T[]> | null = null;
 
-  protected constructor(protected store: CRUDStore<T>) {
+  constructor(protected store: CRUDStore<T>) {
     super();
 
     makeObservable(this, { selection: observable });
@@ -63,7 +63,7 @@ export abstract class GenericRetrieverModal<
 
   protected onConfirm(): Promise<boolean> {
     this.promise!.resolve(
-      this.store.state.data
+      this.store.currentPage.data
         .filter((c) => this.selection.has(c.id))
         .map((c) => toJS(c)),
     );
@@ -79,7 +79,7 @@ export abstract class GenericRetrieverModal<
           <Row>{this.getColumns(t)}</Row>
         </THead>
         <TBody>
-          {this.store.state.data.map((current) => {
+          {this.store.currentPage?.data.map((current) => {
             return (
               <Row
                 className={

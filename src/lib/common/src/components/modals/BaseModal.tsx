@@ -2,10 +2,10 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { FocusTrap } from "focus-trap-react";
-import { RiCloseFill } from "@meronex/icons/all";
 import { observer } from "mobx-react-lite";
 import { IconButton } from "../form/IconButton";
 import { IModal, ModalsController } from "./ModalsController";
+import { VscClose } from "@meronex/icons/vsc";
 
 export type TModalSize = "sm" | "md" | "lg" | "xl";
 
@@ -62,7 +62,7 @@ export abstract class BaseModal implements IModal {
                 className={"modal_close"}
                 onClick={this.close}
               >
-                <RiCloseFill />
+                <VscClose />
               </IconButton>
             </div>
             <div className={"modal_body"}>{this.getModalContent(t)}</div>

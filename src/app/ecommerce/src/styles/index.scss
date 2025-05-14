@@ -11,6 +11,7 @@
   --font-size-main-icon: 50px;
 
   --shadow-floating: 1px 1px 4px 1px #0009;
+  --shadow-modal: 0px 4px 8px 1px #0009;
   --shadow-outline: 0px 1px 2px 2px #0001;
   --shadow-item: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   --shadow-item-top: #32325d40 0px -2px 5px -1px, #0000004d 0px -1px 3px -1px;
@@ -51,7 +52,7 @@
 
   --color-danger-dark: rgb(85, 0, 0);
   --color-danger-light: #fff0f0;
-  --color-danger-main: darkred;
+  --color-danger-main: rgb(182, 0, 0);
   --color-danger-contrast: white;
 
   --color-warning-dark: #baba00;
@@ -60,7 +61,7 @@
   --color-warning-contrast: black;
 
   --color-outline: #00bced;
-  --color-overlay: #00002244;
+  --color-overlay: #0003232e;
   --color-favourite: #caca32;
 
   --color-primary-dark: #000010;

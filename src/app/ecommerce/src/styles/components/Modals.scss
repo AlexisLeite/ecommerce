@@ -1,4 +1,5 @@
 .modals__container {
+
   .modal_wrapper {
     position: fixed;
     inset: 0;
@@ -12,6 +13,7 @@
     margin: auto;
     background: var(--color-background-paper);
     border-radius: var(--radius-section);
+    box-shadow: var(--shadow-modal);
     overflow: hidden;
   }
 
@@ -96,7 +98,7 @@ $duration: 150ms;
 
   button {
     flex-shrink: 0;
-    flex-basis: 32px;
+    flex-basis: 28px;
   }
 }
 

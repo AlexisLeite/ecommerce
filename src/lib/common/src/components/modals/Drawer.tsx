@@ -52,6 +52,8 @@ export class Drawer implements IModal {
             onClick={() => {
               this.close!();
             }}
+            variant="danger"
+            size="sm"
           >
             <VscClose />
           </IconButton>
