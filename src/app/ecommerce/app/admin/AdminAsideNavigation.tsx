@@ -42,6 +42,14 @@ export const AdminAsideNavigation = () => {
           {t("Imágenes")}
         </Link>
       </ListItem>
+      <ListItem>
+        <Link
+          className={path.includes("/batch") ? "active_tab" : ""}
+          href="/admin/batch"
+        >
+          {t("Batch")}
+        </Link>
+      </ListItem>
     </VerticalNavigation>
   );
 };
