@@ -1,9 +1,18 @@
 .vertical_navigation {
     list-style: none;
 
+    li {
+        border-bottom: 1px solid var(--color-border-section);
+
+        &:first-child {
+            border-top: 1px solid var(--color-border-section);
+        }
+    }
+
     a {
         padding: var(--space-4);
         display: block;
+        text-decoration: none;
 
         @include buttonHover(ghost);
 

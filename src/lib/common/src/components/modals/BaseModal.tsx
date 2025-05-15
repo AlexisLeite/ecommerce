@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useRef, useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { FocusTrap } from "focus-trap-react";
@@ -32,28 +32,29 @@ export abstract class BaseModal implements IModal {
       setTimeout(() => close(), 150);
     };
 
+    const didFocus = useRef(false);
+
     return (
       <div
-        onClick={() => {
-          if (this.getBehavior().closeOnOverlayClick) {
+        onClickCapture={(ev) => {
+          if (
+            this.getBehavior().closeOnOverlayClick &&
+            !(ev.target as HTMLElement).closest?.(".modal_container")
+          ) {
             this.close();
           }
         }}
         className={`modal_wrapper ${closing ? "is_closing" : "is_open"}`}
         ref={(el) => {
-          if (el) {
+          if (el && !didFocus.current) {
+            didFocus.current = true;
             el.scrollTop = el.scrollHeight;
             this.getFocusElement(el)?.focus?.();
           }
         }}
       >
         <FocusTrap>
-          <div
-            onClick={(ev) => {
-              ev.stopPropagation();
-            }}
-            className={`modal_container size-${this.getModalSize()}`}
-          >
+          <div className={`modal_container size-${this.getModalSize()}`}>
             <div className={"modal_header"}>
               {this.getModalTitle(t)}
               <IconButton

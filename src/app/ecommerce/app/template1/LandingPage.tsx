@@ -2,9 +2,9 @@
 import { Products } from "./sections/Products";
 import { Categories } from "./sections/Categories";
 import { ImagesSection } from "./sections/ImagesSection";
-import { TProductListData } from "@/src/store/ProductsStore";
 import { TCRUDStorePagination } from "common";
 import { Carousel } from "../../src/components/ui/Carousel";
+import { TProductListData } from "@/src/store/server/ProductsServer";
 
 export const LandingPage = ({
   data,

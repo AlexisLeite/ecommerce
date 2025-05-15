@@ -36,18 +36,18 @@ export const AdminAsideNavigation = () => {
       </ListItem>
       <ListItem>
         <Link
-          className={path.includes("/images") ? "active_tab" : ""}
-          href="/admin/images"
+          className={path.includes("/batch") ? "active_tab" : ""}
+          href="/admin/batch"
         >
-          {t("Imágenes")}
+          {t("Batchs")}
         </Link>
       </ListItem>
       <ListItem>
         <Link
-          className={path.includes("/batch") ? "active_tab" : ""}
-          href="/admin/batch"
+          className={path.includes("/images") ? "active_tab" : ""}
+          href="/admin/images"
         >
-          {t("Batch")}
+          {t("Imágenes")}
         </Link>
       </ListItem>
     </VerticalNavigation>

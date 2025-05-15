@@ -1,3 +1,7 @@
+$easing-in: ease-out;
+$easing-out: ease-in;
+$duration: 150ms;
+
 .modals__container {
 
   .modal_wrapper {
@@ -7,6 +11,22 @@
     z-index: var(--z-index-modal);
     overflow: auto;
     padding: 10vh 0;
+
+    &.is_open {
+      @include animation(fade-in, 100ms, $easing-in);
+
+      .modal_container {
+        @include animation(slide-in-up, 100ms, $easing-in);
+      }
+    }
+
+    &.is_closing {
+      @include animation(fade-out, 100ms, $easing-out);
+
+      .modal_container {
+        @include animation(slide-out-bottom, 100ms, $easing-out);
+      }
+    }
   }
 
   .modal_container {
@@ -17,12 +37,20 @@
     overflow: hidden;
   }
 
+  .modal_container.size-xl {
+    width: min(1600px, 85vw)
+  }
+
+  .modal_container.size-lg {
+    width: min(1200px, 70vw)
+  }
+
   .modal_container.size-md {
-    width: max(500px, 50vw)
+    width: min(800px, 60vw)
   }
 
   .modal_container.size-sm {
-    width: max(300px, 30vw)
+    width: min(500px, 50vw)
   }
 
   .modal_header {
@@ -58,9 +86,6 @@
   }
 }
 
-$easing-in: ease-out;
-$easing-out: ease-in;
-$duration: 150ms;
 
 .drawer__wrapper {
   position: fixed;

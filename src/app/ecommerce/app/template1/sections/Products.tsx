@@ -1,15 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import {
-  EndlessScrollProducts,
-  TProductListData,
-} from "@/src/store/EndlessScrollProducts";
+import { useState, useEffect, useRef } from "react";
+import { EndlessScrollProducts } from "@/src/store/EndlessScrollProducts";
 import Card from "../../../src/components/ui/Card";
 import { observer } from "mobx-react-lite";
 import { IconButton, TCRUDStorePagination } from "common";
 import { CgSpinner } from "@meronex/icons/cg";
 import { FaAngleLeft, FaAngleRight } from "@meronex/icons/fa";
+import { TProductListData } from "@/src/store/server/ProductsServer";
 
 export const ProductsRenderer = observer(
   ({ data }: { data?: TCRUDStorePagination<TProductListData> }) => {

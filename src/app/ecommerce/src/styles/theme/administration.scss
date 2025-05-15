@@ -1,4 +1,11 @@
 .administration {
+    column-gap: var(--space-6);
+    row-gap: var(--space-3);
+
+    .aside {
+        width: 300px;
+    }
+
     .table_wrapper {
         height: calc(100vh - 180px);
         overflow: auto;
@@ -27,4 +34,32 @@
         height: auto;
     }
 
+}
+
+.admin_batch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+
+    section {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--color-border-section);
+        border-radius: var(--radius-section);
+        box-shadow: var(--shadow-small);
+
+        &>* {
+            padding: var(--space-5);
+        }
+
+        ul {
+            margin-left: var(--space-5);
+        }
+    }
+
+    h2 {
+        border-bottom: 1px solid var(--color-border-section);
+        background-color: var(--color-background-papiro);
+        color: var(--color-primary-main);
+    }
 }
