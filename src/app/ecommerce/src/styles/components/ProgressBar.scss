@@ -1,0 +1,10 @@
+.progress_bar {
+  height: 4px;
+  display: block;
+}
+
+.progress_indicator {
+  background-color: var(--color-primary-main);
+  height: 100%;
+  border-radius: var(--radius-section);
+}

@@ -12,8 +12,13 @@ export type TUploadDetails = {
   onRemove: () => unknown;
 };
 
-export const ProgressBar = (_: { value: number; max: number }) => (
-  <>Not implemented: PROGRESS BAR</>
+export const ProgressBar = ({ value, max }: { value: number; max: number }) => (
+  <div className="progress_bar">
+    <div
+      className="progress_indicator"
+      style={{ width: `${(value / max) * 100}%` }}
+    ></div>
+  </div>
 );
 
 export const FileDetails = observer(
