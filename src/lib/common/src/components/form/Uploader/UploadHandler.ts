@@ -9,6 +9,7 @@ type TUploadState = {
   fileName: string;
   progress: number;
   status: "uploading" | "error" | "success";
+  error?: unknown;
 };
 
 export class Upload {
@@ -21,7 +22,7 @@ export class Upload {
     status: "uploading",
   };
   private emitter = new EventEmitter<{
-    error: null;
+    error: unknown;
     remove: null;
     success: null;
   }>();
@@ -56,13 +57,17 @@ export class Upload {
           }
         },
       });
+      if (response?.data?.error) {
+        throw response?.data?.error;
+      }
       this.state.file = response!.data!;
-      this.state.fileName = this.state.file!.filename!;
+      this.state.fileName = this.state.fileName!;
       this.state.status = "success";
       this.emitter.emit("success", null);
     } catch (error) {
       this.state.status = "error";
-      this.emitter.emit("error", null);
+      this.state.error = error;
+      this.emitter.emit("error", error);
     }
   }
 }
@@ -76,7 +81,7 @@ export class UploadHandler {
     uploads: [],
   };
   private emitter = new EventEmitter<{
-    error: Upload;
+    error: unknown;
     success: Upload;
   }>();
 
@@ -109,8 +114,8 @@ export class UploadHandler {
     const upload = new Upload(this.endPoint, file);
     this.state.uploads.push(upload);
 
-    upload.on("error", () => {
-      this.emitter.emit("error", upload);
+    upload.on("error", (e) => {
+      this.emitter.emit("error", e);
     });
     upload.on("success", () => {
       this.emitter.emit("success", upload);

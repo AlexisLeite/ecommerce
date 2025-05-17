@@ -1,7 +1,6 @@
 import { FC, useMemo, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
-import { useTranslation } from "react-i18next";
 import { UploadHandler } from "./UploadHandler";
 import { Stack } from "../../layout/Stack";
 import { UploadDetails } from "./UploadDetails";
@@ -13,11 +12,13 @@ export type UploadedFile = {
 export const Uploader = observer(
   ({
     name,
+    onError,
     onUploaded,
     endPoint,
     Render,
   }: {
     name?: string;
+    onError?: (err: unknown) => unknown;
     onUploaded: (file: UploadedFile) => unknown;
     endPoint: string;
     Render?: FC<{ onClick: () => unknown }>;
@@ -27,10 +28,10 @@ export const Uploader = observer(
       uploader.on("success", (which) => {
         onUploaded(toJS(which.state.file!));
       });
+      uploader.on("error", (e) => onError?.(e));
       return uploader;
-    }, [endPoint, onUploaded]);
+    }, [endPoint, onError, onUploaded]);
 
-    const { t } = useTranslation();
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     return (
@@ -55,7 +56,6 @@ export const Uploader = observer(
         )}
         {handler.state.uploads.length > 0 && (
           <>
-            <h4>{t("inProgressFiles")}</h4>
             <Stack className={"upload_list"}>
               {handler.state.uploads.map((c) => (
                 <UploadDetails upload={c} key={c.state.id} />
