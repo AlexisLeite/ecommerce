@@ -1,7 +1,6 @@
 import { TFunction } from "i18next";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import "./ConfirmDialog.scss";
 import { ConfirmModal } from "../ConfirmModal";
 import { ModalsController } from "../ModalsController";
 

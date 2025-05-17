@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import "./Chat.scss";
 import { ReactNode } from "react";
 
 export type TMessage = {

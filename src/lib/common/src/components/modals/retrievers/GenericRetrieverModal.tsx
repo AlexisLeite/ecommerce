@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { TFunction } from "i18next";
 import { makeObservable, observable, toJS } from "mobx";
-import "./GenericRetrieverModal.scss";
 import { CRUDStore } from "../../../state/CRUDStore";
 import {
   TResolvablePromise,

@@ -57,19 +57,16 @@ export default function Batch() {
             </Button>
           </ListItem>
           <ListItem>
-            <Button
-              onClick={async () => {
-                downloadJson("backup.json", await downloadBackup());
-              }}
-              variant="link"
-            >
-              Subir zip
-            </Button>
             <Uploader
               endPoint="/api/batch"
               onUploaded={(file) => {
                 console.log(file);
               }}
+              Render={({ onClick }) => (
+                <Button onClick={onClick} variant="link">
+                  Subir zip
+                </Button>
+              )}
             />
           </ListItem>
         </List>

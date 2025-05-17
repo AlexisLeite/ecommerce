@@ -4,9 +4,9 @@
   "private": false,
   "version": "0.0.3",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "typings": "src/index.ts",
   "scripts": {
     "buildDev": "rollup --config ../../config/rollup.lib.mjs --environment MODE:development,ENTRY:index.ts",
     "build": "rollup --config ../../config/rollup.lib.mjs --environment MODE:production,ENTRY:index.ts",
